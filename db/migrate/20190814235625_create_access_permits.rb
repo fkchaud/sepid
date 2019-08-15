@@ -1,8 +1,8 @@
 class CreateAccessPermits < ActiveRecord::Migration[5.2]
   def change
     create_table :access_permits do |t|
-      t.string :useCaseName
-      t.string :useCaseURL
+      t.string :use_case_name
+      t.string :use_case_url
 
       t.timestamps
     end
