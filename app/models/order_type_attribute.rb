@@ -1,0 +1,2 @@
+class OrderTypeAttribute < ApplicationRecord
+end
