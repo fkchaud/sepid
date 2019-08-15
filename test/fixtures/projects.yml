@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project_code: MyString
+  project_name: MyString
+  project_description: MyString
+  start_date: 2019-08-15 03:50:14
+  ending_date: 2019-08-15 03:50:14
+  technological_scientific_unit: MyString
+  project_program: MyString
+  activity_type: MyString
+
+two:
+  project_code: MyString
+  project_name: MyString
+  project_description: MyString
+  start_date: 2019-08-15 03:50:14
+  ending_date: 2019-08-15 03:50:14
+  technological_scientific_unit: MyString
+  project_program: MyString
+  activity_type: MyString
