@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2019-08-15
+  subsection_shift_status: one
+  subsection_shift: one
+
+two:
+  date: 2019-08-15
+  subsection_shift_status: two
+  subsection_shift: two

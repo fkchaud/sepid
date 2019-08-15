@@ -1,6 +1,5 @@
 # EstadoCambioInciso
 class SubsectionShiftStatus < ApplicationRecord
   validates :name, presence: true
-
-  # has many historial estado cambio inciso
+  has_many :subsection_shift_status_histories
 end
