@@ -1,4 +1,4 @@
 class ResolutionType < ApplicationRecord
   validates :name, presence: true
-  # has many funds_resolutions
+  has_many :funds_resolutions
 end

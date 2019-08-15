@@ -8,9 +8,9 @@ class CreateUserProfiles < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :access_permits_user_profiles, id: false do |t|
-      t.belongs_to :access_permit, index: true
-      t.belongs_to :user_profile, index: true
+    create_join_table :access_permits, :user_profiles do |t|
+      t.index :access_permit_id
+      t.index :user_profile_id
     end
   end
 end
