@@ -6,7 +6,7 @@ class ProjectFundsDetail < ApplicationRecord
             numericality: { greater_than: 2000, less_than: 3000 }
 
   has_one :subsection
-  # belongs_to :funds_destination
+  belongs_to :funds_destination
   belongs_to :subsection_shift
   # belongs_to :project
 end
