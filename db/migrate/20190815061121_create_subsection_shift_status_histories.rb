@@ -1,3 +1,4 @@
+# HistorialEstadoCambioInciso
 class CreateSubsectionShiftStatusHistories < ActiveRecord::Migration[5.2]
   def change
     create_table :subsection_shift_status_histories do |t|
