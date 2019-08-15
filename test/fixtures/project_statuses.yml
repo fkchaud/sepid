@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  is_disabled: 2019-08-15 02:14:20
+
+two:
+  name: MyString
+  description: MyText
+  is_disabled: 2019-08-15 02:14:20
