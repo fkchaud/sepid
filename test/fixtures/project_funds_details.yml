@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  funds_amount: 1.5
+  year: 1
+  subsection: one
+  funds_destination: one
+  subsection_shift: one
+  project: one
+
+two:
+  funds_amount: 1.5
+  year: 1
+  subsection: two
+  funds_destination: two
+  subsection_shift: two
+  project: two
