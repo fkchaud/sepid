@@ -1,0 +1,2 @@
+class AttributeDetailOrder < ApplicationRecord
+end
