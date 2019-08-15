@@ -7,5 +7,5 @@ class FundsResolution < ApplicationRecord
   validates :date, presence: true
 
   has_one :resolution_type
-  # has many :funds_destinations (DestinoFondos)
+  has_many :funds_destinations
 end
