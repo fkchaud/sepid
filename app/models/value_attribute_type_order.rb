@@ -1,4 +1,5 @@
 class ValueAttributeTypeOrder < ApplicationRecord
 
-  has_one :order_type_attribute
+  belongs_to :order_type_attribute
+  has_one :order
 end

@@ -6,6 +6,7 @@ class FundsResolution < ApplicationRecord
                       message: 'format should be #####/####' }
   validates :date, presence: true
 
+
   has_one :resolution_type
   has_many :funds_destinations
 end

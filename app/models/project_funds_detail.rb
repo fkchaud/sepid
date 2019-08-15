@@ -8,5 +8,5 @@ class ProjectFundsDetail < ApplicationRecord
   has_one :subsection
   belongs_to :funds_destination
   belongs_to :subsection_shift
-  # belongs_to :project
+  belongs_to :project
 end
