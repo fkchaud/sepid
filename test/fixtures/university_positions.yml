@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  per_travel_payment: 1.5
+  per_lunch_payment: 1.5
+  is_disabled: 2019-08-15 01:39:45
+
+two:
+  name: MyString
+  per_travel_payment: 1.5
+  per_lunch_payment: 1.5
+  is_disabled: 2019-08-15 01:39:45
