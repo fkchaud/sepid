@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_change_status_order: 2019-08-15 04:40:50
+  reason_change_status_order: MyString
+
+two:
+  date_change_status_order: 2019-08-15 04:40:50
+  reason_change_status_order: MyString
