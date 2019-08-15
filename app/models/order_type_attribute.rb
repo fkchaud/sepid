@@ -3,4 +3,5 @@ class OrderTypeAttribute < ApplicationRecord
   validates :type_attribute, presence: true
 
   has_one :order_type
+  has_many :value_attribute_type_orders
 end
