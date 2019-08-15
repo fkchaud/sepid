@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_status_name: MyString
+  order_status_description: MyString
+  allow_cancel_order: false
+  is_disabled: 2019-08-15 04:49:53
+
+two:
+  order_status_name: MyString
+  order_status_description: MyString
+  allow_cancel_order: false
+  is_disabled: 2019-08-15 04:49:53
