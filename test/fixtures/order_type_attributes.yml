@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  attribute_name: MyString
+  type_attribute: MyString
+  is_disabled: 2019-08-15 02:17:04
+
+two:
+  attribute_name: MyString
+  type_attribute: MyString
+  is_disabled: 2019-08-15 02:17:04
