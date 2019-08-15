@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  purpose: MyString
+  function: MyString
+  program: MyString
+  activity: MyString
+  financing: MyString
+  is_disabled: 2019-08-15 02:08:10
+
+two:
+  name: MyString
+  purpose: MyString
+  function: MyString
+  program: MyString
+  activity: MyString
+  financing: MyString
+  is_disabled: 2019-08-15 02:08:10
