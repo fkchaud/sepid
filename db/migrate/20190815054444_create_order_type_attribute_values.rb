@@ -1,5 +1,3 @@
-# TODO: OrderTypeAttributeValue pk should be both references
-
 class CreateOrderTypeAttributeValues < ActiveRecord::Migration[5.2]
   def change
     create_table :order_type_attribute_values do |t|

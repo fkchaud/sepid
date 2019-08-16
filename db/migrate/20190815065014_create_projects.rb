@@ -12,7 +12,9 @@ class CreateProjects < ActiveRecord::Migration[5.2]
 
       t.references :project_status, foreign_key: true
       t.references :project_type, foreign_key: true
-      # TODO: Project references User as project_director and project_codirector
+      # TODO: test if works
+      t.references :director, foreign_key: { to_table: 'users' }
+      t.references :codirector, foreign_key: { to_table: 'users' }
 
       t.timestamps
     end

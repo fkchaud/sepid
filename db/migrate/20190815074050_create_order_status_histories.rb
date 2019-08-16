@@ -1,5 +1,3 @@
-# TODO: OrderStatusHistory pk should be order reference and date
-
 class CreateOrderStatusHistories < ActiveRecord::Migration[5.2]
   def change
     create_table :order_status_histories do |t|

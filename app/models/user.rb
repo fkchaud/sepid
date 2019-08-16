@@ -7,6 +7,11 @@ class User < ApplicationRecord
 
   has_one :university_position
   has_one :user_profile
-  # TODO: has_many proyectos (director)
-  # TODO: has_many proyectos (codirector)
+  # TODO: testear si andan estos dos
+  has_many :projects_as_director,
+           class_name: 'Project',
+           inverse_of: :director
+  has_many :projects_as_codirector,
+           class_name: 'Project',
+           inverse_of: :codirector
 end

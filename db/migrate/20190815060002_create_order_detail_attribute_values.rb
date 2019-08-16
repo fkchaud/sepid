@@ -1,5 +1,3 @@
-# TODO: OrderDetailAttributeValue pk should be both references
-
 class CreateOrderDetailAttributeValues < ActiveRecord::Migration[5.2]
   def change
     create_table :order_detail_attribute_values do |t|

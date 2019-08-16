@@ -1,5 +1,3 @@
-# TODO: SubsectionShiftStatusHistory pk should be both references and date
-
 # HistorialEstadoCambioInciso
 class CreateSubsectionShiftStatusHistories < ActiveRecord::Migration[5.2]
   def change
