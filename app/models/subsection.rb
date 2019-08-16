@@ -1,4 +1,4 @@
-# Subsection = Inciso
+# Inciso
 class Subsection < ApplicationRecord
   validates :name, presence: true
 

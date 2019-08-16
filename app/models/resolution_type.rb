@@ -1,3 +1,4 @@
+# TipoResolucion
 class ResolutionType < ApplicationRecord
   validates :name, presence: true
 

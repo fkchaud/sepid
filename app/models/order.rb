@@ -1,3 +1,4 @@
+# Pedido
 class Order < ApplicationRecord
   validates :order_date, presence: true
   validates :description_order, presence: true
@@ -5,7 +6,7 @@ class Order < ApplicationRecord
 
   has_one :order_type
   has_one :project
-  has_many :value_attribute_type_orders
+  has_many :order_type_attribute_values
   has_many :order_status_histories
   has_many :order_details
 end

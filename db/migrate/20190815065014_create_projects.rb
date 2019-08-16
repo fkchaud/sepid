@@ -10,6 +10,10 @@ class CreateProjects < ActiveRecord::Migration[5.2]
       t.string :project_program
       t.string :activity_type
 
+      t.references :project_status, foreign_key: true
+      t.references :project_type, foreign_key: true
+      # TODO: Project references User as project_director and project_codirector
+
       t.timestamps
     end
   end

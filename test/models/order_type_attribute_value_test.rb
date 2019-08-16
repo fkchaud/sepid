@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ValueAttributeTypeOrderTest < ActiveSupport::TestCase
+class OrderTypeAttributeValueTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

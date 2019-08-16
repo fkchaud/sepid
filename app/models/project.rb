@@ -1,10 +1,13 @@
+# Proyecto
 class Project < ApplicationRecord
-  validates :activity_type, presence: true
-  validates :ending_date, presence: true
   validates :project_code, presence: true
-  validates :project_description, presence: true
   validates :project_name, presence: true
-  validates :project_program, presence: true
   validates :start_date, presence: true
-  validates :technological_scientific_unit, presence: true
+  validates :ending_date, presence: true
+
+  has_one :project_status
+  has_one :project_type
+  # TODO: user, con director y codirector
+  has_many :project_funds_details
+  has_many :orders
 end
