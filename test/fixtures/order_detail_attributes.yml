@@ -3,9 +3,11 @@
 one:
   attribute_name: MyString
   attribute_type: MyString
-  is_disabled: 2019-08-15 02:24:16
+  is_disabled: 2019-08-16 02:31:48
+  order_type: one
 
 two:
   attribute_name: MyString
   attribute_type: MyString
-  is_disabled: 2019-08-15 02:24:16
+  is_disabled: 2019-08-16 02:31:48
+  order_type: two
