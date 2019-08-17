@@ -1,17 +1,36 @@
 class UserProfilesController < ApplicationController
-  def create
-    # solicita nombre usuario
-    # solicita descripcion usuario
-    @user_profile = UserProfile.new params[:user_profile]
+  def new; end
 
-    # buscar instancias de permisoacceso y mostrar en pantalla para seleccionar
-    @access_permits = AccessPermit.all
-    @access_permit
-    # asigna nombre tipo usuario, descripcion tipo usuario
+  def create
+    # asigna name y description, obtenidos con el user_profile_params
+    @user_profile = UserProfile.new user_profile_params
+
+    # buscar las instancias de AccesPermit seleccionadas
+    # el reject esta porque por alguna razon el checkbox devuelve
+    # un miembro de la lista vacio y se pudre tod0
+    @user_profile.access_permit_ids =
+      access_permits_params[:access_permits].reject(&:empty?)
+
     # baja tipo usuario = null
-    @user_profile.is_disabled = nil
+    # @user_profile.is_disabled = nil
+    # eso lo hace por default el constructor si no le pasas,
+    # asi que no hago nada
+
     # guardar
-    @user_profile.save  # returns true or folse si tuvo exito o no
-    # informar exito
+    @user_profile.save # returns true or folse si tuvo exito o no
+
+    # # informar exito
+    #
+    # redirect_to @user_profile // redirige al show
+  end
+
+  private
+
+  def user_profile_params
+    params.require(:user_profile).permit(:name, :description)
+  end
+
+  def access_permits_params
+    params.require(:user_profile).permit(access_permits: [])
   end
 end

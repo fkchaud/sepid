@@ -1,5 +1,5 @@
 Layout/EndOfLine:
-  EnforcedStyle: lf
+  EnforcedStyle: crlf
 
 Style/FrozenStringLiteralComment:
   Enabled: false
