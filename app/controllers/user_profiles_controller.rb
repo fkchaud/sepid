@@ -1,4 +1,5 @@
 class UserProfilesController < ApplicationController
+
   def index
     @user_profiles = UserProfile.all
   end
@@ -45,4 +46,5 @@ class UserProfilesController < ApplicationController
       .permit(access_permit_ids: [])[:access_permit_ids]
       .reject(&:empty?)
   end
+
 end

@@ -1,4 +1,4 @@
-<%= form_with scope: :order_type, url: order_types_path, local: true do |form| %>
+<%= form_with model: @order_type, local: true do |form| %>
   <p>
     <%= form.label :name_type_order %><br>
     <%= form.text_field :name_type_order %>
