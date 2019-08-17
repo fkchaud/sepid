@@ -1,0 +1,14 @@
+<h1>Editar tipo de resolución</h1>
+
+<%= form_with(model: @order_type, local: true) do |form| %>
+    <p>
+    <%= form.label :name_type_order %><br>
+    <%= form.text_field :name_type_order %>
+    </p>
+    <p>
+    <%= form.label :description_type_ordert %><br>
+    <%= form.text_area :description_type_order %>
+    </p>
+    <%= form.submit %>
+
+<% end %>
