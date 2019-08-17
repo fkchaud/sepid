@@ -1,0 +1,38 @@
+<%= form_with model: @user_profile, local: true do |form| %>
+
+  <% if @user_profile.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@user_profile.errors.count, "error") %> prohibited
+        this user profile from being saved:
+      </h2>
+      <ul>
+        <% @user_profile.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+
+  <h2>Permisos:</h2>
+
+  <p>Listar permisos y seleccionar</p>
+
+  <p> <!--                          checks a marcar   , de donde salen  , valor, label       -->
+    <%= form.collection_check_boxes :access_permit_ids, AccessPermit.all, :id, :use_case_name %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

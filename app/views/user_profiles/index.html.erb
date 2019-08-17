@@ -1,0 +1,21 @@
+<h1>ABM Perfiles de Usuario</h1>
+<%= link_to 'Agregar Perfil de Usuario', new_user_profile_path %>
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Descripción</th>
+    <th></th>
+  </tr>
+
+  <% @user_profiles.each do |user_profile| %>
+    <tr>
+      <td><%= user_profile.name %></td>
+      <td><%= user_profile.description %></td>
+      <td><%= link_to 'Mostrar', user_profile_path(user_profile) %></td>
+      <td><%= link_to 'Editar', edit_user_profile_path(user_profile) %></td>
+      <td><%= link_to 'Eliminar', user_profile_path(user_profile),
+                      method: :delete,
+                      data: { confirm: '¿Seguro que desea eliminar?' } if user_profile.is_disabled.nil? %></td>
+    </tr>
+  <% end %>
+</table>

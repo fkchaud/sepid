@@ -1,0 +1,16 @@
+<p>
+  Nombre: <%= @user_profile.name %>
+</p>
+
+<p>
+  Descripción: <%= @user_profile.description %>
+</p>
+
+<p>
+  Permisos: <br>
+<ul>
+  <% @user_profile.access_permits.each do |access_permit| %>
+    <li><%= access_permit.use_case_name %></li>
+  <% end %>
+</ul>
+</p>

@@ -1,25 +1,36 @@
 class UserProfilesController < ApplicationController
-  def new; end
+  def index
+    @user_profiles = UserProfile.all
+  end
 
   def create
-    # asigna name y description, obtenidos con el user_profile_params
     @user_profile = UserProfile.new user_profile_params
+    @user_profile.access_permit_ids = access_permits_ids
+    render 'new' unless @user_profile.save
+  end
 
-    # Buscar las instancias de AccessPermit seleccionadas.
-    # El reject esta porque por alguna razon el checkbox devuelve
-    # un miembro de la lista vacio y se pudre tod0
-    @user_profile.access_permit_ids =
-      access_permits_params[:access_permit_ids].reject(&:empty?)
+  def new
+    @user_profile = UserProfile.new
+  end
 
-    # baja tipo usuario = null
-    # @user_profile.is_disabled = nil
-    # eso lo hace por default el constructor si no le pasas,
-    # asi que no hago nada
+  def edit
+    @user_profile = UserProfile.find params[:id]
+  end
 
-    # guardar
-    @user_profile.save # returns true or folse si tuvo exito o no
+  def show
+    @user_profile = UserProfile.find params[:id]
+  end
 
-    # informar exito se hace con el view: views/user_profiles/create.html.erb
+  def update
+    @user_profile = UserProfile.find params[:id]
+    @user_profile.access_permit_ids = access_permits_ids
+    render 'edit' unless @user_profile.update(user_profile_params)
+  end
+
+  def destroy
+    @user_profile = UserProfile.find(params[:id])
+    @user_profile.update(is_disabled: Time.now)
+    redirect_to user_profiles_path
   end
 
   private
@@ -28,7 +39,10 @@ class UserProfilesController < ApplicationController
     params.require(:user_profile).permit(:name, :description)
   end
 
-  def access_permits_params
-    params.require(:user_profile).permit(access_permit_ids: [])
+  def access_permits_ids
+    params
+      .require(:user_profile)
+      .permit(access_permit_ids: [])[:access_permit_ids]
+      .reject(&:empty?)
   end
 end
