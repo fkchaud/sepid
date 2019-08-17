@@ -13,6 +13,9 @@
       <td><%= order_type.description_type_order %></td>
       <td><%= link_to 'Mostrar', order_type_path(order_type) %></td>
       <td><%= link_to 'Editar', edit_order_type_path(order_type) %></td>
+      <td><%= link_to 'Eliminar', order_type_path(order_type),
+                      method: :delete,
+                      data: { confirm: '¿Seguro que desea eliminar?' } %></td>
     </tr>
   <% end %>
 </table>

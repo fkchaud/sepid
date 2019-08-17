@@ -26,6 +26,11 @@ class OrderTypesController < ApplicationController
       render 'edit'
     end
   end
+  def destroy
+    @order_type = OrderType.find(params[:id])
+    @order_type.update(is_disabled: Time.now)
+    redirect_to order_types_path
+  end
   private
   def order_type_params
     params.require(:order_type).permit(:name_type_order, :description_type_order)
