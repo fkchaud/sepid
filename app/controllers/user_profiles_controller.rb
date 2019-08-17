@@ -5,11 +5,11 @@ class UserProfilesController < ApplicationController
     # asigna name y description, obtenidos con el user_profile_params
     @user_profile = UserProfile.new user_profile_params
 
-    # buscar las instancias de AccesPermit seleccionadas
-    # el reject esta porque por alguna razon el checkbox devuelve
+    # Buscar las instancias de AccessPermit seleccionadas.
+    # El reject esta porque por alguna razon el checkbox devuelve
     # un miembro de la lista vacio y se pudre tod0
     @user_profile.access_permit_ids =
-      access_permits_params[:access_permits].reject(&:empty?)
+      access_permits_params[:access_permit_ids].reject(&:empty?)
 
     # baja tipo usuario = null
     # @user_profile.is_disabled = nil
@@ -19,9 +19,7 @@ class UserProfilesController < ApplicationController
     # guardar
     @user_profile.save # returns true or folse si tuvo exito o no
 
-    # # informar exito
-    #
-    # redirect_to @user_profile // redirige al show
+    # informar exito se hace con el view: views/user_profiles/create.html.erb
   end
 
   private
@@ -31,6 +29,6 @@ class UserProfilesController < ApplicationController
   end
 
   def access_permits_params
-    params.require(:user_profile).permit(access_permits: [])
+    params.require(:user_profile).permit(access_permit_ids: [])
   end
 end

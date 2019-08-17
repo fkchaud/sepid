@@ -15,8 +15,8 @@
 
   <p>Listar permisos y seleccionar</p>
 
-  <p>
-    <%= form.collection_check_boxes :access_permits, AccessPermit.all, :id, :use_case_name %>
+  <p> <!--                          checks a marcar   , de donde salen  , valor, label       -->
+    <%= form.collection_check_boxes :access_permit_ids, AccessPermit.all, :id, :use_case_name %>
   </p>
 
   <p>
