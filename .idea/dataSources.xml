@@ -7,7 +7,7 @@
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/config/database.yml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://127.0.0.1:3306/SePID_production</jdbc-url>
+      <jdbc-url>jdbc:mysql://127.0.0.1:3306/SePID_production?serverTimezone=ART</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="yearIsDateType" value="false" />
@@ -16,6 +16,7 @@
         <property name="characterSetResults" value="utf8" />
         <property name="tinyInt1isBit" value="false" />
       </driver-properties>
+      <time-zone>ART</time-zone>
     </data-source>
     <data-source source="LOCAL" name="Rails SePID: development" uuid="9574ef48-abc9-401c-8c77-20f0abb0b1b8">
       <driver-ref>mysql.8</driver-ref>
@@ -23,7 +24,7 @@
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/config/database.yml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://127.0.0.1:3306/sepid_development</jdbc-url>
+      <jdbc-url>jdbc:mysql://127.0.0.1:3306/sepid_development?serverTimezone=ART</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="yearIsDateType" value="false" />
@@ -40,7 +41,7 @@
       <imported>true</imported>
       <remarks>$PROJECT_DIR$/config/database.yml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://127.0.0.1:3306/SePID_test</jdbc-url>
+      <jdbc-url>jdbc:mysql://127.0.0.1:3306/SePID_test?serverTimezone=ART</jdbc-url>
       <driver-properties>
         <property name="autoReconnect" value="true" />
         <property name="yearIsDateType" value="false" />
@@ -49,6 +50,7 @@
         <property name="characterSetResults" value="utf8" />
         <property name="tinyInt1isBit" value="false" />
       </driver-properties>
+      <time-zone>ART</time-zone>
     </data-source>
   </component>
 </project>
