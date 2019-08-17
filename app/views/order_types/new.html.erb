@@ -1,15 +1,3 @@
-<%= form_with scope: :order_type, url: order_types_path, local: true do |form| %>
-  <p>
-    <%= form.label :name_type_order %><br>
-    <%= form.text_field :name_type_order %>
-  </p>
+<h1>Nuevo tipo de resolución</h1>
 
-  <p>
-    <%= form.label :description_type_order %><br>
-    <%= form.text_area :description_type_order %>
-  </p>
-
-  <p>
-    <%= form.submit %>
-  </p>
-<% end %>
+<%= render 'form' %>
