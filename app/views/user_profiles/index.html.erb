@@ -16,11 +16,13 @@
         <td class="fit">
           <div class='btn-group'>
             <%= link_to 'Mostrar', user_profile_path(user_profile), class: 'btn btn-outline-info' %>
-            <%= link_to 'Editar', edit_user_profile_path(user_profile), class: 'btn btn-outline-primary' %>
-            <%= link_to 'Eliminar', user_profile_path(user_profile),
-                        class: 'btn btn-outline-danger',
-                        method: :delete,
-                        data: { confirm: '¿Seguro que desea eliminar?' } if user_profile.is_disabled.nil? %>
+            <% unless user_profile.is_disabled %>
+              <%= link_to 'Editar', edit_user_profile_path(user_profile), class: 'btn btn-outline-primary' %>
+              <%= link_to 'Eliminar', user_profile_path(user_profile),
+                          class: 'btn btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+            <% end %>
           </div>
         </td>
       </tr>

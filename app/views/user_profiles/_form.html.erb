@@ -14,25 +14,34 @@
     </div>
   <% end %>
 
-  <p>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
-  </p>
+  <div class="form-group row">
+    <%= form.label :name, 'Nombre:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
 
-  <p>
-    <%= form.label :description %><br>
-    <%= form.text_area :description %>
-  </p>
+  <div class="form-group row">
+    <%= form.label :description, 'Descripción:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_area :description, class: 'form-control' %>
+    </div>
+  </div>
 
-  <h2>Permisos:</h2>
+  <div class="form-group row">
+    <label class="col">Permisos:</label>
+    <div class="col-10"> <!--       checks a marcar  , de donde salen  , valor, label       -->
+      <%= form.collection_check_boxes :access_permit_ids, AccessPermit.all, :id, :use_case_name do |cb| %>
+        <div class="form-check">
+          <%= cb.check_box %>
+          <%= cb.label %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-  <p>Listar permisos y seleccionar</p>
-
-  <p> <!--                          checks a marcar   , de donde salen  , valor, label       -->
-    <%= form.collection_check_boxes :access_permit_ids, AccessPermit.all, :id, :use_case_name %>
-  </p>
-
-  <p>
-    <%= form.submit %>
+  <p class="text-right">
+    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit 'Guardar', class: 'btn btn-success' %>
   </p>
 <% end %>
