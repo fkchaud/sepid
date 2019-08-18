@@ -12,17 +12,13 @@
       </ul>
     </div>
   <% end %>
-  <p>
+  <div class="form-group">
     <%= form.label :name_type_order %><br>
-    <%= form.text_field :name_type_order %>
-  </p>
+    <%= form.text_field :name_type_order, class: 'form-control' %>
 
-  <p>
     <%= form.label :description_type_order %><br>
-    <%= form.text_area :description_type_order %>
-  </p>
+    <%= form.text_area :description_type_order, class: 'form-control' %>
 
-  <p>
-    <%= form.submit %>
-  </p>
+    <%= form.submit%>
+  </div>
 <% end %>
