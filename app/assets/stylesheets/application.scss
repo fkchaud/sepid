@@ -1,2 +1,44 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+
+.container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.table {
+  margin-top: 1rem;
+}
+
+.table td {
+  vertical-align: inherit;
+}
+
+.table td.fit, .table th.fit {
+  white-space: nowrap;
+  width: 1%;
+}
+
+.table-disabled,
+.table-disabled > th,
+.table-disabled > td {
+  color: rgba(33,37,41,0.5);
+  font-style: italic;
+  background-color: #fff5f5;
+}
+
+.table-disabled th,
+.table-disabled td,
+.table-disabled thead th,
+.table-disabled tbody + tbody {
+  border-color: #dee2e6;
+}
+
+.table-hover .table-disabled:hover > td,
+.table-hover .table-disabled:hover > th {
+  background-color: #ececec;
+}
+
+.btn-group {
+  font-style: normal;
+}
