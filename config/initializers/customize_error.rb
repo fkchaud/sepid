@@ -1,12 +1,17 @@
-# para mostar "validaciones" de cosas que estan bien
+module ActionView
+  module Helpers
+    module Tags
+      class Base
 
-# module ActionView
-#   class Base
-#     cattr_accessor :field_okay_proc
-#
-#   end
-#
-#   module Helpers
+        attr_reader :method_name
+
+      end
+    end
+  end
+# Por si queremos mostrar validaciones de cosas que estan bien
+# (encerrarlas en un coso en verde).
+# Pero si hacemos eso, lo hace tambien al iniciar un nuevo coso con tod0 vacio.
+# Habria que mandar ifs y cosas locas. No se si vale la pena.
 #     module ActiveModelInstanceTag
 #       def error_wrapping(html_tag)
 #         if object_has_errors?
@@ -17,7 +22,7 @@
 #       end
 #     end
 #   end
-# end
+end
 
 ActionView::Base.field_error_proc = proc do |html_tag, instance|
   if instance.is_a? ActionView::Helpers::Tags::Label
@@ -32,13 +37,14 @@ ActionView::Base.field_error_proc = proc do |html_tag, instance|
     end
 
     error_messages = "\n<div class=\"invalid-feedback\">"
-    instance.object.errors.full_messages.each do |msg|
+    error_messages += instance.method_name.humanize + ' '
+    instance.object.errors.messages[instance.method_name.to_sym].each do |msg|
       error_messages += msg + ', '
     end
     error_messages.delete_suffix!(', ')
-    error_messages += '</div>'
+    error_messages += '.</div>'
 
-    last_pos = html_tag.index('>') + 1
+    last_pos = html_tag.rindex('>') + 1
     html_tag.insert last_pos, error_messages
   end
 end
