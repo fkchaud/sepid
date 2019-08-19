@@ -18,7 +18,7 @@ class OrderTypesController < ApplicationController
 
   def create
     @order_type = OrderType.new(order_type_params)
-    if @order_type.save!
+    if @order_type.save
       redirect_to @order_type
     else
       render 'new'

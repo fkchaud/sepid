@@ -1,17 +1,5 @@
 <%= form_with model: @order_type, local: true do |form| %>
-  <% if @order_type.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@order_type.errors.count, "error") %> prohibited
-        this order type from being saved:
-      </h2>
-      <ul>
-        <% @order_type.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+
   <div class="form-group">
     <%= form.label :name_type_order %><br>
     <%= form.text_field :name_type_order, class: 'form-control' %>
