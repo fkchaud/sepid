@@ -19,6 +19,9 @@
     <%= form.label :description_type_order %><br>
     <%= form.text_area :description_type_order, class: 'form-control' %>
 
-    <%= form.submit%>
+    <p class="text-right">
+      <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+      <%= form.submit 'Guardar', class: 'btn btn-success' %>
+    </p>
   </div>
 <% end %>
