@@ -1,0 +1,2 @@
+module UniversityPositionsHelper
+end

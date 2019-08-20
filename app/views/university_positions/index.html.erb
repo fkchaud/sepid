@@ -1,0 +1,34 @@
+<h1>ABM Cargos Universitarios</h1>
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>Nombre</th>
+      <th>Importe de Viáticos</th>
+      <th>Importe de Almuerzo</th>
+      <th class="fit"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @university_positions.each do |university_position| %>
+      <tr class="align-items-center<%= ' table-disabled' if university_position.is_disabled %>">
+        <td><%= university_position.name %></td>
+        <td><%= university_position.per_travel_payment %></td>
+        <td><%= university_position.per_lunch_payment %></td>
+        <td class="fit">
+          <div class='btn-group'>
+            <%= link_to 'Mostrar', university_position_path(university_position), class: 'btn btn-outline-info' %>
+            <% unless university_position.is_disabled %>
+              <%= link_to 'Editar', edit_university_position_path(university_position), class: 'btn btn-outline-primary' %>
+              <%= link_to 'Eliminar', university_position_path(university_position),
+                          class: 'btn btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Agregar Cargo Universitario', new_university_position_path, class: 'btn btn-outline-primary btn-block' %>

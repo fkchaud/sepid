@@ -1,5 +1,5 @@
 Layout/EndOfLine:
-  EnforcedStyle: crlf
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -11,4 +11,4 @@ Metrics/MethodLength:
   Max: 50
 
 Layout/EmptyLinesAroundClassBody:
-  EnforcedStyle: empty_lines_special
+  Enabled: false
