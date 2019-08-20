@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :project_types
   resources :project_statuses
   resources :university_positions
   resources :order_types
