@@ -35,6 +35,8 @@ class UniversityPositionsController < ApplicationController
   private
 
   def university_position_params
-    params.require(:university_position).permit(:name, :per_travel_payment, :per_lunch_payment)
+    params.require(:university_position)
+          .permit(:name, :per_travel_payment, :per_lunch_payment)
   end
+
 end
