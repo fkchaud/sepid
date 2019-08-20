@@ -1,5 +1,12 @@
 class ProjectTypesController < ApplicationController
 
+  PURPOUSE = { 'Seleccione' => 0,
+               '03 - Servicios Sociales' => 3 }.freeze
+  FUNCTION = { '05 - Ciencia y Técnica' => 5 }.freeze
+  PROGRAM = { '18 - Investigación' => 18 }.freeze
+  ACTIVITY = { '02 - Investigación Aplicada' => 2 }.freeze
+  FINANCING = { '11 - Contribución del Tesoro' => 11 }.freeze
+
   def index
     @project_types = ProjectType.all
   end
@@ -35,7 +42,8 @@ class ProjectTypesController < ApplicationController
   private
 
   def project_type_params
-    params.require(:project_type).permit(:name, :purpose, :function, :program, :activity, :financing)
+    params.require(:project_type)
+          .permit(:name, :purpose, :function, :program, :activity, :financing)
   end
 
 end

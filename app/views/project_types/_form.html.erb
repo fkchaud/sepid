@@ -10,35 +10,35 @@
   <div class="form-group row">
     <%= form.label :purpose, 'Finalidad:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :purpose, class: 'form-control' %>
+      <%= form.select(:purpose, ProjectTypesController::PURPOUSE, {}, class: 'form-control') %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :function, 'Función:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :function, class: 'form-control' %>
+      <%= form.select(:function, ProjectTypesController::FUNCTION, {}, class: 'form-control') %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :program, 'Programa:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :program, class: 'form-control' %>
+      <%= form.select(:program, ProjectTypesController::PROGRAM, {}, class: 'form-control') %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :activity, 'Actividad:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :activity, class: 'form-control' %>
+      <%= form.select(:activity, ProjectTypesController::ACTIVITY, {}, class: 'form-control') %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :financing, 'Financiación:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :financing, class: 'form-control' %>
+      <%= form.select(:financing, ProjectTypesController::FINANCING, {}, class: 'form-control') %>
     </div>
   </div>
 

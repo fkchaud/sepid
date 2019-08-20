@@ -10,35 +10,35 @@
   <div class="form-group row">
     <%= form.label :purpose, 'Finalidad:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :purpose, class: 'form-control-plaintext', readonly: true %>
+      <%= form.select(:purpose, ProjectTypesController::PURPOUSE, {}, class: 'form-control-plaintext', readonly: true, disabled: true) %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :function, 'Función:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :function, class: 'form-control-plaintext', readonly: true %>
+      <%= form.select(:function, ProjectTypesController::FUNCTION, {}, class: 'form-control-plaintext', readonly: true, disabled: true) %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :program, 'Programa:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :program, class: 'form-control-plaintext', readonly: true %>
+      <%= form.select(:program, ProjectTypesController::PROGRAM, {}, class: 'form-control-plaintext', readonly: true, disabled: true) %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :activity, 'Actividad:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :activity, class: 'form-control-plaintext', readonly: true %>
+      <%= form.select(:activity, ProjectTypesController::ACTIVITY, {}, class: 'form-control-plaintext', readonly: true, disabled: true) %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= form.label :financing, 'Financiación:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_field :financing, class: 'form-control-plaintext', readonly: true %>
+      <%= form.select(:financing, ProjectTypesController::FINANCING, {}, class: 'form-control-plaintext', readonly: true, disabled: true) %>
     </div>
   </div>
 

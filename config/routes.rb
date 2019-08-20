@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'welcome/index'
+  root 'welcome#index'
+
   resources :project_types
   resources :project_statuses
   resources :university_positions
