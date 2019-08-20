@@ -1,0 +1,18 @@
+<h1>Inciso</h1>
+
+<%= render 'model' %>
+
+<div class="row">
+  <div class="col text-left">
+    <%= link_to 'Volver al índice', subsections_path, class: 'btn btn-outline-secondary' %>
+  </div>
+  <% unless @subsection.is_disabled %>
+  <div class="col text-right">
+    <%= link_to 'Eliminar', subsection_path(@subsection),
+                class: 'btn btn-outline-danger',
+                method: :delete,
+                data: { confirm: '¿Seguro que desea eliminar?' } %>
+    <%= link_to 'Editar', edit_subsection_path(@subsection), class: 'btn btn-outline-primary' %>
+  </div>
+  <% end %>
+</div>

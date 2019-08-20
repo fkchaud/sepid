@@ -1,0 +1,21 @@
+<%= form_with model: @subsection, local: true do |form| %>
+
+  <div class="form-group row">
+    <%= form.label :name, 'Nombre:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :description, 'Descripción:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_area :description, class: 'form-control' %>
+    </div>
+  </div>
+
+  <p class="text-right">
+    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit 'Guardar', class: 'btn btn-success' %>
+  </p>
+<% end %>

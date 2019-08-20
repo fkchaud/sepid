@@ -1,0 +1,32 @@
+<h1>ABM Incisos</h1>
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th class="fit"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subsections.each do |subsection| %>
+      <tr class="align-items-center<%= ' table-disabled' if subsection.is_disabled %>">
+        <td><%= subsection.name %></td>
+        <td><%= subsection.description %></td>
+        <td class="fit">
+          <div class='btn-group'>
+            <%= link_to 'Mostrar', subsection_path(subsection), class: 'btn btn-outline-info' %>
+            <% unless subsection.is_disabled %>
+              <%= link_to 'Editar', edit_subsection_path(subsection), class: 'btn btn-outline-primary' %>
+              <%= link_to 'Eliminar', subsection_path(subsection),
+                          class: 'btn btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Agregar Inciso', new_subsection_path, class: 'btn btn-outline-primary btn-block' %>
