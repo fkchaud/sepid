@@ -1,0 +1,18 @@
+<h1>Estados de Cambio de Inciso</h1>
+
+<%= render 'model' %>
+
+<div class="row">
+  <div class="col text-left">
+    <%= link_to 'Volver al índice', subsection_shift_statuses_path, class: 'btn btn-outline-secondary' %>
+  </div>
+  <% unless @subsection_shift_status.is_disabled %>
+  <div class="col text-right">
+    <%= link_to 'Eliminar', subsection_shift_status_path(@subsection_shift_status),
+                class: 'btn btn-outline-danger',
+                method: :delete,
+                data: { confirm: '¿Seguro que desea eliminar?' } %>
+    <%= link_to 'Editar', edit_subsection_shift_status_path(@subsection_shift_status), class: 'btn btn-outline-primary' %>
+  </div>
+  <% end %>
+</div>

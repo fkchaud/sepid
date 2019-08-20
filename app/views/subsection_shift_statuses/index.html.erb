@@ -1,0 +1,32 @@
+<h1>ABM Estados de Cambio de Inciso</h1>
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th class="fit"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subsection_shift_statuses.each do |subsection_shift_status| %>
+      <tr class="align-items-center<%= ' table-disabled' if subsection_shift_status.is_disabled %>">
+        <td><%= subsection_shift_status.name %></td>
+        <td><%= subsection_shift_status.description %></td>
+        <td class="fit">
+          <div class='btn-group'>
+            <%= link_to 'Mostrar', subsection_shift_status_path(subsection_shift_status), class: 'btn btn-outline-info' %>
+            <% unless subsection_shift_status.is_disabled %>
+              <%= link_to 'Editar', edit_subsection_shift_status_path(subsection_shift_status), class: 'btn btn-outline-primary' %>
+              <%= link_to 'Eliminar', subsection_shift_status_path(subsection_shift_status),
+                          class: 'btn btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Agregar Estado de Cambio de Inciso', new_subsection_shift_status_path, class: 'btn btn-outline-primary btn-block' %>

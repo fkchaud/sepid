@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :subsection_shift_statuses
   resources :subsections
   get 'welcome/index'
   root 'welcome#index'
