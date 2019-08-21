@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :order_statuses
   resources :value_statuses
   resources :subsection_shift_statuses
   resources :subsections

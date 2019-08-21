@@ -1,0 +1,18 @@
+<h1>Estados de Pedido</h1>
+
+<%= render 'model' %>
+
+<div class="row">
+  <div class="col text-left">
+    <%= link_to 'Volver al índice', order_statuses_path, class: 'btn btn-outline-secondary' %>
+  </div>
+  <% unless @order_status.is_disabled %>
+  <div class="col text-right">
+    <%= link_to 'Eliminar', order_status_path(@order_status),
+                class: 'btn btn-outline-danger',
+                method: :delete,
+                data: { confirm: '¿Seguro que desea eliminar?' } %>
+    <%= link_to 'Editar', edit_order_status_path(@order_status), class: 'btn btn-outline-primary' %>
+  </div>
+  <% end %>
+</div>
