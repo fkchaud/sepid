@@ -1,0 +1,14 @@
+<%= form_with model: @value_status, local: true do |form| %>
+
+  <div class="form-group row">
+    <%= form.label :value_status_name, 'Nombre:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :value_status_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <p class="text-right">
+    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit 'Guardar', class: 'btn btn-success' %>
+  </p>
+<% end %>

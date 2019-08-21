@@ -1,0 +1,18 @@
+<h1>Estado de Valor</h1>
+
+<%= render 'model' %>
+
+<div class="row">
+  <div class="col text-left">
+    <%= link_to 'Volver al índice', value_statuses_path, class: 'btn btn-outline-secondary' %>
+  </div>
+  <% unless @value_status.is_disabled %>
+  <div class="col text-right">
+    <%= link_to 'Eliminar', value_status_path(@value_status),
+                class: 'btn btn-outline-danger',
+                method: :delete,
+                data: { confirm: '¿Seguro que desea eliminar?' } %>
+    <%= link_to 'Editar', edit_value_status_path(@value_status), class: 'btn btn-outline-primary' %>
+  </div>
+  <% end %>
+</div>
