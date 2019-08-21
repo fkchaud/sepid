@@ -1,0 +1,17 @@
+<%= form_with model: @resolution_type, local: true do |form| %>
+
+  <div class="form-group row">
+    <%= form.label :name, 'Nombre:', class: 'col-sm col-form-label' %>
+    <div class="col-sm-10">
+      <%= form.text_field :name, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :description, 'Descripción:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_area :description, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+<% end %>

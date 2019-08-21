@@ -1,0 +1,18 @@
+<h1>Tipo de Resolución</h1>
+
+<%= render 'model' %>
+
+<div class="row">
+  <div class="col text-left">
+    <%= link_to 'Volver al índice', resolution_types_path, class: 'btn btn-outline-secondary' %>
+  </div>
+  <% unless @resolution_type.is_disabled %>
+  <div class="col text-right">
+    <%= link_to 'Eliminar', resolution_type_path(@resolution_type),
+                class: 'btn btn-outline-danger',
+                method: :delete,
+                data: { confirm: '¿Seguro que desea eliminar?' } %>
+    <%= link_to 'Editar', edit_resolution_type_path(@resolution_type), class: 'btn btn-outline-primary' %>
+  </div>
+  <% end %>
+</div>
