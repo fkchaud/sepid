@@ -6,14 +6,43 @@
       <%= form.text_field :name_type_order, class: 'form-control' %>
     </div>
   </div>
-
   <div class="form-group row">
     <%= form.label :description_type_order, 'Descripción:', class: 'col col-form-label' %>
     <div class="col-10">
       <%= form.text_area :description_type_order, class: 'form-control' %>
     </div>
   </div>
-
+    <div class="container">
+      <div class="row">
+        <div class="col" id="1">
+          <%=form.nested_fields_for :order_type_attributes do |sub_form| %>
+            <div class="col-10">
+            <%=sub_form.label :attribute_name %>
+            <%=sub_form.text_field :attribute_name %>
+            </div>
+            <div class="col-10">
+            <%=sub_form.label :attribute_type %>
+            <%=sub_form.text_field :attribute_type %>
+            </div>
+            <%=sub_form.remove_nested_fields_link 'Eliminar', class: 'btn btn-outline-danger' %>
+          <% end %>
+          <%=form.add_nested_fields_link :order_type_attributes, 'Agregar atributo', class: 'btn btn-primary', data: { insert_into: '1' } %>
+        </div>
+        <div class="col" id = "2">
+          <%=form.nested_fields_for :order_detail_attributes do |sub_form| %>
+            <div class="col-10">
+            <%=sub_form.label :attribute_name %>
+            <%=sub_form.text_field :attribute_name %>
+            </div>
+            <div class="col-10">
+            <%=sub_form.label :attribute_type %>
+            <%=sub_form.text_field :attribute_type %>
+            </div>
+            <%=sub_form.remove_nested_fields_link 'Eliminar', class: 'btn btn-outline-danger' %>
+          <% end %>
+          <%=form.add_nested_fields_link :order_type_attributes, 'Agregar atributo de detalle', class: 'btn btn-primary', data: { insert_into: '2' } %>
+        </div>
+    </div>
   <p class="text-right">
     <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
     <%= form.submit 'Guardar', class: 'btn btn-success' %>
