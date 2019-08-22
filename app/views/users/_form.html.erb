@@ -1,0 +1,70 @@
+<%= form_with model: @user, local: true do |form| %>
+
+  <div class="form-group row">
+    <%= form.label :user_name, 'Nombre de Usuario:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :user_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :password, 'Contraseña:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :password, class: 'form-control', type: 'password' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :file_number, 'Legajo:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :file_number, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :last_name, 'Apellido:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :last_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :first_name, 'Nombre:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :first_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :email, 'Email:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :email, class: 'form-control', type: 'email' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :cuil, 'CUIL:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :cuil, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col col-form-label">Perfil de Usuario:</label>
+    <div class="col-10"> <!--     checks a marcar, de donde salen, valor, label       -->
+      <%= form.collection_select :user_profile_id, @user_profiles, :id, :name, {}, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col col-form-label">Cargo Universitario:</label>
+    <div class="col-10"> <!--     checks a marcar,        de donde salen,        valor, label       -->
+      <%= form.collection_select :university_position_id, UniversityPosition.enabled, :id, :name, {}, class: 'form-control' %>
+    </div>
+  </div>
+
+  <p class="text-right">
+    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit 'Guardar', class: 'btn btn-success' %>
+  </p>
+<% end %>
