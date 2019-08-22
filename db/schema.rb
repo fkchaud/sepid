@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_15_074050) do
+ActiveRecord::Schema.define(version: 2019_08_22_053938) do
 
   create_table "access_permits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "use_case_name"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2019_08_15_074050) do
   create_table "access_permits_user_profiles", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "access_permit_id", null: false
     t.bigint "user_profile_id", null: false
+    t.index ["access_permit_id", "user_profile_id"], name: "index_unique", unique: true
     t.index ["access_permit_id"], name: "index_access_permits_user_profiles_on_access_permit_id"
     t.index ["user_profile_id"], name: "index_access_permits_user_profiles_on_user_profile_id"
   end
@@ -253,7 +254,7 @@ ActiveRecord::Schema.define(version: 2019_08_15_074050) do
     t.string "first_name"
     t.string "email"
     t.string "telephone"
-    t.integer "cuil"
+    t.bigint "cuil"
     t.datetime "is_disabled"
     t.bigint "university_position_id"
     t.bigint "user_profile_id"

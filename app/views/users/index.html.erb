@@ -1,0 +1,34 @@
+<h1>Administrar Usuarios</h1>
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>Legajo</th>
+      <th>Nombre de Usuario</th>
+      <th>Nombre Completo</th>
+      <th class="fit"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr class="align-items-center<%= ' table-disabled' if user.is_disabled %>">
+        <td><%= user.file_number %></td>
+        <td><%= user.user_name %></td>
+        <td><%= user.last_name %>, <%= user.first_name %></td>
+        <td class="fit">
+          <div class='btn-group'>
+            <%= link_to 'Mostrar', user_path(user), class: 'btn btn-outline-info' %>
+            <% unless user.is_disabled %>
+              <%= link_to 'Editar', edit_user_path(user), class: 'btn btn-outline-primary' %>
+              <%= link_to 'Eliminar', user_path(user),
+                          class: 'btn btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Agregar Usuario', new_user_path, class: 'btn btn-outline-primary btn-block' %>

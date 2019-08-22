@@ -18,20 +18,12 @@ class OrderTypesController < ApplicationController
 
   def create
     @order_type = OrderType.new(order_type_params)
-    if @order_type.save
-      render 'create'
-    else
-      render 'new'
-    end
+    render 'new' unless @order_type.save
   end
 
   def update
     @order_type = OrderType.find(params[:id])
-    if @order_type.update(order_type_params)
-      render 'update'
-    else
-      render 'edit'
-    end
+    render 'edit' unless @order_type.update(order_type_params)
   end
 
   def destroy
