@@ -1,11 +1,18 @@
-<p>
-  <strong>Nombre:</strong>
-  <%= @order_type.name_type_order %>
-</p>
+<h1>Tipos de pedidos</h1>
 
-<p>
-  <strong>Descripción:</strong>
-  <%= @order_type.description_type_order %>
-</p>
-<%= link_to 'Modificar', edit_order_type_path(@order_type) %> |
-<%= link_to 'Volver al índice', order_types_path %>
+<%= render 'model' %>
+
+<div class="row">
+  <div class="col text-left">
+    <%= link_to 'Volver al índice', order_types_path, class: 'btn btn-outline-secondary' %>
+  </div>
+  <% unless @order_type.is_disabled %>
+    <div class="col text-right">
+      <%= link_to 'Eliminar', order_type_path(@order_type),
+                  class: 'btn btn-outline-danger',
+                  method: :delete,
+                  data: { confirm: '¿Seguro que desea eliminar?' } %>
+      <%= link_to 'Editar', edit_order_type_path(@order_type), class: 'btn btn-outline-primary' %>
+    </div>
+  <% end %>
+</div>
