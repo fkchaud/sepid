@@ -28,6 +28,11 @@
           <strong>Tipo:</strong>
           <%= attribute.attribute_type %>
         </p>
+        <p>
+          <%= link_to 'Eliminar atributo', [attribute.order_type, attribute],
+                      method: :delete,
+                      data: { confirm: 'Are you sure?' } %>
+        </p>
       <% end %>
       <h2>Agregar un atributo al tipo de pedido:</h2>
       <%= form_with(model: [ @order_type, @order_type.order_type_attributes.build ], local: true) do |form| %>
