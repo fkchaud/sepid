@@ -13,5 +13,36 @@
       <%= form.text_area :description_type_order, class: 'form-control-plaintext', readonly: true %>
     </div>
   </div>
-
+  <div class="container">
+    <div class="row">
+      <div class="col" id="1">
+        <%=form.nested_fields_for :order_type_attributes do |sub_form| %>
+          <div class="col-10">
+            <%=sub_form.label :attribute_name %>
+            <%=sub_form.text_field :attribute_name %>
+          </div>
+          <div class="col-10">
+            <%=sub_form.label :attribute_type %>
+            <%=sub_form.text_field :attribute_type %>
+          </div>
+          <%=sub_form.remove_nested_fields_link 'Eliminar', class: 'btn btn-outline-danger' %>
+        <% end %>
+        <%=form.add_nested_fields_link :order_type_attributes, 'Agregar atributo', class: 'btn btn-primary', data: { insert_into: '1' } %>
+      </div>
+      <div class="col" id = "2">
+        <%=form.nested_fields_for :order_detail_attributes do |sub_form| %>
+          <div class="col-10">
+            <%=sub_form.label :attribute_name %>
+            <%=sub_form.text_field :attribute_name %>
+          </div>
+          <div class="col-10">
+            <%=sub_form.label :attribute_type %>
+            <%=sub_form.text_field :attribute_type %>
+          </div>
+          <%=sub_form.remove_nested_fields_link 'Eliminar', class: 'btn btn-outline-danger' %>
+        <% end %>
+        <%=form.add_nested_fields_link :order_type_attributes, 'Agregar atributo de detalle', class: 'btn btn-primary', data: { insert_into: '2' } %>
+      </div>
+    </div>
+  </div>
 <% end %>
