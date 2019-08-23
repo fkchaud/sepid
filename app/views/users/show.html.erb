@@ -1,18 +1,18 @@
-<h1>Perfiles de Usuario</h1>
+<h1>Administrar Usuario</h1>
 
 <%= render 'model' %>
 
 <div class="row">
   <div class="col text-left">
-    <%= link_to 'Volver al índice', user_profiles_path, class: 'btn btn-outline-secondary' %>
+    <%= link_to 'Volver al índice', users_path, class: 'btn btn-outline-secondary' %>
   </div>
-  <% unless @user_profile.is_disabled %>
+  <% unless @user.is_disabled %>
   <div class="col text-right">
-    <%= link_to 'Eliminar', user_profile_path(@user_profile),
+    <%= link_to 'Eliminar', user_path(@user),
                 class: 'btn btn-outline-danger',
                 method: :delete,
                 data: { confirm: '¿Seguro que desea eliminar?' } %>
-    <%= link_to 'Editar', edit_user_profile_path(@user_profile), class: 'btn btn-outline-primary' %>
+    <%= link_to 'Editar', edit_user_path(@user), class: 'btn btn-outline-primary' %>
   </div>
   <% end %>
 </div>
