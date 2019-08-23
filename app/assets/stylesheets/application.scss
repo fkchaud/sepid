@@ -54,3 +54,10 @@ label {
 .btn-group {
   font-style: normal;
 }
+
+.row.vertical-divider > div[class^="col"] {
+  border-left: 1px solid #000000;
+}
+.row.vertical-divider div[class^="col"]:first-child {
+  border-left: none;
+}

@@ -1,5 +1,7 @@
 class OrderTypesController < ApplicationController
 
+  TYPES = %w[Integer Float String Boolean Date].freeze
+
   def index
     @order_types = OrderType.all
   end

@@ -15,69 +15,11 @@
   </div>
 <% end %>
 
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <h2>Atributos del pedido</h2>
-      <% @order_type.order_type_attributes.each do |attribute| %>
-        <p>
-          <strong>Nombre:</strong>
-          <%= attribute.attribute_name %>
-        </p>
-        <p>
-          <strong>Tipo:</strong>
-          <%= attribute.attribute_type %>
-        </p>
-        <p>
-          <%= link_to 'Editar', edit_order_type_order_type_attribute_path(attribute.order_type, attribute), class: 'btn btn-outline-primary' %>
-        </p>
-        <p>
-          <%= link_to 'Eliminar atributo', [attribute.order_type, attribute],
-                      method: :delete,
-                      data: { confirm: 'Are you sure?' } %>
-        </p>
-      <% end %>
-      <h2>Agregar un atributo al tipo de pedido:</h2>
-      <%= form_with(model: [ @order_type, @order_type.order_type_attributes.build ], local: true) do |form| %>
-        <p>
-          <%= form.label :attribute_name %><br>
-          <%= form.text_field :attribute_name %>
-        </p>
-        <p>
-          <%= form.label :attribute_type %><br>
-          <%= form.text_area :attribute_type %>
-        </p>
-        <p>
-          <%= form.submit %>
-        </p>
-      <% end %>
-    </div>
-    <div class="col">
-      <h2>Atributos de detalle del tipo pedido</h2>
-      <% @order_type.order_detail_attributes.each do |attribute| %>
-        <p>
-          <strong>Nombre:</strong>
-          <%= attribute.attribute_name %>
-        </p>
-        <p>
-          <strong>Tipo:</strong>
-          <%= attribute.attribute_type %>
-        </p>
-      <% end %>
-      <h2>Agregar un atributo al detalle del tipo de pedido:</h2>
-      <%= form_with(model: [ @order_type, @order_type.order_detail_attributes.build ], local: true) do |form| %>
-        <p>
-          <%= form.label :attribute_name %><br>
-          <%= form.text_field :attribute_name %>
-        </p>
-        <p>
-          <%= form.label :attribute_type %><br>
-          <%= form.text_area :attribute_type %>
-        </p>
-        <p>
-          <%= form.submit %>
-        </p>
-        </div>
-        </div>
-        </div>
-      <% end %>
+<div class="row vertical-divider">
+  <div class="col">
+    <%= render 'model_type_attributes' %>
+  </div>
+  <div class="col">
+    <%= render 'model_detail_attributes' %>
+  </div>
+</div>
