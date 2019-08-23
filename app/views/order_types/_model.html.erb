@@ -29,6 +29,9 @@
           <%= attribute.attribute_type %>
         </p>
         <p>
+          <%= link_to 'Editar', edit_order_type_order_type_attribute_path(attribute.order_type, attribute), class: 'btn btn-outline-primary' %>
+        </p>
+        <p>
           <%= link_to 'Eliminar atributo', [attribute.order_type, attribute],
                       method: :delete,
                       data: { confirm: 'Are you sure?' } %>
