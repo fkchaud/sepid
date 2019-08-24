@@ -10,6 +10,10 @@ class Project < ApplicationRecord
   attribute :project_program, :string
   attribute :activity_type, :string
 
+  def disabled?
+    project_status.name == 'Cancelado' || project_status.name == 'Finalizado'
+  end
+
   # references
   belongs_to :project_status
   belongs_to :project_type
@@ -31,19 +35,25 @@ class Project < ApplicationRecord
   validates_date :start_date
   validates :ending_date, presence: true
   validates_date :ending_date
-  validate :ending_date_after_start_date, on: :create
+  validate :same_director_and_codirector,
+           :ending_date_after_start_date
 
   def ending_date_after_start_date
     if start_date.present? &&
        ending_date.present? &&
        start_date >= ending_date
-      errors.add(:start_date, "can't be after end date")
-      errors.add(:ending_date, "can't be before start date")
+      errors.add(:start_date, "can't be after End date")
+      errors.add(:ending_date, "can't be before Start date")
     end
   end
 
-  def disabled?
-    project_status.name == 'Cancelado' || project_status.name == 'Finalizado'
+  def same_director_and_codirector
+    if director.present? &&
+       codirector.present? &&
+       director.id == codirector.id
+      errors.add(:director_id, "can't be the same as Codirector")
+      errors.add(:codirector_id, "can't be the same as Director")
+    end
   end
 
 end
