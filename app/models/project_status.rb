@@ -5,5 +5,7 @@ class ProjectStatus < ApplicationRecord
   attribute :description, :string
   attribute :is_disabled, :datetime, default: nil
 
+  scope :enabled, -> { where(is_disabled: nil) }
+
   has_many :projects
 end

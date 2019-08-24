@@ -28,6 +28,8 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
 # Nested forms
 gem 'nested_form_fields', '~> 0.8.2'
+# Validate Timeliness, for date validations
+gem 'validates_timeliness', '~> 5.0.0.alpha5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

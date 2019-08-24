@@ -1,0 +1,110 @@
+<%= form_with model: @project, local: true do |form| %>
+
+  <div class="form-group row">
+    <%= form.label :project_code, 'Código:', class: 'col-sm col-form-label' %>
+    <div class="col-sm-10">
+      <%= form.text_field :project_code, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :project_name, 'Nombre:', class: 'col-sm col-form-label' %>
+    <div class="col-sm-10">
+      <%= form.text_field :project_name, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :project_description, 'Descripción:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_area :project_description, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+  <%= form.fields_for :director do |ff| %>
+    <div class="form-group row">
+      <%= ff.label :full_name, 'Director:', class: 'col col-form-label' %>
+      <div class="col-10">
+        <%= ff.text_field :full_name, class: 'form-control-plaintext', readonly: true %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= form.fields_for :codirector do |ff| %>
+    <div class="form-group row">
+      <%= ff.label :full_name, 'Codirector:', class: 'col col-form-label' %>
+      <div class="col-10">
+        <%= ff.text_field :full_name, class: 'form-control-plaintext', readonly: true %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group row">
+    <%= form.label :project_type, 'Tipo:', class: 'col-sm col-form-label' %>
+    <div class="col-10">
+      <%= form.collection_select :project_type,
+                                 ProjectType.enabled,
+                                 :id,
+                                 :name,
+                                 {},
+                                 class: 'form-control-plaintext',
+                                 disabled: true,
+                                 readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col col-form-label">Estado:</label>
+    <div class="col-10"> <!--     checks a marcar,        de donde salen,        valor, label       -->
+      <%= form.collection_select :project_status_id, ProjectStatus.enabled, :id, :name, {}, class: 'form-control-plaintext', disabled: true, readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :start_date, 'Fecha de inicio:', class: 'col-2 col-form-label' %>
+    <%= form.date_select(:start_date,
+                         options = {
+                             disabled: true,
+                             order: [:day, :month, :year]
+                         },
+                         html_options = { class: 'form-control-plaintext col-auto',
+                                          style: 'width: inherit;'
+                         }
+        ) %>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :ending_date, 'Fecha de fin:', class: 'col-2 col-form-label' %>
+    <%= form.date_select(:ending_date,
+                         options = {
+                             disabled: true,
+                             order: [:day, :month, :year]
+                         },
+                         html_options = { class: 'form-control-plaintext col-auto',
+                                          style: 'width: inherit;'
+                         }
+        ) %>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :technological_scientific_unit, 'Unidad Científico Tecnológica:', class: 'col-sm col-form-label' %>
+    <div class="col-sm-10">
+      <%= form.text_field :technological_scientific_unit, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :project_program, 'Project_Program?:', class: 'col-sm col-form-label' %>
+    <div class="col-sm-10">
+      <%= form.text_field :project_program, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :activity_type, 'Actividad:', class: 'col-sm col-form-label' %>
+    <div class="col-sm-10">
+      <%= form.text_field :activity_type, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+<% end %>

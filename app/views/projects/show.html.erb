@@ -1,0 +1,18 @@
+<h1>Proyecto</h1>
+
+<%= render 'model' %>
+
+<div class="row">
+  <div class="col text-left">
+    <%= link_to 'Volver al índice', projects_path, class: 'btn btn-outline-secondary' %>
+  </div>
+  <% # unless @subsection_shift_status.is_disabled %>
+    <div class="col text-right">
+      <%= link_to 'Eliminar', project_path(@project),
+                  class: 'btn btn-outline-danger',
+                  method: :delete,
+                  data: { confirm: '¿Seguro que desea eliminar?' } %>
+      <%= link_to 'Editar', edit_project_path(@project), class: 'btn btn-outline-primary' %>
+    </div>
+  <% # end %>
+</div>

@@ -25,4 +25,8 @@ class User < ApplicationRecord
   has_many :projects_as_codirector,
            class_name: 'Project',
            inverse_of: :codirector
+
+  def full_name
+    "#{last_name.capitalize}, #{first_name.capitalize}"
+  end
 end

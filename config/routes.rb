@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :projects
   resources :users
   resources :resolution_types
   resources :order_statuses
