@@ -49,8 +49,13 @@
 
   <div class="form-group row">
     <label class="col col-form-label">Estado:</label>
-    <div class="col-10"> <!--     checks a marcar,        de donde salen,        valor, label       -->
-      <%= form.collection_select :project_status_id, ProjectStatus.enabled, :id, :name, {}, class: 'form-control', disabled: true, readonly: true %>
+    <div class="col-10">
+      <%= form.collection_select :project_status_id, # seleccionar y enviar
+                                 ProjectsController.project_status_to_select(form.object), # de donde salen
+                                 :id, # valor
+                                 :name, # label
+                                 {},
+                                 class: 'form-control' %>
     </div>
   </div>
 
@@ -96,7 +101,7 @@
   </div>
 
   <p class="text-right">
-    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= link_to "Cancelar", projects_path, class: 'btn btn-outline-secondary' %>
     <%= form.submit 'Guardar', class: 'btn btn-success' %>
   </p>
 

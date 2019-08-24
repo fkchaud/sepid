@@ -26,12 +26,14 @@
       <td class="fit">
         <div class='btn-group'>
           <%= link_to 'Mostrar', project_path(project), class: 'btn btn-outline-info' %>
-          <% unless project.disabled? %>
-            <%= link_to 'Editar', edit_project_path(project), class: 'btn btn-outline-primary' %>
-            <%  # link_to 'Eliminar', project_path(project),
-                #         class: 'btn btn-outline-danger',
-                #         method: :delete,
-                #         data: { confirm: '¿Seguro que desea eliminar?' } %>
+          <%= link_to 'Editar', edit_project_path(project), class: 'btn btn-outline-primary' %>
+          <% unless project.project_status.name == 'Cancelado' %>
+            <%= link_to 'Cancelar',
+                        project_path(project),
+                        class: 'btn btn-outline-danger',
+                        method: :delete,
+                        data: { confirm: '¿Seguro que desea cancelar el proyecto?' }
+            %>
           <% end %>
         </div>
       </td>

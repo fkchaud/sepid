@@ -42,8 +42,8 @@ class Project < ApplicationRecord
     if start_date.present? &&
        ending_date.present? &&
        start_date >= ending_date
-      errors.add(:start_date, "can't be after End date")
-      errors.add(:ending_date, "can't be before Start date")
+      errors.add(:start_date, "can't be on or after End date")
+      errors.add(:ending_date, "can't be on or before Start date")
     end
   end
 

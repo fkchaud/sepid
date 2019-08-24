@@ -6,13 +6,15 @@
   <div class="col text-left">
     <%= link_to 'Volver al índice', projects_path, class: 'btn btn-outline-secondary' %>
   </div>
-  <% # unless @subsection_shift_status.is_disabled %>
-    <div class="col text-right">
-      <%= link_to 'Eliminar', project_path(@project),
+  <div class="col text-right">
+    <% unless @project.project_status.name == 'Cancelado' %>
+      <%= link_to 'Cancelar proyecto',
+                  project_path(@project),
                   class: 'btn btn-outline-danger',
                   method: :delete,
-                  data: { confirm: '¿Seguro que desea eliminar?' } %>
-      <%= link_to 'Editar', edit_project_path(@project), class: 'btn btn-outline-primary' %>
-    </div>
-  <% # end %>
+                  data: { confirm: '¿Seguro que desea cancelar el proyecto?' }
+      %>
+    <% end %>
+    <%= link_to 'Editar', edit_project_path(@project), class: 'btn btn-outline-primary' %>
+  </div>
 </div>

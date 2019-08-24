@@ -18,7 +18,6 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new project_params
-    @project.project_status = ProjectStatus.find_by_name 'Aprobado'
     return if @project.save
 
     render 'new'
@@ -31,7 +30,22 @@ class ProjectsController < ApplicationController
     render 'edit'
   end
 
-  def destroy; end
+  def destroy
+    @project = Project.find params[:id]
+    @project.update project_status: ProjectStatus.find_by_name('Cancelado')
+    redirect_to projects_path
+  end
+
+  def self.project_status_to_select(project)
+    if project.id.nil? # if new
+      ProjectStatus.enabled.where(name: 'Aprobado')
+    else # if update
+      # no puede cancelar, y tienen que ser estados que no esten deshabilitados
+      ProjectStatus.enabled.where.not(name: 'Cancelado')
+                   .or(ProjectStatus.where(id: project.project_status.id))
+      # pero hay que agregarle el estado actual, este deshabilitado o sea Cancelado
+    end
+  end
 
   private
 
@@ -48,7 +62,8 @@ class ProjectsController < ApplicationController
             :activity_type,
             :director_id,
             :codirector_id,
-            :project_type_id
+            :project_type_id,
+            :project_status_id
           )
   end
 
