@@ -15,8 +15,7 @@
   </thead>
   <tbody>
     <% @projects.each do |project| %>
-    <!--                                                            REVISAR-->
-    <tr class="align-items-center">
+    <tr class="align-items-center<%= ' table-disabled' if project.disabled? %>">
       <td><%= project.project_code %></td>
       <td><%= project.project_name %></td>
       <td><%= project.director.full_name %></td>
@@ -27,13 +26,13 @@
       <td class="fit">
         <div class='btn-group'>
           <%= link_to 'Mostrar', project_path(project), class: 'btn btn-outline-info' %>
-          <% # unless project.is_disabled %>
+          <% unless project.disabled? %>
             <%= link_to 'Editar', edit_project_path(project), class: 'btn btn-outline-primary' %>
             <%  # link_to 'Eliminar', project_path(project),
                 #         class: 'btn btn-outline-danger',
                 #         method: :delete,
                 #         data: { confirm: '¿Seguro que desea eliminar?' } %>
-          <% # end %>
+          <% end %>
         </div>
       </td>
     </tr>
