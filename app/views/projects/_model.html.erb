@@ -43,7 +43,7 @@
     <%= form.label :project_type, 'Tipo:', class: 'col-sm col-form-label' %>
     <div class="col-10">
       <%= form.collection_select :project_type,
-                                 ProjectType.enabled,
+                                 ProjectType.all,
                                  :id,
                                  :name,
                                  {},
@@ -55,8 +55,8 @@
 
   <div class="form-group row">
     <label class="col col-form-label">Estado:</label>
-    <div class="col-10"> <!--     checks a marcar,        de donde salen,        valor, label       -->
-      <%= form.collection_select :project_status_id, ProjectStatus.enabled, :id, :name, {}, class: 'form-control-plaintext', disabled: true, readonly: true %>
+    <div class="col-10"> <!--     checks a marcar,    de donde salen,        valor, label       -->
+      <%= form.collection_select :project_status_id, ProjectStatus.all, :id, :name, {}, class: 'form-control-plaintext', disabled: true, readonly: true %>
     </div>
   </div>
 

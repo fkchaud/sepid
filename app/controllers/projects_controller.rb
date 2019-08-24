@@ -18,6 +18,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new project_params
+    @project.project_status = ProjectStatus.find_by_name 'Aprobado'
     return if @project.save
 
     render 'new'
@@ -44,7 +45,10 @@ class ProjectsController < ApplicationController
             :ending_date,
             :technological_scientific_unit,
             :project_program,
-            :activity_type
+            :activity_type,
+            :director_id,
+            :codirector_id,
+            :project_type_id
           )
   end
 

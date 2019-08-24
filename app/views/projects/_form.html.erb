@@ -1,0 +1,103 @@
+<%= form_with model: @project, local: true do |form| %>
+
+  <div class="form-group row">
+    <%= form.label :project_code, 'Código:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :project_code, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :project_name, 'Nombre:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :project_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :project_description, 'Descripción:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_area :project_description, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :director, 'Director:', class: 'col col-form-label' %>
+    <div class="col-10"> <!--     a marcar   , de donde    , valor, label       -->
+      <%= form.collection_select :director_id, User.enabled, :id, :full_name, {}, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :codirector, 'Codirector:', class: 'col col-form-label' %>
+    <div class="col-10"> <!--     a marcar     , de donde    , valor, label       -->
+      <%= form.collection_select :codirector_id, User.enabled, :id, :full_name, {}, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :project_type, 'Tipo:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.collection_select :project_type_id,
+                                 ProjectType.enabled,
+                                 :id,
+                                 :name,
+                                 {},
+                                 class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col col-form-label">Estado:</label>
+    <div class="col-10"> <!--     checks a marcar,        de donde salen,        valor, label       -->
+      <%= form.collection_select :project_status_id, ProjectStatus.enabled, :id, :name, {}, class: 'form-control', disabled: true, readonly: true %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :start_date, 'Fecha de inicio:', class: 'col col-form-label' %>
+    <div class="col-10 form-inline">
+      <%= form.date_select(:start_date,
+                           options = { order: [:day, :month, :year] },
+                           html_options = { class: 'form-control col-auto' }
+          ) %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :ending_date, 'Fecha de fin:', class: 'col-2 col-form-label' %>
+    <div class="col-10 form-inline">
+      <%= form.date_select(:ending_date,
+                           options = { order: [:day, :month, :year] },
+                           html_options = { class: 'form-control col-auto' }
+          ) %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :technological_scientific_unit, 'Unidad Científico Tecnológica:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :technological_scientific_unit, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :project_program, 'Programa:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :project_program, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :activity_type, 'Actividad:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_field :activity_type, class: 'form-control' %>
+    </div>
+  </div>
+
+  <p class="text-right">
+    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit 'Guardar', class: 'btn btn-success' %>
+  </p>
+
+<% end %>

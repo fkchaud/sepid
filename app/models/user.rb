@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
   has_one :university_position
   belongs_to :user_profile
+  scope :enabled, -> { where(is_disabled: nil) }
   scope :profile, ->(user_profile) { where(user_profile: user_profile) }
   # TODO: testear si andan estos dos
   has_many :projects_as_director,
