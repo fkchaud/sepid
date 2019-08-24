@@ -29,4 +29,5 @@ class User < ApplicationRecord
   def full_name
     "#{last_name.capitalize}, #{first_name.capitalize}"
   end
+  has_secure_password
 end
