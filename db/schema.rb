@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_24_022617) do
+ActiveRecord::Schema.define(version: 2019_08_24_221654) do
 
   create_table "access_permits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "use_case_name"
@@ -247,7 +247,7 @@ ActiveRecord::Schema.define(version: 2019_08_24_022617) do
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "user_name"
-    t.string "password"
+    t.string "password_digest"
     t.integer "file_number"
     t.string "last_name"
     t.string "first_name"
