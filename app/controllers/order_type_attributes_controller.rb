@@ -11,7 +11,7 @@ class OrderTypeAttributesController < ApplicationController
   def update
     @order_type = OrderType.find(params[:order_type_id])
     @order_type_attribute = @order_type.order_type_attributes.find(params[:id])
-    @order_type_attribute.update
+    @order_type_attribute.update(order_type_attribute_params)
     redirect_to order_type_path(@order_type)
   end
   def destroy
