@@ -8,13 +8,6 @@
   </div>
 
   <div class="form-group row">
-    <%= form.label :password, 'Contraseña:', class: 'col col-form-label' %>
-    <div class="col-10">
-      <%= form.text_field :password, class: 'form-control-plaintext', readonly: true, type: 'password' %>
-    </div>
-  </div>
-
-  <div class="form-group row">
     <%= form.label :file_number, 'Legajo:', class: 'col col-form-label' %>
     <div class="col-10">
       <%= form.text_field :file_number, class: 'form-control-plaintext', readonly: true %>
@@ -69,17 +62,5 @@
       <%= form.collection_select :university_position_id, UniversityPosition.enabled, :id, :name, {}, class: 'form-control', disabled: true, readonly: true %>
     </div>
   </div>
-
-<!--  <div class="form-group row">-->
-<!--    <label class="col">Permisos:</label>-->
-<!--    <div class="col-10">-->
-      <%#= form.collection_check_boxes :access_permit_ids, AccessPermit.all, :id, :use_case_name do |cb| %>
-<!--        <div class="form-check">-->
-          <%#= cb.check_box disabled: true%>
-          <%#= cb.label disabled: true%>
-<!--        </div>-->
-      <%# end %>
-<!--    </div>-->
-<!--  </div>-->
 
 <% end %>
