@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
 
   def index
-    # TODO: implement for SuperUser vs SCyT_Admin user
-    # if logged_user.user_profile.name == 'SuperUser'
-    user_profiles = UserProfile.all
-    # elsif logged_user.user_profile.name == 'SCyT_Admin'
-    #   user_profiles =
-    # end
+    if current_user.user_profile.name == 'Super_Admin'
+      user_profiles = UserProfile.all
+    elsif current_user.user_profile.name == 'SeCYT_Admin'
+      user_profiles = UserProfile.where(name: 'Investigador')
+    else
+      render 'forbidden'
+    end
     @users = User.profile(user_profiles)
   end
 
@@ -42,14 +43,14 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def self.user_profiles
-    # TODO: implement for SuperUser vs SCyT_Admin user
-    # if logged_user.user_profile.name == 'SuperUser'
-    user_profiles = UserProfile.enabled
-    # elsif logged_user.user_profile.name == 'SCyT_Admin'
-    #   user_profiles = UserProfile.enabled.where(name: 'Investigador')
-    # end
-    user_profiles
+  def user_profiles
+    if current_user.user_profile.name == 'Super_Admin'
+      UserProfile.enabled
+    elsif current_user.user_profile.name == 'SeCYT_Admin'
+      UserProfile.enabled.where(name: 'Investigador')
+    else
+      render 'forbidden'
+    end
   end
 
   private

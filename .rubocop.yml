@@ -16,3 +16,5 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/WordArray:
+  EnforcedStyle: brackets

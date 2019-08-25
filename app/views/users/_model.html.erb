@@ -51,8 +51,15 @@
 
   <div class="form-group row">
     <label class="col col-form-label">Perfil de Usuario:</label>
-    <div class="col-10"> <!--     checks a marcar, de donde salen, valor, label       -->
-      <%= form.collection_select :user_profile_id, UsersController.user_profiles, :id, :name, {}, class: 'form-control', disabled: true, readonly: true %>
+    <div class="col-10">
+      <%= form.collection_select :user_profile_id, # checks a marcar
+                                 controller.user_profiles, # de donde salen
+                                 :id, # valor
+                                 :name, # label
+                                 {},
+                                 class: 'form-control',
+                                 disabled: true,
+                                 readonly: true  %>
     </div>
   </div>
 
