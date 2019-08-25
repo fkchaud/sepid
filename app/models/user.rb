@@ -3,8 +3,8 @@ class User < ApplicationRecord
   attribute :user_name, :string
   validates :user_name, presence: true
   # TODO: validate user_name is unique for all not_is_disabled
-  attribute :password, :string
-  validates :password, presence: true
+  attribute :password_digest, :string
+  #validates :password_digest, presence: true
   # legajo = file_number
   attribute :file_number, :integer
   validates :file_number, presence: true, numericality: { greater_than: 0 }
