@@ -14,7 +14,7 @@
       <tr class="align-items-center<%= ' table-disabled' if user.is_disabled %>">
         <td><%= user.file_number %></td>
         <td><%= user.user_name %></td>
-        <td><%= user.last_name %>, <%= user.first_name %></td>
+        <td><%= user.full_name %></td>
         <td class="fit">
           <div class='btn-group'>
             <%= link_to 'Mostrar', user_path(user), class: 'btn btn-outline-info' %>

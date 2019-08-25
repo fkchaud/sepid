@@ -1,13 +1,17 @@
 # Usuario
 class User < ApplicationRecord
   attribute :user_name, :string
-  validates :user_name, presence: true
-  # TODO: validate user_name is unique for all not_is_disabled
+  validates :user_name,
+            presence: true,
+            uniqueness: { scope: :is_disabled }
   attribute :password_digest, :string
   # validates :password_digest, presence: true
   # legajo = file_number
   attribute :file_number, :integer
-  validates :file_number, presence: true, numericality: { greater_than: 0 }
+  validates :file_number,
+            presence: true,
+            numericality: { greater_than: 0 },
+            uniqueness: { scope: :is_disabled }
   attribute :last_name, :string
   attribute :first_name, :string
   attribute :email, :string
@@ -19,7 +23,6 @@ class User < ApplicationRecord
   belongs_to :user_profile
   scope :enabled, -> { where(is_disabled: nil) }
   scope :profile, ->(user_profile) { where(user_profile: user_profile) }
-  # TODO: testear si andan estos dos
   has_many :projects_as_director,
            class_name: 'Project',
            inverse_of: :director
