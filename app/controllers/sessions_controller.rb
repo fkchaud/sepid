@@ -6,14 +6,14 @@ class SessionsController < ApplicationController
     user = User.find_by(user_name: params[:session][:name].downcase)
     if user && user.authenticate(params[:session][:password])
       if !user.is_disabled.nil?
-        #Acá falta poner que muestre un mensaje de error
+        flash[:error] = "Usuario no habilitado, comuníquese con el administrador del sistema"
         redirect_to login_path
         return
       end
       log_in user
       redirect_to welcome_index_path
     else
-      #Acá falta poner que muestre un mensaje de error
+      flash[:error] = "Nombre de usuario y/o contraseña incorrectos"
       render 'new'
     end
   end
