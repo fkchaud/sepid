@@ -27,6 +27,7 @@ gem 'bootstrap', '~> 4.3.1'
 # jQuery for Bootstrap Javascript
 gem 'jquery-rails'
 # Nested forms
+gem 'cocoon'
 gem 'nested_form_fields', '~> 0.8.2'
 # Validate Timeliness, for date validations
 gem 'validates_timeliness', '~> 5.0.0.alpha5'
