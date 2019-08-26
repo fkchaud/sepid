@@ -49,19 +49,22 @@
     </div>
   </div>
 
-  <div class="form-group row">
-    <label class="col col-form-label">Perfil de Usuario:</label>
-    <div class="col-10"> <!--     checks a marcar, de donde salen          , valor, label       -->
-      <%= form.collection_select :user_profile_id, controller.user_profiles, :id, :name, {}, class: 'form-control' %>
+  <% if current_user.user_profile.name == 'Super_Admin' || current_user.user_profile.name == 'SeCYT_Admin'%>
+    <div class="form-group row">
+      <label class="col col-form-label">Perfil de Usuario:</label>
+      <div class="col-10"> <!--     checks a marcar, de donde salen          , valor, label       -->
+        <%= form.collection_select :user_profile_id, controller.user_profiles, :id, :name, {}, class: 'form-control' %>
+      </div>
     </div>
-  </div>
+    <div class="form-group row">
+      <label class="col col-form-label">Cargo Universitario:</label>
+      <div class="col-10"> <!--     checks a marcar,        de donde salen,        valor, label       -->
+        <%= form.collection_select :university_position_id, UniversityPosition.enabled, :id, :name, {}, class: 'form-control' %>
+      </div>
+    </div>
 
-  <div class="form-group row">
-    <label class="col col-form-label">Cargo Universitario:</label>
-    <div class="col-10"> <!--     checks a marcar,        de donde salen,        valor, label       -->
-      <%= form.collection_select :university_position_id, UniversityPosition.enabled, :id, :name, {}, class: 'form-control' %>
-    </div>
-  </div>
+  <% end %>
+
 
   <p class="text-right">
     <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>

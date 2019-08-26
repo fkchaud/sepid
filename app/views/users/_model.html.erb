@@ -42,6 +42,8 @@
     </div>
   </div>
 
+
+  <% if current_user.user_profile.name == 'Super_Admin' || current_user.user_profile.name == 'SeCYT_Admin'%>
   <div class="form-group row">
     <label class="col col-form-label">Perfil de Usuario:</label>
     <div class="col-10">
@@ -62,5 +64,6 @@
       <%= form.collection_select :university_position_id, UniversityPosition.enabled, :id, :name, {}, class: 'form-control', disabled: true, readonly: true %>
     </div>
   </div>
+  <% end %>
 
 <% end %>
