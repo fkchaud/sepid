@@ -8,7 +8,7 @@ class FundsResolution < ApplicationRecord
   validates :number,
             presence: true,
             uniqueness: true,
-            format: { with: %r{^\d+/\d{4}$},
+            format: { with: %r{\A\d+/\d{4}\z},
                       message: 'format should be #####/####' }
   validates :date, presence: true
 

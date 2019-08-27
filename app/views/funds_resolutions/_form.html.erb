@@ -1,0 +1,77 @@
+<%= form_with model: @funds_resolution, local: true do |f| %>
+
+  Params:
+  <%= render plain: params.inspect %>
+
+  <% if @funds_resolution.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@funds_resolution.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+      <ul>
+        <% @funds_resolution.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group row">
+    <%= f.label :number, 'Número:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= f.text_field :number, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= f.label :date, 'Fecha:', class: 'col col-form-label' %>
+    <div class="col-10 form-inline">
+      <%= f.date_select(:date,
+                        options = { order: [:day, :month, :year] },
+                        html_options = { class: 'form-control col-auto' }
+          ) %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= f.label :resolution_type, 'Tipo:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= f.collection_select :resolution_type_id,
+                              ResolutionType.enabled,
+                              :id,
+                              :name,
+                              {},
+                              class: 'form-control' %>
+    </div>
+  </div>
+
+  <!-- funds_destinations_nested -->
+  <div class="custom-table">
+    <div class="custom-thead">
+      <div class="custom-tr">
+        <div class="custom-th">
+          Destino
+        </div>
+        <% Subsection.enabled.each do |subsection| %>
+          <div class="custom-th">
+            Inciso <%= subsection.name %>
+          </div>
+        <% end %>
+        <div class="custom-th">Options</div>
+      </div> <%# /tr %>
+    </div> <%# /thead %>
+    <div class="custom-tbody">
+      <%= f.fields_for :funds_destinations do |funds_destination_form| %>
+        <%= render 'funds_destination_fields', f: funds_destination_form %>
+      <% end %>
+      <div class="row">
+        <%= link_to_add_association 'Agregar destino', f, :funds_destinations, class: 'btn btn-outline-primary btn-block' %>
+      </div>
+    </div> <%# /tbody %>
+  </div>
+
+  <p class="text-right">
+    <%= link_to "Cancelar", funds_resolutions_path, class: 'btn btn-outline-secondary' %>
+    <%= f.submit 'Guardar', class: 'btn btn-success' %>
+  </p>
+
+<% end %>

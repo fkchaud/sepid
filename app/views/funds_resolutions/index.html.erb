@@ -1,0 +1,25 @@
+<h1>Administrar Resoluciones de Fondos</h1>
+
+<table class="table table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <th>Número</th>
+    <th>Fecha</th>
+    <th class="fit"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @funds_resolutions.each do |funds_resolution| %>
+    <tr class="align-items-center<%= ' table-disabled' if funds_resolution.is_disabled %>">
+      <td><%= funds_resolution.number %></td>
+      <td><%= funds_resolution.date %></td>
+      <td class="fit">
+        <div class='btn-group'>
+          <%= link_to 'Mostrar', funds_resolution_path(funds_resolution), class: 'btn btn-outline-info' %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= link_to 'Agregar Resolución de Fondos', new_funds_resolution_path, class: 'btn btn-outline-primary btn-block' %>

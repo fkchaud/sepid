@@ -18,5 +18,5 @@
 //= require jquery_ujs
 //= require popper
 //= require bootstrap-sprockets
-//= require cocoon
 //= require nested_form_fields
+//= require cocoon

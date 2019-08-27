@@ -33,11 +33,24 @@ class FundsResolutionsController < ApplicationController
   end
 
   def funds_resolution_params
+    # TODO: pfd year can't be blank must be number
+    # TODO: pfd subsection must exist (no, it doesn't need to)
+    # TODO: pfd project must exist
+    # TODO: uncomment :resolution_type_id
     params.require(:funds_resolution)
           .permit(
             :number,
             :date,
-            funds_destinations_attributes: [:id, :name]
+            # :resolution_type_id,    comentado para que explote a proposito
+            funds_destinations_attributes: [
+              :id,
+              :name,
+              project_funds_details_attributes: [
+                :id,
+                :funds_amount,
+                :subsection_id
+              ]
+            ]
           )
   end
 
