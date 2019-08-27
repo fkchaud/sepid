@@ -2,10 +2,10 @@
 
 one:
   name_type_order: MyString
-  descrption_type_order: MyString
+  description_type_order: MyString
   is_disabled: 2019-08-15 02:06:20
 
 two:
   name_type_order: MyString
-  descrption_type_order: MyString
+  description_type_order: MyString
   is_disabled: 2019-08-15 02:06:20

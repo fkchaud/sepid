@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  useCaseName: MyString
-  useCaseURL: MyString
+  use_case_name: MyString
+  use_case_url: MyString
 
 two:
-  useCaseName: MyString
-  useCaseURL: MyString
+  use_case_name: MyString
+  use_case_url: MyString

@@ -2,10 +2,10 @@
 
 one:
   date: 2019-08-15
-  subsection_shift_status: one
-  subsection_shift: one
+  subsection_shift_status_id: one
+  subsection_shift_id: one
 
 two:
   date: 2019-08-15
-  subsection_shift_status: two
-  subsection_shift: two
+  subsection_shift_status_id: two
+  subsection_shift_id: two

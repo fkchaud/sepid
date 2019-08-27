@@ -3,11 +3,11 @@
 one:
   name: MyString
   description: MyText
-  isDeleted: 2019-08-15 01:07:24
-  accessPermits: one
+  is_disabled: 2019-08-15 01:07:24
+
 
 two:
   name: MyString
   description: MyText
-  isDeleted: 2019-08-15 01:07:24
-  accessPermits: two
+  is_disabled: 2019-08-15 01:07:24
+
