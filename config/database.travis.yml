@@ -1,0 +1,7 @@
+default: &default
+  adapter: mysql2
+test:
+  <<: *default
+  database: sepid_test
+  username: travis
+  encoding: utf8
