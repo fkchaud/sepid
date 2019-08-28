@@ -2,6 +2,7 @@
 class FundsDestination < ApplicationRecord
   # attributes
   attribute :name, :string
+  attr_accessor :project_id
 
   # validations
   validates :name, presence: true

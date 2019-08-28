@@ -44,34 +44,9 @@
     </div>
   </div>
 
-  <!-- funds_destinations_nested -->
-  <div class="custom-table">
-    <div class="custom-thead">
-      <div class="custom-tr">
-        <div class="custom-th">
-          Destino
-        </div>
-        <% Subsection.enabled.each do |subsection| %>
-          <div class="custom-th">
-            Inciso <%= subsection.name %>
-          </div>
-        <% end %>
-        <div class="custom-th">Options</div>
-      </div> <%# /tr %>
-    </div> <%# /thead %>
-    <div class="custom-tbody">
-      <%= f.fields_for :funds_destinations do |funds_destination_form| %>
-        <%= render 'funds_destination_fields', f: funds_destination_form %>
-      <% end %>
-      <div class="row">
-        <%= link_to_add_association 'Agregar destino', f, :funds_destinations, class: 'btn btn-outline-primary btn-block' %>
-      </div>
-    </div> <%# /tbody %>
-  </div>
-
   <p class="text-right">
     <%= link_to "Cancelar", funds_resolutions_path, class: 'btn btn-outline-secondary' %>
-    <%= f.submit 'Guardar', class: 'btn btn-success' %>
+    <%= f.submit 'Siguiente', class: 'btn btn-success' %>
   </p>
 
 <% end %>

@@ -1,0 +1,77 @@
+<%= form_with model: @funds_destination,
+              url: [@funds_resolution, @funds_destination],
+              local: true do |f| %>
+
+  <%# print params %>
+  <p class="row">
+    Params:
+    <%= render plain: params.inspect %>
+  </p>
+
+  <%# print @funds_destination %>
+  <p class="row">
+    @Resolución:
+    <%= render plain: @funds_resolution.inspect %>
+  </p>
+
+  <%# print @funds_destination %>
+  <p class="row">
+    @Destino:
+    <%= render plain: @funds_destination.inspect %>
+  </p>
+
+  <%# print @project_funds_detail %>
+  <p class="row">
+    @PFD:
+    <%= render plain: @funds_destination.project_funds_details.inspect %>
+  </p>
+
+  <%# errors %>
+  <% if @funds_destination.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@funds_destination.errors.count, "error") %> prohibited this funds destination from being saved:</h2>
+
+      <ul>
+        <% @funds_destination.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group row">
+    <%= f.label :name, "Nombre del destino:", class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <%= f.fields_for :project_funds_details do |pfd| %>
+      <div class="col">
+        <%= pfd.label :funds_amount,
+                      "Monto Inciso #{pfd.object.subsection.name}:",
+                      class: 'row-auto' %>
+        <div class="row-auto">
+          <%= pfd.text_field :funds_amount, class: 'form-control' %>
+        </div>
+        <%= pfd.hidden_field :subsection_id %>
+      </div>
+    <% end %>
+  </div>
+
+  <h5>Projects:</h5>
+  <%= f.collection_select :project_id,
+                        Project.all,
+                        :id,
+                        :project_name,
+                        {},
+                        multiple: true,
+                        class: 'form-control' %>
+
+  <p class="text-right">
+    <%= link_to "Cancelar", funds_resolution_path(@funds_resolution), class: 'btn btn-outline-secondary' %>
+    <%= f.submit 'Guardar', class: 'btn btn-success' %>
+  </p>
+
+<% end %>

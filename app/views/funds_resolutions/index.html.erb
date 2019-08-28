@@ -10,7 +10,7 @@
   </thead>
   <tbody>
   <% @funds_resolutions.each do |funds_resolution| %>
-    <tr class="align-items-center<%= ' table-disabled' if funds_resolution.is_disabled %>">
+    <tr class="align-items-center">
       <td><%= funds_resolution.number %></td>
       <td><%= funds_resolution.date %></td>
       <td class="fit">

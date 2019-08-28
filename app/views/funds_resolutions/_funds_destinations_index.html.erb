@@ -1,0 +1,43 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>
+        Destino:
+      </th>
+      <% Subsection.enabled.each do |subsection| %>
+        <th>
+          Inciso <%= subsection.name %>
+        </th>
+      <% end %>
+      <th class="fit"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <%# luis lo hizo %>
+  <% if @funds_resolution.funds_destinations.empty? %>
+    <tr>
+      <td colspan="<%= 2 + Subsection.enabled.length %>">
+        <i>No hay atributos creados</i>
+      </td>
+    </tr>
+  <% else %>
+    <% @funds_resolution.funds_destinations.each do |funds_destination| %>
+      <tr class="align-items-center">
+        <td><%= funds_destination.name %></td>
+        <% funds_destination.project_funds_details.each do |pfd| %>
+          <td><%= pfd.funds_amount %></td>
+        <% end %>
+        <td>Editar, Eliminar, Proyectos</td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="row">
+  <%= link_to 'Agregar destino',
+              new_funds_resolution_funds_destination_path(
+                @funds_resolution
+              ),
+              class: 'btn btn-outline-primary btn-block'%>
+</div>
