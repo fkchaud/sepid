@@ -35,6 +35,9 @@ gem 'validates_timeliness', '~> 5.0.0.alpha5'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
+# continuous integration
+gem 'coveralls', require: false
+gem 'travis'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -58,9 +61,9 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  #gem 'selenium-webdriver'
+  # gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
-  #gem 'chromedriver-helper'
+  # gem 'chromedriver-helper'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

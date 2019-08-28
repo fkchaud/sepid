@@ -1,5 +1,9 @@
 # README
 
+[![Build Status](https://travis-ci.com/fkchaud/sepid.svg?branch=master)](https://travis-ci.com/fkchaud/sepid)
+
+[![Coverage Status](https://coveralls.io/repos/github/fkchaud/sepid/badge.svg?branch=master)](https://coveralls.io/github/fkchaud/sepid?branch=master)
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
