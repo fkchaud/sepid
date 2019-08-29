@@ -31,6 +31,15 @@ class OrderTypesController < ApplicationController
   def destroy
     @order_type = OrderType.find(params[:id])
     @order_type.update(is_disabled: Time.now)
+    order_type_attributes = @order_type.order_type_attributes
+    order_type_detail_attributes = @order_type.order_detail_attributes
+    order_type_detail_attributes.each do |detail_attribute|
+      detail_attribute.update(is_disabled: Time.now)
+    end
+    order_type_attributes.each do |attribute|
+      attribute.update(is_disabled: Time.now)
+    end
+
     redirect_to order_types_path
   end
 
