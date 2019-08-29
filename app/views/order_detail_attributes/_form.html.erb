@@ -7,9 +7,9 @@
     </div>
   </div>
   <div class="form-group row">
-    <%= form.label :attribute_type, 'Descripción:', class: 'col col-form-label' %>
+    <%= form.label :attribute_type, 'Tipo:', class: 'col col-form-label' %>
     <div class="col-10">
-      <%= form.text_area :attribute_type, class: 'form-control' %>
+      <%= form.select :attribute_type, OrderTypesController::TYPES, {}, class: 'form-control'  %>
     </div>
   </div>
 
