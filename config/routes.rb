@@ -24,5 +24,14 @@ Rails.application.routes.draw do
     resources :order_detail_attributes
   end
   resources :user_profiles
+  resources :orders do
+    resources :order_details
+  end
+  resources :projects do
+    resources :orders do
+      resources :order_details
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

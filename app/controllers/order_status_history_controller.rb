@@ -1,0 +1,2 @@
+class OrderStatusHistoryController < ApplicationController
+end

@@ -1,7 +1,12 @@
 class ProjectsController < ApplicationController
 
   def index
-    @projects = Project.all
+    if current_user.user_profile.name == 'Super_Admin'
+      @projects = Project.all
+    end
+    if current_user.user_profile.name == 'Investigador'
+      @projects = Project.where(director_id: current_user.id).or(Project.where(codirector_id: current_user.id))
+    end
   end
 
   def show
