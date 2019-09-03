@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_name:
+  user_name: PabloBaldini
   password_digest: asdasdasd
   file_number: 39022
   last_name: Baldini
@@ -22,4 +22,16 @@ two:
   telephone: 2614056798
   cuil: 246596023459
   is_disabled: 2019-08-15 01:51:13
-  university_position_id: two
+  university_position_id: 298486374
+
+three:
+  user_name: LuisVelazquez
+  password_digest: asdasdasd
+  file_number: 37656
+  last_name: velazquez
+  first_name: luis
+  email: luisvelazquez@gmail.com
+  telephone: 2614056798
+  cuil: 246596023459
+  is_disabled: 2019-08-15 01:51:13
+  university_position_id: three
