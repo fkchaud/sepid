@@ -5,7 +5,10 @@ class OrdersController < ApplicationController
     @order_types = OrderType.where(is_disabled: nil)
   end
   def create
-    render plain: params[:order][:order_type_id].inspect
+
+  end
+  def continue
+    #render plain: params[:order][:order_type_id].inspect
     @order_type = OrderType.find(params[:order][:order_type_id])
     @project = Project.find(params[:project_id])
     @order = Order.new
