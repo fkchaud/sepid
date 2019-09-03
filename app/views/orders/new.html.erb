@@ -1,2 +1,14 @@
 <h1>Realizar pedido para proyecto</h1>
-<%= render 'form' %>
+<%= render 'model' %>
+<%= form_with model: @order, url: {action: :continue}, method: "", local: true do |form| %>
+  <div class="form-group row">
+    <%= form.label :order_type, 'Tipo de pedido:', class: 'col col-form-label' %>
+    <div class="col-10"> <!--     a marcar   , de donde    , valor, label       -->
+      <%= form.collection_select :order_type_id, @order_types, :id, :name_type_order, {}, class: 'form-control' %>
+    </div>
+  </div>
+  <p class="text-right">
+    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit 'Continuar', class: 'btn btn-success' %>
+  </p>
+<% end %>

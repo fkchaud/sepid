@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     resources :order_details
   end
   resources :projects do
+    post '/orders/continue(.:format)', to: 'orders#continue'
     resources :orders do
       resources :order_details
     end
