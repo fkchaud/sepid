@@ -1,33 +1,10 @@
-<%= form_with model: @order, local: true do |form| %>
+<p>Código proyecto: <%=@project.project_code %></p>
+<p>Nombre proyecto: <%=@project.project_name %></p>
+<p>Descripción del proyecto: <%=@project.project_description %></p>
 
-
-
-  <div class="form-group row">
-    <%= form.label :order_date, 'Fecha:', class: 'col col-form-label' %>
-    <div class="col-10">
-      <%= form.text_field :order_date, class: 'form-control-plaintext', readonly: true %>
-    </div>
-  </div>
-  <div class="form-group row">
-    <%= form.label :reason_order, 'Motivo:', class: 'col col-form-label' %>
-    <div class="col-10">
-      <%= form.text_area :reason_order, class: 'form-control' %>
-    </div>
-  </div>
-  <div class="form-group row">
-    <%= form.label :description_order, 'Descripción:', class: 'col col-form-label' %>
-    <div class="col-10">
-      <%= form.text_area :description_order, class: 'form-control' %>
-    </div>
-  </div>
+<%= form_with model: @order_type, local: true do |form| %>
   <div class="col-10">
-  <%= form.collection_select :order_type_id, # checks a marcar
-                             @order_types, # de donde salen
-                             :id, # valor
-                             :name_type_order, # label
-                             {},
-                             class: 'form-control',
-                             readonly: true  %>
+    <%= form.collection_select :order_type_id, @order_types, :id, :name_type_order, {}, class: 'form-control' %>
   </div>
   <p class="text-right">
     <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
