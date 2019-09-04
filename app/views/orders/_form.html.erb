@@ -12,22 +12,24 @@
     </div>
   </div>
   <%@order_type.order_type_attributes.each do |attribute| %>
-    <%= form.label :attribute_type, 'Tipo:', class: 'col col-form-label' %>
-    <%attribute.attribute_name %>
-    <%if attribute.attribute_type == "Date" %>
-      <%= form.date_field(attribute) %>
-    <% end %>
-    <%if attribute.attribute_type == "Integer" %>
-      <%= form.number_field(:attribute_type) %>
-    <% end %>
-    <%if attribute.attribute_type == "Float" %>
-      <%= form.number_field(:attribute_type, step: 0.5) %>
-    <% end %>
-    <%if attribute.attribute_name == "String" %>
-      <%= form.text_field :attribute_type, class: 'form-control' %>
-    <% end %>
-    <%if attribute.attribute_type == "Boolean" %>
-      <%= form.check_box_tag(attribute) %>
+    <%if attribute.is_disabled.nil? %>
+      <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
+      <%attribute.attribute_name %>
+        <%if attribute.attribute_type == "Date" %>
+          <%= form.date_field(attribute) %>
+        <% end %>
+        <%if attribute.attribute_type == "Integer" %>
+          <%= form.number_field(:attribute_type) %>
+        <% end %>
+        <%if attribute.attribute_type == "Float" %>
+          <%= form.number_field(:attribute_type, step: 0.5) %>
+        <% end %>
+        <%if attribute.attribute_type == "String" %>
+          <%= form.text_field :attribute_type, class: 'form-control' %>
+        <% end %>
+        <%if attribute.attribute_type == "Boolean" %>
+          <%= form.check_box attribute %>
+        <% end %>
     <% end %>
   <% end %>
   <p class="text-right">
