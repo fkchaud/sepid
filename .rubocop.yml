@@ -16,6 +16,9 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/RedundantSelf:
+  Enabled: false
+
 Style/SymbolArray:
   EnforcedStyle: brackets
 
