@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
     @order_types = OrderType.where(is_disabled: nil)
   end
   def create
-
+    render plain: params[:order].inspect
   end
   def continue
     #render plain: params[:order][:order_type_id].inspect

@@ -65,6 +65,23 @@ OrderStatus.create [
   { order_status_name: 'Pedido retirado', allow_cancel_order: false }
 ]
 
-# UserProfile & AccessPermit
+UserProfile.create [
+  { name: 'Investigador' },
+  { name: 'Super_Admin' },
+  { name: 'DEF_Admin' },
+  { name: 'SeCYT_Sec' },
+  { name: 'SeCYT_Admin' }
+]
+
+User.create [
+  {
+    user_name: 'admin',
+    password: 'admin',
+    file_number: 1,
+    user_profile: UserProfile.find_by_name('Super_Admin')
+  }
+]
+
+# AccessPermit
 
 # crear tipos de pedidos

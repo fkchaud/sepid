@@ -31,7 +31,11 @@ class User < ApplicationRecord
            inverse_of: :codirector
 
   def full_name
-    "#{last_name.capitalize}, #{first_name.capitalize}"
+    names = []
+    names << last_name.capitalize unless last_name.blank?
+    names << first_name.capitalize unless first_name.blank?
+    names.join(', ')
   end
+
   has_secure_password
 end
