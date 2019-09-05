@@ -1,4 +1,8 @@
 <%= form_with model: @order, local: true do |form| %>
+  <p class="text-right">
+    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit 'Guardar', class: 'btn btn-success' %>
+  </p>
   <div class="form-group row">
     <%= form.label :description_order, 'Descripción:', class: 'col col-form-label' %>
     <div class="col-10">
@@ -12,7 +16,6 @@
     </div>
   </div>
   <table>
-    <thead>
     <tr>
     <%@order_type.order_type_attributes.each do |attribute| %>
       <%if attribute.is_disabled.nil? %>
@@ -22,37 +25,46 @@
       <% end %>
     <% end %>
     </tr>
-    </thead>
-    <tbody>
+    </table>
+    <table>
     <tr>
-    <%@order_type.order_type_attributes.each do |attribute| %>
-      <%if attribute.is_disabled.nil? %>
+      <%= form.nested_fields_for :order_details, wrapper_tag: :tr do |detail| %>
+          <%@order_type.order_type_attributes.each do |attribute| %>
+            <%if attribute.is_disabled.nil? %>
+                <%if attribute.attribute_type == "Date" %>
+              <td>
+                  <%= detail.date_field(:attribute_names, multiple: true, class: 'form-control') %>
+              </td>
+                <% end %>
+                <%if attribute.attribute_type == "Integer" %>
+              <td>
+                  <%= detail.number_field(:attribute_names, multiple: true, class: 'form-control') %>
+              </td>
+                <% end %>
+                <%if attribute.attribute_type == "Float" %>
+              <td>
+                  <%= detail.number_field(:attribute_names, multiple: true, step: 0.5, class: 'form-control') %>
+              </td>
+                <% end %>
+                <%if attribute.attribute_type == "String" %>
+              <td>
+                  <%= detail.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
+              </td>
+                <% end %>
+                <%if attribute.attribute_type == "Boolean" %>
+              <td>
+                  <%= detail.check_box :attribute_names, multiple: true, class: 'checkbox' %>
+              </td>
+                <% end %>
+            <% end %>
+          <% end %>
           <td>
-        <%attribute.attribute_name %>
-        <%if attribute.attribute_type == "Date" %>
-          <%= form.date_field(:attribute_type, multiple: true) %>
-        <% end %>
-        <%if attribute.attribute_type == "Integer" %>
-          <%= form.number_field(:attribute_type, multiple: true) %>
-        <% end %>
-        <%if attribute.attribute_type == "Float" %>
-          <%= form.number_field(:attribute_type, step: 0.5, multiple: true) %>
-        <% end %>
-        <%if attribute.attribute_type == "String" %>
-          <%= form.text_field :attribute_type, multiple: true, class: 'form-control' %>
-        <% end %>
-        <%if attribute.attribute_type == "Boolean" %>
-          <%= form.check_box :attribute_type, multiple: true %>
-        <% end %>
+            <%= detail.remove_nested_fields_link 'Eliminar detalle', class: 'btn btn-danger', role: 'button'  %>
           </td>
       <% end %>
-    <% end %>
-    </tr>
-    </tbody>
-  </table>
-  <p class="text-right">
-    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
-    <%= form.submit 'Guardar', class: 'btn btn-success' %>
-  </p>
+      </tr>
+      <%= form.add_nested_fields_link :order_details, 'Agregar un nuevo detalle', class: 'btn btn-primary' %>
+    </table>
+
 
 <% end %>
