@@ -1,1 +1,82 @@
-<%= render plain: @total_credits %>
+<h1>Solicitar Cambio de Inciso</h1>
+
+<%= render plain: params.inspect %>
+
+<% if @subsection_shift.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@subsection_shift.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+    <ul>
+      <% @subsection_shift.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= render 'projects/model' %>
+
+<%# mostrar tabla con montos actuales %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th></th>
+      <% Subsection.enabled.each do |subsection| %>
+        <th>
+          Inciso <%= subsection.name %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Créditos totales:</td>
+      <% @total_credits.each do |subsection, amount| %>
+      <td><%= amount %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Gastos totales:</td>
+      <% @total_expenses.each do |subsection, amount| %>
+      <td><%= amount %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Total disponible:</td>
+      <% @available_credits.each do |subsection, amount| %>
+        <td><%= amount %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
+<%= form_with model: @subsection_shift, url: project_subsection_shifts_path, local: true do |form| %>
+
+  <div class="form-group row">
+  <%= form.fields_for :project_funds_details do |pfd| %>
+      <div class="col">
+        <%= pfd.label :funds_amount,
+                      "Monto Inciso #{pfd.object.subsection.name}:",
+                      class: 'row-auto' %>
+        <div class="row-auto">
+          <%= pfd.text_field :funds_amount, class: 'form-control' %>
+        </div>
+        <%= pfd.hidden_field :year %>
+        <%= pfd.hidden_field :subsection_id %>
+        <%= pfd.hidden_field :project_id %>
+      </div>
+  <% end %>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :requested_cause, 'Motivo:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.text_area :requested_cause, class: 'form-control' %>
+    </div>
+  </div>
+
+  <p class="text-right">
+    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit 'Guardar', class: 'btn btn-success' %>
+  </p>
+<% end %>
