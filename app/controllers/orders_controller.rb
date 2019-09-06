@@ -6,6 +6,10 @@ class OrdersController < ApplicationController
   end
   def create
     render plain: params[:order].inspect
+
+  end
+  def continue
+    #render plain: params[:order][:order_type_id].inspect
     @order_type = OrderType.find(params[:order][:order_type_id])
     @project = Project.find(params[:project_id])
     @order = Order.new
@@ -15,11 +19,5 @@ class OrdersController < ApplicationController
     @order_status_history = @order.order_status_histories.new(date_change_status_order: Time.now,
                                                               reason_change_status_order:'Pedido iniciado')
     @order_status_history.order_status = @order_status
-  end
-  def continue
-    #render plain: params[:order][:order_type_id].inspect
-    @order_type = OrderType.find(params[:order][:order_type_id])
-    @project = Project.find(params[:project_id])
-    @order = Order.new
   end
 end

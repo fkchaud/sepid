@@ -1,3 +1,4 @@
+<p>Atributos del pedido</p>
 <%= form_with model: @order, local: true do |form| %>
   <p class="text-right">
     <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
@@ -59,7 +60,7 @@
             <% end %>
           <% end %>
           <td>
-            <%= detail.remove_nested_fields_link 'Eliminar detalle', class: 'btn btn-danger', role: 'button'  %>
+            <input type="button" value="Eliminar" onClick="eliminar(this)", class="btn btn-primary">
           </td>
       <% end %>
       </tr>
@@ -68,3 +69,8 @@
 
 
 <% end %>
+<script>
+    function eliminar(a){
+        a.parentNode.parentNode.remove();
+    }
+</script>
