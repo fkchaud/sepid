@@ -15,15 +15,23 @@
     <div class="col-10">
       <%= form.text_field :reason_order, class: 'form-control' %>
     </div>
-    <%= form.hidden_field :order_type_id, value: @order_type.id %>
-    <%= form.hidden_field :project_id, value: @project.id %>
   </div>
+  <%= form.hidden_field :order_type_id, value: @order_type.id %>
+  <%= form.hidden_field :project_id, value: @project.id %>
+  <%@order_type.order_type_attributes.each do |attribute| %>
+    <div class="form-group row">
+      <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
+      <div class="col-10">
+        <%= form.text_field :attribute_type, class: 'form-control' %>
+      </div>
+    </div>
+  <% end %>
     <table>
       <tr>
-        <%@order_type.order_type_attributes.each do |attribute| %>
+        <%@order_type.order_detail_attributes.each do |attribute| %>
           <%if attribute.is_disabled.nil? %>
             <td>
-              <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
+              <%= form.label :attribute_detail_type, attribute.attribute_name, class: 'col col-form-label' %>
             </td>
           <% end %>
         <% end %>
