@@ -2,6 +2,11 @@ class SubsectionShiftsController < ApplicationController
   before_action :set_projects,
                 only: [:new, :create]
 
+  def index
+    @project = Project.find params[:project_id]
+    @subsection_shifts = SubsectionShift.from_project(@project)
+  end
+
   def new
     @subsection_shift = SubsectionShift.new
     Subsection.enabled.each do |subsection|

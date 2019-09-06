@@ -13,6 +13,10 @@ class SubsectionShift < ApplicationRecord
     subsection_shift_status_histories.last.subsection_shift_status
   end
 
+  def self.from_project(project)
+    where(project_funds_details: ProjectFundsDetail.where(project: project))
+  end
+  
   # validations
   validates :requested_date, presence: true
   validates :requested_cause, presence: true
