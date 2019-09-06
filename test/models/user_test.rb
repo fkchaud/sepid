@@ -23,4 +23,13 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 'profesor', university_positions(id_cargo_universitario).name # busco nombre de cargo universitario
   end
 
+  test 'verificar metodo full_name' do
+    assert_equal 'Baldini, Pablo', users(:one).full_name
+    assert_equal 'Carceller, Javier', users(:two).full_name
+    assert_equal 'Velazquez, Luis', users(:three).full_name
+    assert_equal 'Mengano', users(:no_first_name).full_name
+    assert_equal 'Fulano', users(:no_last_name).full_name
+    assert_equal '', users(:no_names).full_name
+  end
+
 end

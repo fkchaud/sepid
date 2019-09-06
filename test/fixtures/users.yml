@@ -35,3 +35,20 @@ three:
   cuil: 246596023459
   is_disabled: 2019-08-15 01:51:13
   university_position_id: three
+
+no_first_name:
+  user_name: asddas
+  password_digest: asdasd
+  file_number: 67633
+  last_name: mengano
+
+no_last_name:
+  user_name: asddasas
+  password_digest: asdasd
+  file_number: 676334
+  first_name: fulano
+
+no_names:
+  user_name: asddasasas
+  password_digest: asdasd
+  file_number: 6763345
