@@ -22,7 +22,25 @@
     <div class="form-group row">
       <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
       <div class="col-10">
-        <%= form.text_field :attribute_type, class: 'form-control' %>
+        <%if attribute.is_disabled.nil? %>
+          <td>
+            <%if attribute.attribute_type == "Date" %>
+              <%= form.date_field(:attribute_names, multiple: true, class: 'form-control') %>
+            <% end %>
+            <%if attribute.attribute_type == "Integer" %>
+              <%= form.number_field(:attribute_names, multiple: true, class: 'form-control') %>
+            <% end %>
+            <%if attribute.attribute_type == "Float" %>
+              <%= form.number_field(:attribute_names, multiple: true, step: 0.5, class: 'form-control') %>
+            <% end %>
+            <%if attribute.attribute_type == "String" %>
+              <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
+            <% end %>
+            <%if attribute.attribute_type == "Boolean" %>
+              <%= form.check_box :attribute_names, multiple: true, class: 'checkbox' %>
+            <% end %>
+          </td>
+        <% end %>
       </div>
     </div>
   <% end %>
@@ -38,7 +56,7 @@
       </tr>
 
       <%= form.nested_fields_for :order_details, wrapper_tag: :tr do |detail| %>
-          <%@order_type.order_type_attributes.each do |attribute| %>
+          <%@order_type.order_detail_attributes.each do |attribute| %>
             <%if attribute.is_disabled.nil? %>
             <td>
                 <%if attribute.attribute_type == "Date" %>

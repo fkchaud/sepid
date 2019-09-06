@@ -15,7 +15,6 @@ class OrdersController < ApplicationController
                                                               reason_change_status_order:'Pedido iniciado')
     @order_status_history.order_status = @order_status
     @order.order_date = Time.now.strftime("%d/%m/%Y")
-
     end
   def continue
     @order_type = OrderType.find(params[:order][:order_type_id])
