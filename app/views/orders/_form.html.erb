@@ -40,7 +40,7 @@
               <%= form.check_box :attribute_names, multiple: true, class: 'checkbox' %>
             <% end %>
           </td>
-          <%= form.hidden_field :attribute_names, value: attribute.attribute_name, multiple: true %>
+          <%= form.hidden_field :attribute_names, value: attribute.id, multiple: true %>
         <% end %>
       </div>
     </div>
@@ -82,7 +82,7 @@
                   <%= detail.check_box :attribute_names, multiple: true, class: 'checkbox' %>
                 <% end %>
             </td>
-              <%= detail.hidden_field :attribute_names, value: attribute.attribute_name, multiple: true %>
+              <%= detail.hidden_field :attribute_names, value: attribute.id, multiple: true %>
             <% end %>
           <% end %>
         <td>
