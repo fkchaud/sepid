@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
     @order_types = OrderType.where(is_disabled: nil)
   end
   def create
-    #render plain: params[:order].inspect
+    render plain: params[:order].inspect
     #Se crea la orden
     @order = Order.new
     #Se buscan o crean todos los objetos relacionados
@@ -20,18 +20,12 @@ class OrdersController < ApplicationController
     @order.order_date = Time.now.strftime("%d/%m/%Y")
     @order.description_order = params[:order][:description_order]
     @order.reason_order = params[:order][:reason_order]
-    #Guardar el pedido
-    params[:order][:attribute_names].each do |attribute|
-      @order.order_type_attribute_values.new(value: attribute)
-    end
-    params[:order][:order_detail_attributes].each do |detail|
-      detail_current = @order.order_details.new()
-      #CONTINUAR DE ACÁ
-    end
+
   end
   def continue
     @order_type = OrderType.find(params[:order][:order_type_id])
     @project = Project.find(params[:project_id])
+    @subsections = Subsection.where(is_disabled: nil)
     @order = Order.new
   end
 end

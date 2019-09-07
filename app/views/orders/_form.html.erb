@@ -40,6 +40,7 @@
               <%= form.check_box :attribute_names, multiple: true, class: 'checkbox' %>
             <% end %>
           </td>
+          <%= form.hidden_field :attribute_names, value: attribute.attribute_name, multiple: true %>
         <% end %>
       </div>
     </div>
@@ -53,6 +54,12 @@
             </td>
           <% end %>
         <% end %>
+        <td>
+          <%= form.label :attribute_detail_type, "Inciso", class: 'col col-form-label' %>
+        </td>
+        <td>
+          <%= form.label :attribute_detail_type, "Valor", class: 'col col-form-label' %>
+        </td>
       </tr>
 
       <%= form.nested_fields_for :order_details, wrapper_tag: :tr do |detail| %>
@@ -66,7 +73,7 @@
                   <%= detail.number_field(:attribute_names, multiple: true, class: 'form-control') %>
                 <% end %>
                 <%if attribute.attribute_type == "Float" %>
-                  <%= detail.number_field(:attribute_names, multiple: true, step: 0.5, class: 'form-control') %>
+                  <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>
                 <% end %>
                 <%if attribute.attribute_type == "String" %>
                   <%= detail.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
@@ -75,8 +82,15 @@
                   <%= detail.check_box :attribute_names, multiple: true, class: 'checkbox' %>
                 <% end %>
             </td>
+              <%= detail.hidden_field :attribute_names, value: attribute.attribute_name, multiple: true %>
             <% end %>
           <% end %>
+        <td>
+          <%= form.collection_select :subsection_id, @subsections, :id, :name, {}, class: 'form-control' %>
+        </td>
+        <td>
+          <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>
+        </td>
           <td>
             <input type="button" value="Eliminar" onClick="eliminar(this)", class="btn btn-primary">
           </td>
