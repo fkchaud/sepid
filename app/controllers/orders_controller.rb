@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
                                              order_type_attribute: OrderTypeAttribute.find(params[:order][:attribute_names][i+1]))
     end
     #Crear los detalles junto con sus atributos
-    params_details = params[:order][:order_details_attributes].values
+    params_details = params[:order][:order_details_attributes].values.to_a
     params_details.each do |detail|
       @current_detail = @order.order_details.new()
       for j in (0... detail[:attribute_names].length)
