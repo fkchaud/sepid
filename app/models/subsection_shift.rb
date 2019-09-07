@@ -16,11 +16,12 @@ class SubsectionShift < ApplicationRecord
   def self.from_project(project)
     where(project_funds_details: ProjectFundsDetail.where(project: project))
   end
-  
+
   # validations
   validates :requested_date, presence: true
   validates :requested_cause, presence: true
-  validate :all_subsections_sum_zero
+  validate :all_subsections_sum_zero,
+           :pfd_doesnt_drop_below_zero
 
   def all_subsections_sum_zero
     suma = project_funds_details.sum { |pfd| pfd.funds_amount }
@@ -30,4 +31,16 @@ class SubsectionShift < ApplicationRecord
       end
     end
   end
+
+  def pfd_doesnt_drop_below_zero
+    project = project_funds_details.first.project
+    credits = project.available_credits
+    project_funds_details.each do |pfd|
+      if pfd.funds_amount.negative? && pfd.funds_amount.abs > credits[pfd.subsection]
+        pfd.errors.add :funds_amount, "can't be lower than Subsection available credits"
+        errors.add :project_funds_details, 'has a member with amount lower than allowed'
+      end
+    end
+  end
+
 end

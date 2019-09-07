@@ -32,7 +32,13 @@ Rails.application.routes.draw do
     resources :orders do
       resources :order_details
     end
-    resources :subsection_shifts
+    resources :subsection_shifts, only: [:index, :show, :new, :create]
+    get '/subsection_shifts/:id/approve',
+        to: 'subsection_shifts#approve',
+        as: 'approve_subsection_shift'
+    get '/subsection_shifts/:id/reject',
+        to: 'subsection_shifts#reject',
+        as: 'reject_subsection_shift'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

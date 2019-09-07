@@ -29,10 +29,30 @@ class SubsectionShiftsController < ApplicationController
       subsection_shift_status: SubsectionShiftStatus.enabled.find_by_name('Solicitado')
     )
     if @subsection_shift.save
-      render plain: params.inspect
+      redirect_to project_subsection_shifts_url
     else
       render 'new'
     end
+  end
+
+  def approve
+    SubsectionShiftStatusHistory.create(
+      date: Time.now,
+      subsection_shift_id: params[:id],
+      subsection_shift_status: SubsectionShiftStatus.find_by_name('Aprobado')
+    )
+    # flash
+    redirect_to project_subsection_shifts_url
+  end
+
+  def reject
+    SubsectionShiftStatusHistory.create(
+      date: Time.now,
+      subsection_shift_id: params[:id],
+      subsection_shift_status: SubsectionShiftStatus.find_by_name('Rechazado')
+    )
+    # flash
+    redirect_to project_subsection_shifts_url
   end
 
   private
