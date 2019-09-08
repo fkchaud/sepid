@@ -1,0 +1,41 @@
+<%= form_with model: @subsection_shift, url: project_subsection_shifts_path, local: true do |form| %>
+
+  <div class="row">
+    <div class="form-group col-6 mb-2 pl-0 pr-1">
+      <div class="border rounded pl-4 pr-4">
+        <label class="col-form-label">Fecha de solicitud:</label>
+        <%= form.text_field :requested_date, class: 'form-control-plaintext col-auto d-inline-block w-auto', readonly: true %>
+      </div>
+    </div>
+    <div class="form-group col-6 mb-2 pl-1 pr-0">
+      <div class="border rounded pl-4 pr-4">
+        <label class="col-form-label">Estado de solicitud:</label>
+        <%= form.text_field :last_status_name, class: 'form-control-plaintext col-auto d-inline-block w-auto', readonly: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group border rounded col-12 mb-2 pl-4 pr-4">
+      <label class="col-form-label">Motivo:</label>
+      <%= form.text_area :requested_cause, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= form.fields_for :project_funds_details do |pfd| %>
+    <div class="form-group col mb-2
+                <%= pfd.options[:child_index] == 0 ? "pl-0" : "pl-1" %>
+                <%= pfd.options[:child_index] == pfd.options[:parent_builder].options.length - 1 ? "pr-0" : "pr-1" %>
+    ">
+      <div class="border rounded pl-4 pr-4">
+        <%= pfd.label :funds_amount,
+                      "Monto Inciso #{pfd.object.subsection.name}:",
+                      class: 'col-form-label' %>
+        <%= pfd.text_field :funds_amount, class: 'form-control', readonly: true %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+<% end %>

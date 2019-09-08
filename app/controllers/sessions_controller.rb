@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to welcome_index_path
     else
-      flash[:error] = 'Nombre de usuario y/o contraseña incorrectos'
+      flash.now[:error] = 'Nombre de usuario y/o contraseña incorrectos'
       render 'new'
     end
   end

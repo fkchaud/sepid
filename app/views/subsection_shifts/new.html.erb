@@ -14,42 +14,18 @@
   </div>
 <% end %>
 
-<%= render 'projects/model' %>
+<h3>Proyecto:</h3>
+<%= render 'projects/mini_model' %>
+
+<hr/>
 
 <%# mostrar tabla con montos actuales %>
-<table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th></th>
-      <% Subsection.enabled.each do |subsection| %>
-        <th>
-          Inciso <%= subsection.name %>
-        </th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Créditos totales:</td>
-      <% @total_credits.each do |subsection, amount| %>
-      <td><%= amount %></td>
-      <% end %>
-    </tr>
-    <tr>
-      <td>Gastos totales:</td>
-      <% @total_expenses.each do |subsection, amount| %>
-      <td><%= amount %></td>
-      <% end %>
-    </tr>
-    <tr>
-      <td>Total disponible:</td>
-      <% @available_credits.each do |subsection, amount| %>
-        <td><%= amount %></td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
+<h3>Créditos:</h3>
+<%= render 'amounts_table' %>
 
+<hr/>
+
+<h3>Solicitud:</h3>
 <%= form_with model: @subsection_shift, url: project_subsection_shifts_path, local: true do |form| %>
 
   <div class="form-group row">
@@ -59,7 +35,7 @@
                       "Monto Inciso #{pfd.object.subsection.name}:",
                       class: 'row-auto' %>
         <div class="row-auto">
-          <%= pfd.text_field :funds_amount, class: 'form-control' %>
+          <%= pfd.text_field :funds_amount, value: 0, class: 'form-control' %>
         </div>
         <%= pfd.hidden_field :year %>
         <%= pfd.hidden_field :subsection_id %>

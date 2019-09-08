@@ -1,10 +1,13 @@
 class SubsectionShiftsController < ApplicationController
   before_action :set_projects,
-                only: [:new, :create]
+                only: [:index, :new, :create, :show]
 
   def index
-    @project = Project.find params[:project_id]
     @subsection_shifts = SubsectionShift.from_project(@project)
+  end
+
+  def show
+    @subsection_shift = SubsectionShift.find params[:id]
   end
 
   def new
@@ -36,13 +39,19 @@ class SubsectionShiftsController < ApplicationController
   end
 
   def approve
-    SubsectionShiftStatusHistory.create(
-      date: Time.now,
-      subsection_shift_id: params[:id],
-      subsection_shift_status: SubsectionShiftStatus.find_by_name('Aprobado')
-    )
-    # flash
-    redirect_to project_subsection_shifts_url
+    @subsection_shift = SubsectionShift.find params[:id]
+    if @subsection_shift.valid?
+      SubsectionShiftStatusHistory.create(
+        date: Time.now,
+        subsection_shift_id: params[:id],
+        subsection_shift_status: SubsectionShiftStatus.find_by_name('Aprobado')
+      )
+      redirect_to project_subsection_shifts_url
+    else
+      set_projects
+      flash.now[:error] = 'Invalid Subsection Shift'
+      render 'show'
+    end
   end
 
   def reject

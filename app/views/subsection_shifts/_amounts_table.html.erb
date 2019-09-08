@@ -1,0 +1,32 @@
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th></th>
+    <% Subsection.enabled.each do |subsection| %>
+      <th>
+        Inciso <%= subsection.name %>
+      </th>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Créditos totales:</td>
+    <% @total_credits.each do |subsection, amount| %>
+      <td><%= amount %></td>
+    <% end %>
+  </tr>
+  <tr>
+    <td>Gastos totales:</td>
+    <% @total_expenses.each do |subsection, amount| %>
+      <td><%= amount %></td>
+    <% end %>
+  </tr>
+  <tr>
+    <td>Total disponible:</td>
+    <% @available_credits.each do |subsection, amount| %>
+      <td><%= amount %></td>
+    <% end %>
+  </tr>
+  </tbody>
+</table>

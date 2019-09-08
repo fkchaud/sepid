@@ -1,0 +1,38 @@
+<h1>Cambio de Inciso</h1>
+
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
+
+<h3>Proyecto:</h3>
+<%= render 'projects/mini_model' %>
+
+<hr/>
+
+<%# mostrar tabla con montos actuales %>
+<h3>Créditos:</h3>
+<%= render 'amounts_table' %>
+
+<hr/>
+
+<h3>Cambio de Inciso:</h3>
+<%= render 'mini_model' %>
+
+<div class="row">
+  <div class="col-auto text-left">
+    <%= link_to 'Volver al índice', project_subsection_shifts_path(@project), class: 'btn btn-outline-secondary' %>
+  </div>
+  <div class="col text-right">
+  <% if ['Super_Admin', 'DEF_Admin'].include? current_user.user_profile.name and
+      @subsection_shift.last_status.name == 'Solicitado' %>
+    <%= link_to 'Aprobar',
+                project_approve_subsection_shift_path(@project, @subsection_shift),
+                class: 'btn btn-outline-success' %>
+    <%= link_to 'Rechazar',
+                project_reject_subsection_shift_path(@project, @subsection_shift),
+                class: 'btn btn-outline-danger' %>
+  <% end %>
+  </div>
+</div>
