@@ -45,6 +45,15 @@
       </div>
     </div>
   <% end %>
+  <table display="none">
+    <tr>
+      <%@order_type.order_detail_attributes.each do |order_type_id| %>
+        <td>
+          <%= order_type_id.hidden_field :attribute_names, value: attribute.id, multiple: true %>
+        </td>
+      <% end %>
+    </tr>
+  </table>
     <table>
       <tr>
         <%@order_type.order_detail_attributes.each do |attribute| %>
@@ -82,7 +91,6 @@
                   <%= detail.check_box :attribute_names, multiple: true, class: 'checkbox' %>
                 <% end %>
             </td>
-              <%= detail.hidden_field :attribute_names, value: attribute.id, multiple: true %>
             <% end %>
           <% end %>
         <td>
