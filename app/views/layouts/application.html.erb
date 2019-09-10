@@ -9,28 +9,11 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-  <div class="page-header" style="background-color:#CDD3CE;">
-    <div class="dropdown" align = "right">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Acceso
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <% if current_user %>
-          <%= link_to "Cerrar sesión", logout_path(current_user), method: :delete , class:"dropdown-item"%>
-        <% end %>
-        <% if !current_user %>
-          <%= link_to "Iniciar sesión", login_path, class:"dropdown-item" %>
-        <% end %>
-        <% if current_user %>
-          <%= link_to 'Modificar perfil', edit_user_path(current_user), class:"dropdown-item" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <table width="100%">
+  <body style="padding-top: 3.5rem !important;">
+  <%= render 'layouts/navbar' %>
+  <table class="w-100">
     <tr>
-      <td width="25%" style="background-color:#E5F0E7;" valign="top">
+      <td class="w-25 align-top" style="background-color:#E5F0E7;">
         <nav id="sidebar">
           <div class="sidebar-header">
             <h3>Menú de navegación</h3>
