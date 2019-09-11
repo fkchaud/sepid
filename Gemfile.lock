@@ -94,6 +94,8 @@ GEM
       faraday (>= 0.7.4, < 1.0)
     ffi (1.11.1)
     ffi (1.11.1-x64-mingw32)
+    font-awesome-rails (4.7.0.5)
+      railties (>= 3.2, < 6.1)
     gh (0.14.0)
       addressable
       backports
@@ -269,6 +271,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.2)
   coveralls
+  font-awesome-rails (~> 4.7, >= 4.7.0.5)
   jbuilder (~> 2.5)
   jquery-rails
   mysql2 (>= 0.4.4, < 0.6.0)

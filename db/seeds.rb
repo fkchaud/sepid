@@ -18,17 +18,23 @@ ResolutionType.create [
 ]
 
 SubsectionShiftStatus.create [
-  { name: 'Solicitado' }, { name: 'Aprobado' }, { name: 'Rechazado' }
+  { name: 'Solicitado' },
+  { name: 'Aprobado'   },
+  { name: 'Rechazado'  }
 ]
 
 Subsection.create [
-  { name: '2' }, { name: '3' }, { name: '4.3' }
+  { name: '2'   },
+  { name: '3'   },
+  { name: '4.3' }
 ]
 
 ValueStatus.create [
-  { value_status_name: 'Estimado' }, { value_status_name: 'Preventivo' },
-  { value_status_name: 'Final' }, { value_status_name: 'Cancelado' },
-  { value_status_name: 'Rechazado' }
+  { value_status_name: 'Estimado'   },
+  { value_status_name: 'Preventivo' },
+  { value_status_name: 'Final'      },
+  { value_status_name: 'Cancelado'  },
+  { value_status_name: 'Rechazado'  }
 ]
 
 # carga segun resolucion 715/2018 de Rectorado
@@ -49,28 +55,31 @@ ProjectType.create [
 ]
 
 ProjectStatus.create [
-  { name: 'Aprobado' }, { name: 'En ejecución' }, { name: 'Finalizado' }, { name: 'Cancelado' }
+  { name: 'Aprobado'     },
+  { name: 'En ejecución' },
+  { name: 'Finalizado'   },
+  { name: 'Cancelado'    }
 ]
 
 OrderStatus.create [
-  { order_status_name: 'Pedido realizado', allow_cancel_order: true },
-  { order_status_name: 'Pedido rechazado', allow_cancel_order: false },
-  { order_status_name: 'Pedido cancelado', allow_cancel_order: false },
-  { order_status_name: 'Aprobado por CYT', allow_cancel_order: true },
-  { order_status_name: 'Aprobado por Secretario', allow_cancel_order: true },
-  { order_status_name: 'Armado y aprobación de preventivo', allow_cancel_order: true },
-  { order_status_name: 'Licitación iniciada', allow_cancel_order: true },
-  { order_status_name: 'Devengado realizado', allow_cancel_order: false },
-  { order_status_name: 'Pedido recibido', allow_cancel_order: false },
-  { order_status_name: 'Pedido retirado', allow_cancel_order: false }
+  { order_status_name: 'Pedido realizado',                  allow_cancel_order: true  },
+  { order_status_name: 'Pedido rechazado',                  allow_cancel_order: false },
+  { order_status_name: 'Pedido cancelado',                  allow_cancel_order: false },
+  { order_status_name: 'Aprobado por CYT',                  allow_cancel_order: true  },
+  { order_status_name: 'Aprobado por Secretario',           allow_cancel_order: true  },
+  { order_status_name: 'Armado y aprobación de preventivo', allow_cancel_order: true  },
+  { order_status_name: 'Licitación iniciada',               allow_cancel_order: true  },
+  { order_status_name: 'Devengado realizado',               allow_cancel_order: false },
+  { order_status_name: 'Pedido recibido',                   allow_cancel_order: false },
+  { order_status_name: 'Pedido retirado',                   allow_cancel_order: false }
 ]
 
 UserProfile.create [
   { name: 'Investigador' },
-  { name: 'Super_Admin' },
-  { name: 'DEF_Admin' },
-  { name: 'SeCYT_Sec' },
-  { name: 'SeCYT_Admin' }
+  { name: 'Super_Admin'  },
+  { name: 'DEF_Admin'    },
+  { name: 'SeCYT_Sec'    },
+  { name: 'SeCYT_Admin'  }
 ]
 
 User.create [
