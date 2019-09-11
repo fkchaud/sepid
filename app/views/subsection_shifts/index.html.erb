@@ -1,0 +1,61 @@
+<%# TODO: dividir en partials %>
+<%# TODO: hacer show (ver pantalla Disenio) %>
+
+<h1>Cambio de Inciso</h1>
+
+<h3>Proyecto</h3>
+<%= render 'projects/mini_model' %>
+
+<hr/>
+
+<%# mostrar tabla con montos actuales %>
+<h3>Créditos:</h3>
+<%= render 'amounts_table' %>
+
+<hr/>
+
+<h3>Pedidos de Cambio de Inciso</h3>
+<table class="table table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>Fecha</th>
+      <th>Motivo</th>
+      <th>Movimientos</th>
+      <th>Estado</th>
+      <th class="fit"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subsection_shifts.each do |subsection_shift| %>
+    <tr>
+      <td><%= subsection_shift.requested_date %></td>
+      <td><%= subsection_shift.requested_cause %></td>
+      <td>
+        <ul style="margin-bottom: 0; padding-left: 20px;">
+        <% subsection_shift.project_funds_details.each do |pfd| %>
+          <li><%= "Inciso #{pfd.subsection.name}: #{pfd.funds_amount}" %></li>
+        <% end %>
+        </ul>
+      </td>
+      <td><%= subsection_shift.last_status.name %></td>
+      <td class="fit">
+        <div class="btn-group">
+          <%= link_to 'Mostrar',
+                      project_subsection_shift_path(@project, subsection_shift),
+                      class: 'btn btn-outline-info' %>
+          <% if ['Super_Admin', 'DEF_Admin'].include? current_user.user_profile.name and
+                subsection_shift.last_status.name == 'Solicitado' %>
+          <%= link_to 'Aprobar',
+                      project_approve_subsection_shift_path(@project, subsection_shift),
+                      class: 'btn btn-outline-success' %>
+          <%= link_to 'Rechazar',
+                      project_reject_subsection_shift_path(@project, subsection_shift),
+                      class: 'btn btn-outline-danger' %>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Realizar Pedido de Cambio de Inciso', new_project_subsection_shift_path, class: 'btn btn-outline-primary btn-block' %>

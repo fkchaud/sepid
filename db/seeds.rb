@@ -78,7 +78,31 @@ User.create [
     user_name: 'admin',
     password: 'admin',
     file_number: 1,
+    last_name: 'Admin',
     user_profile: UserProfile.find_by_name('Super_Admin')
+  },
+  {
+    user_name: 'victor',
+    password: 'victor',
+    file_number: 2,
+    last_name: 'Oliva',
+    first_name: 'Víctor',
+    user_profile: UserProfile.find_by_name('SeCYT_Admin')
+  },
+  {
+    user_name: 'cesar',
+    password: 'cesar',
+    file_number: 3,
+    first_name: 'Cesar',
+    user_profile: UserProfile.find_by_name('DEF_Admin')
+  },
+  {
+    user_name: 'bromberg',
+    password: 'bromberg',
+    file_number: 4,
+    last_name: 'Bromberg',
+    first_name: 'Facundo',
+    user_profile: UserProfile.find_by_name('Investigador')
   }
 ]
 

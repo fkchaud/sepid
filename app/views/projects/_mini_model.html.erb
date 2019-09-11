@@ -1,0 +1,66 @@
+<%= form_with model: @project, local: true do |form| %>
+
+  <div class="row">
+    <div class="form-group col-6 mb-2 pl-0 pr-1">
+      <div class="border rounded pl-4 pr-4">
+        <%= form.label :project_code, 'Código:', class: 'col-form-label' %>
+        <%= form.text_field :project_code, class: 'form-control-plaintext', readonly: true %>
+      </div>
+    </div>
+    <div class="form-group col-6 mb-2 pl-1 pr-0">
+      <div class="border rounded pl-4 pr-4">
+        <%= form.label :project_name, 'Nombre:', class: 'col-form-label' %>
+        <%= form.text_field :project_name, class: 'form-control-plaintext', readonly: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group border rounded col-12 mb-2 pl-4 pr-4">
+      <%= form.label :project_description, 'Descripción:', class: 'col-form-label' %>
+      <%= form.text_area :project_description, class: 'form-control-plaintext', readonly: true %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-6 mb-2 pl-0 pr-1">
+      <div class="border rounded pl-4 pr-4">
+        <%= form.fields_for :director do |ff| %>
+          <%= ff.label :full_name, 'Director:', class: 'col-form-label' %>
+          <%= ff.text_field :full_name, class: 'form-control-plaintext', readonly: true %>
+        <% end %>
+      </div>
+    </div>
+    <div class="form-group col-6 mb-2 pl-1 pr-0">
+      <div class="border rounded pl-4 pr-4">
+        <%= form.fields_for :codirector do |ff| %>
+          <%= ff.label :full_name, 'Codirector:', class: 'col-form-label' %>
+          <%= ff.text_field :full_name, class: 'form-control-plaintext', readonly: true %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-4 mb-2 pl-0 pr-1">
+      <div class="border rounded pl-4 pr-4">
+        <label class="col-form-label">Estado:</label>
+                          <!--     checks a marcar,    de donde salen,        valor, label       -->
+        <%= form.collection_select :project_status_id, ProjectStatus.all, :id, :name, {}, class: 'form-control-plaintext', disabled: true, readonly: true %>
+      </div>
+    </div>
+    <div class="form-group col-4 mb-2 pl-1 pr-1">
+      <div class="border rounded pl-4 pr-4">
+        <%= form.label :start_date, 'Fecha de inicio:', class: 'col-form-label' %>
+        <%= form.text_field :start_date, class: 'form-control-plaintext', readonly: true %>
+      </div>
+    </div>
+    <div class="form-group col-4 mb-2 pl-1 pr-0">
+      <div class="border rounded pl-4 pr-4">
+        <%= form.label :ending_date, 'Fecha de fin:', class: 'col-form-label' %>
+        <%= form.text_field :ending_date, class: 'form-control-plaintext', readonly: true %>
+      </div>
+    </div>
+  </div>
+
+<% end %>
