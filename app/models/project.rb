@@ -103,6 +103,7 @@ class Project < ApplicationRecord
     expenses = self.total_expenses if expenses.nil?
 
     available_credits = {}
+    available_credits.default = 0
     credits.each_key { |key| available_credits[key] = credits[key] - expenses[key] }
     available_credits
   end
