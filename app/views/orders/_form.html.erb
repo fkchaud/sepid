@@ -40,7 +40,10 @@
               <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
             <% end %>
             <%if attribute.attribute_type == "Boolean" %>
-              <%= form.check_box :attribute_names, multiple: true, class: 'checkbox' %>
+              <%= form.radio_button :attribute_names, "True", multiple: true %>
+              <%= form.label :age_child, "Si" %>
+              <%= form.radio_button :attribute_names, "False", multiple: true%>
+              <%= form.label :age_adult, "No"%>
             <% end %>
           <% end %>
         </td>
@@ -81,7 +84,10 @@
               <%= detail.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
             <% end %>
             <%if attribute.attribute_type == "Boolean" %>
-              <%= detail.check_box :attribute_names, multiple: true, class: 'checkbox' %>
+              <%= detail.radio_button :attribute_names, "True", multiple: true %>
+              <%= detail.label :age_child, "Si" %>
+              <%= detail.radio_button :attribute_names, "False", multiple: true%>
+              <%= detail.label :age_adult, "No"%>
             <% end %>
           </td>
         <% end %>
