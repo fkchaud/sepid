@@ -1,29 +1,32 @@
 <p>Atributos del pedido</p>
 <%= form_with model: @order, local: true do |form| %>
-  <p class="text-right">
-    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
-    <%= form.submit 'Guardar', class: 'btn btn-success' %>
-  </p>
-  <div class="form-group row">
-    <%= form.label :description_order, 'Descripción:', class: 'col col-form-label' %>
-    <div class="col-10">
-      <%= form.text_field :description_order, class: 'form-control' %>
-    </div>
-  </div>
-  <div class="form-group row">
-    <%= form.label :reason_order, 'Motivo:', class: 'col col-form-label' %>
-    <div class="col-10">
-      <%= form.text_field :reason_order, class: 'form-control' %>
-    </div>
-  </div>
-  <%= form.hidden_field :order_type_id, value: @order_type.id %>
-  <%= form.hidden_field :project_id, value: @project.id %>
-  <%@order_type.order_type_attributes.each do |attribute| %>
-    <div class="form-group row">
-      <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
-      <div class="col-10">
-        <%if attribute.is_disabled.nil? %>
-          <td>
+  <table>
+
+    <tr>
+      <td width="25%">
+        <%= form.label :description_order, 'Descripción:', class: 'col col-form-label' %>
+      </td>
+      <td>
+          <%= form.text_field :description_order, class: 'form-control' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= form.label :reason_order, 'Motivo:', class: 'col col-form-label' %>
+      </td>
+      <td>
+          <%= form.text_field :reason_order, class: 'form-control' %>
+      </td>
+    </tr>
+    <%= form.hidden_field :order_type_id, value: @order_type.id %>
+    <%= form.hidden_field :project_id, value: @project.id %>
+    <%@order_type.order_type_attributes.each do |attribute| %>
+      <tr>
+        <td>
+          <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
+        </td>
+        <td>
+          <%if attribute.is_disabled.nil? %>
             <%if attribute.attribute_type == "Date" %>
               <%= form.date_field(:attribute_names, multiple: true, class: 'form-control') %>
             <% end %>
@@ -39,75 +42,73 @@
             <%if attribute.attribute_type == "Boolean" %>
               <%= form.check_box :attribute_names, multiple: true, class: 'checkbox' %>
             <% end %>
-          </td>
-          <%= form.hidden_field :attribute_names, value: attribute.id, multiple: true %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-  <table display="none">
-    <tr>
-      <%@order_type.order_detail_attributes.each do |order_type_id| %>
-        <td>
-          <%= order_type_id.hidden_field :attribute_names, value: attribute.id, multiple: true %>
-        </td>
-      <% end %>
-    </tr>
-  </table>
-    <table>
-      <tr>
-        <%@order_type.order_detail_attributes.each do |attribute| %>
-          <%if attribute.is_disabled.nil? %>
-            <td>
-              <%= form.label :attribute_detail_type, attribute.attribute_name, class: 'col col-form-label' %>
-            </td>
           <% end %>
-        <% end %>
-        <td>
-          <%= form.label :attribute_detail_type, "Inciso", class: 'col col-form-label' %>
-        </td>
-        <td>
-          <%= form.label :attribute_detail_type, "Valor", class: 'col col-form-label' %>
         </td>
       </tr>
-
-      <%= form.nested_fields_for :order_details, wrapper_tag: :tr do |detail| %>
-          <%@order_type.order_detail_attributes.each do |attribute| %>
-            <%if attribute.is_disabled.nil? %>
-            <td>
-                <%if attribute.attribute_type == "Date" %>
-                  <%= detail.date_field(:attribute_names, multiple: true, class: 'form-control') %>
-                <% end %>
-                <%if attribute.attribute_type == "Integer" %>
-                  <%= detail.number_field(:attribute_names, multiple: true, class: 'form-control') %>
-                <% end %>
-                <%if attribute.attribute_type == "Float" %>
-                  <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>
-                <% end %>
-                <%if attribute.attribute_type == "String" %>
-                  <%= detail.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
-                <% end %>
-                <%if attribute.attribute_type == "Boolean" %>
-                  <%= detail.check_box :attribute_names, multiple: true, class: 'checkbox' %>
-                <% end %>
-            </td>
-            <% end %>
-          <% end %>
-        <td>
-          <%= form.collection_select :subsection_id, @subsections, :id, :name, {}, class: 'form-control' %>
-        </td>
-        <td>
-          <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>
-        </td>
+    <% end %>
+  </table>
+  <table>
+    <tr>
+      <%@order_type.order_detail_attributes.each do |attribute| %>
+        <%if attribute.is_disabled.nil? %>
           <td>
-            <input type="button" value="Eliminar" onClick="eliminar(this)", class="btn btn-primary">
+            <%= form.label :attribute_detail_type, attribute.attribute_name, class: 'col col-form-label' %>
           </td>
+        <% end %>
       <% end %>
+      <td>
+        <%= form.label :attribute_detail_type, "Inciso", class: 'col col-form-label' %>
+      </td>
+      <td>
+        <%= form.label :attribute_detail_type, "Valor", class: 'col col-form-label' %>
+      </td>
+    </tr>
 
+    <%= form.nested_fields_for :order_details, wrapper_tag: :tr do |detail| %>
+      <%@order_type.order_detail_attributes.each do |attribute| %>
+        <%if attribute.is_disabled.nil? %>
+          <td>
+            <%if attribute.attribute_type == "Date" %>
+              <%= detail.date_field(:attribute_names, multiple: true, class: 'form-control') %>
+            <% end %>
+            <%if attribute.attribute_type == "Integer" %>
+              <%= detail.number_field(:attribute_names, multiple: true, class: 'form-control') %>
+            <% end %>
+            <%if attribute.attribute_type == "Float" %>
+              <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>
+            <% end %>
+            <%if attribute.attribute_type == "String" %>
+              <%= detail.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
+            <% end %>
+            <%if attribute.attribute_type == "Boolean" %>
+              <%= detail.check_box :attribute_names, multiple: true, class: 'checkbox' %>
+            <% end %>
+          </td>
+        <% end %>
+      <% end %>
+      <td>
+        <%= form.collection_select :subsection_id, @subsections, :id, :name, {}, class: 'form-control' %>
+      </td>
+      <td>
+        <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>
+      </td>
+      <td>
+        <input type="button" value="Eliminar" onClick="eliminar(this)", class="btn btn-primary">
+      </td>
+    <% end %>
+
+
+    <tr>
+      <p class="text-right">
+        <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+        <%= form.submit 'Guardar', class: 'btn btn-success' %>
+      </p>
+    </tr>
+    <tr>
       <%= form.add_nested_fields_link :order_details, 'Agregar un nuevo detalle', class: 'btn btn-primary' %>
-    </table>
-
+    </tr>
 <% end %>
+</table>
 <script>
     function eliminar(a){
         a.parentNode.parentNode.remove();

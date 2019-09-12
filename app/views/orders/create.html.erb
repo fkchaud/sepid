@@ -1,4 +1,8 @@
 <%=@order.description_order %>
 <%=@order.reason_order %>
-<%=@order.order_date%>
+
+<%@order.order_type_attribute_values.each do |attribute| %>
+  <%=attribute.value %>
+<% end %>
+
 
