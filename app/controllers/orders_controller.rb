@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
     # Crear el pedido
     @order = Order.new(order_params)
     # Setear la fecha del pedido
-    @order.order_date = Time.now.strftime('%m/%d/%Y')
+    @order.order_date = Time.now
     # Asociarle proyecto
     @order.project = Project.find(params[:order][:project_id])
     # Buscar el tipo de pedido seleccionado
