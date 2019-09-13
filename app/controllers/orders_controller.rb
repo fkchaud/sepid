@@ -85,7 +85,7 @@ class OrdersController < ApplicationController
     (0...@order.order_details.length).each do |index|
       @order.order_details[index].value_histories.create(date: Time.now,
                                                          amount: @amouts_values[index],
-                                                         value_status: ValueStatus.where(value_status_name: "Estimado"))
+                                                         value_status: ValueStatus.where(value_status_name: "Estimado").take)
     end
   end
   def continue
