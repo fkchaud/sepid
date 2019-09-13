@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
       @amounts[x.name] = 0.0
     end
     # Buscar todos los detalles de fondos del proyecto actual
-    @project_founds_details = ProjectFundsDetail.where(year: Time.now.year, project: @project)
+    @project_founds_details = ProjectFundsDetail.where(year: Time.now.year, project: @order.project.id)
     # Calcular todos los montos disponibles
     @project_founds_details.each do |founds_detail|
       @amounts[founds_detail.subsection.name] = founds_detail.funds_amount
