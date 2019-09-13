@@ -1,9 +1,13 @@
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 @import "bootstrap";
+@import "font-awesome";
 
-.container {
-  padding-top: 15px;
-  padding-bottom: 15px;
+// Raw HTML
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
 }
 
 h1 {
@@ -14,13 +18,23 @@ label {
   font-weight: bold;
 }
 
+// Utils
+
+.no-transitions {
+  transition: none !important;
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+// Forms
+
 .form-check label, .form-check-label {
   font-weight: inherit;
 }
 
-.table {
-  margin-top: 0rem;
-}
+// Tables
 
 .table td {
   vertical-align: inherit;
@@ -51,13 +65,69 @@ label {
   background-color: #ececec;
 }
 
-.btn-group {
-  font-style: normal;
-}
+// Línea separadora para Row/Col
 
 .row.vertical-divider > div[class^="col"] {
   border-left: 1px solid #000000;
 }
 .row.vertical-divider div[class^="col"]:first-child {
   border-left: none;
+}
+
+// Sidebar
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
+}
+
+.sidebar .nav-link.active {
+  color: #007bff;
+}
+
+// Sidebar and content
+
+.wrapper {
+  flex: 6;
+  overflow: auto;
+}
+
+#sidebar {
+  min-width: 350px;
+  transition: all 0.4s;
+  overflow: hidden;
+  flex: 1;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+#sidebar.toggled {
+  min-width: 0;
+  flex: 0;
+}
+
+#content {
+  flex: 1;
+  padding: 1rem 3rem;
+  transition: all 0.4s;
+}
+
+#sidebar-toggler {
+  margin-left: -1px;
+  position: absolute;
+  top: 100px;
+  border-radius: 0 .25rem .25rem 0;
+}
+
+#sidebar-toggler span {
+  transition: all 0.5s;
+}
+
+#sidebar-toggler.toggled span {
+  transform: rotate(180deg);
+}
+
+#sidebar-toggler.btn:focus,
+#sidebar-toggler.btn:active {
+  outline: none !important;
+  box-shadow: none;
 }

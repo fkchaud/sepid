@@ -24,6 +24,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 # Bootstrap for pretty CSS
 gem 'bootstrap', '~> 4.3.1'
+gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 # jQuery for Bootstrap Javascript
 gem 'jquery-rails'
 # Nested forms
