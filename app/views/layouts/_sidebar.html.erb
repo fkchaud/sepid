@@ -1,4 +1,4 @@
-<nav id="sidebar" class="bg-light">
+<nav id="sidebar" class="bg-light<%= (cookies[:sidebar_status] == "true") ? " toggled" : "" %>">
   <ul class="list-unstyled components">
     <li>
       <%= link_to 'CU 02: Administrar Usuarios', users_path, class: 'nav-link' %>
@@ -41,27 +41,3 @@
     </li>
   </ul>
 </nav>
-
-<script type="text/javascript">
-    $( document ).ready(function() {
-        let toggled_sidebar = JSON.parse( localStorage.getItem("toggled_sidebar") ) || false;
-        let sidebar_toggler = $("#sidebar-toggler");
-        let sidebar = $("#sidebar");
-
-        if (toggled_sidebar) {
-            sidebar.addClass("no-transitions");
-            sidebar.addClass("toggled");
-            sidebar_toggler.addClass("no-transitions");
-            sidebar_toggler.addClass("toggled");
-        }
-
-        sidebar_toggler.on('click', function () {
-            sidebar.removeClass("no-transitions");
-            sidebar.toggleClass('toggled');
-            $(this).removeClass("no-transitions");
-            $(this).toggleClass('toggled');
-            toggled_sidebar = !toggled_sidebar;
-            localStorage.setItem("toggled_sidebar", toggled_sidebar);
-        });
-    });
-</script>

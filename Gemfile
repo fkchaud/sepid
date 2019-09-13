@@ -27,6 +27,8 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 # jQuery for Bootstrap Javascript
 gem 'jquery-rails'
+# JS Cookie
+gem 'js_cookie_rails'
 # Nested forms
 gem 'cocoon'
 gem 'nested_form_fields', '~> 0.8.2'
