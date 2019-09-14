@@ -34,10 +34,6 @@ class OrdersController < ApplicationController
     end
     # Buscar todos los detalles de fondos del proyecto actual
     @project_founds_details = ProjectFundsDetail.where(year: Time.now.year, project: @order.project.id)
-    # Calcular todos los montos disponibles
-    @project_founds_details.each do |founds_detail|
-      @amounts[founds_detail] = founds_detail.funds_amount
-    end
     (0...(@order_type.order_type_attributes.length)).each do |index|
       # Crear los valores de los atributos
       @current_order_attribute = @order.order_type_attribute_values.new(value: params[:order][:attribute_names][index])
@@ -61,7 +57,7 @@ class OrdersController < ApplicationController
       @current_subsection = Subsection.find(params[:order][:subsection_id])
       @current_detail.subsection = @current_subsection
       # Acumular los montos para cada subsección
-      @amounts[@current_subsection] -= value[:attribute_names][-1].to_f
+      @amounts[@current_subsection] += value[:attribute_names][-1].to_f
     end
     # Verificar los créditos restantes de realizar la operación
     @total_credits = @project.total_credits
