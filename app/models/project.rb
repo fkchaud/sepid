@@ -87,9 +87,11 @@ class Project < ApplicationRecord
     total_expenses_per_subsection.default = 0.0
     return total_expenses_per_subsection if valid_orders.empty?
 
-    order_details = valid_orders.order_details
-    order_details.each do |od|
-      total_expenses_per_subsection[od.subsection] += od.last_value.amount
+    valid_orders.each do |valid_order|
+      order_details = valid_order.order_details
+      order_details.each do |od|
+        total_expenses_per_subsection[od.subsection] += od.last_value.amount
+      end
     end
     total_expenses_per_subsection
   end
