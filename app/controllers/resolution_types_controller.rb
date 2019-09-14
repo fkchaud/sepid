@@ -6,7 +6,12 @@ class ResolutionTypesController < ApplicationController
 
   def create
     @resolution_type = ResolutionType.new resolution_type_params
-    render 'new' unless @resolution_type.save
+    if @resolution_type.save
+      flash[:success] = 'Tipo de Resolución creado con éxito.'
+      redirect_to @resolution_type
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -23,7 +28,12 @@ class ResolutionTypesController < ApplicationController
 
   def update
     @resolution_type = ResolutionType.find params[:id]
-    render 'edit' unless @resolution_type.update resolution_type_params
+    if @resolution_type.update resolution_type_params
+      flash[:success] = 'Tipo de Resolución actualizado con éxito.'
+      redirect_to @resolution_type
+    else
+      render 'edit'
+    end
   end
 
   def destroy

@@ -7,7 +7,12 @@ class UserProfilesController < ApplicationController
   def create
     @user_profile = UserProfile.new user_profile_params
     @user_profile.access_permit_ids = access_permits_ids
-    render 'new' unless @user_profile.save
+    if @user_profile.save
+      flash[:success] = 'Perfil de Usuario creado con éxito.'
+      redirect_to @user_profile
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -25,7 +30,12 @@ class UserProfilesController < ApplicationController
   def update
     @user_profile = UserProfile.find params[:id]
     @user_profile.access_permit_ids = access_permits_ids
-    render 'edit' unless @user_profile.update(user_profile_params)
+    if @user_profile.update user_profile_params
+      flash[:success] = 'Perfil de Usuario actualizado con éxito.'
+      redirect_to @user_profile
+    else
+      render 'edit'
+    end
   end
 
   def destroy

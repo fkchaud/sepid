@@ -6,7 +6,12 @@ class ValueStatusesController < ApplicationController
 
   def create
     @value_status = ValueStatus.new value_status_params
-    render 'new' unless @value_status.save
+    if @value_status.save
+      flash[:success] = 'Estado de Valor creado con éxito.'
+      redirect_to @value_status
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -23,7 +28,12 @@ class ValueStatusesController < ApplicationController
 
   def update
     @value_status = ValueStatus.find params[:id]
-    render 'edit' unless @value_status.update value_status_params
+    if @value_status.update value_status_params
+      flash[:success] = 'Proyecto actualizado con éxito.'
+      redirect_to @value_status
+    else
+      render 'edit'
+    end
   end
 
   def destroy

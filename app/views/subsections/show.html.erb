@@ -1,5 +1,11 @@
 <h1>Inciso</h1>
 
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
+
 <%= render 'model' %>
 
 <div class="row">

@@ -8,7 +8,12 @@ class FundsResolutionsController < ApplicationController
 
   def create
     @funds_resolution = FundsResolution.new funds_resolution_params
-    render 'new' unless @funds_resolution.save
+    if @funds_resolution.save
+      flash[:success] = 'Resolución cargada con éxito.'
+      redirect_to @funds_resolution
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -20,7 +25,12 @@ class FundsResolutionsController < ApplicationController
   def show; end
 
   def update
-    render 'edit' unless @funds_resolution.update funds_resolution_params
+    if @funds_resolution.update funds_resolution_params
+      flash[:success] = 'Resolución actualizada con éxito.'
+      redirect_to @funds_resolution
+    else
+      render 'edit'
+    end
   end
 
   # can I destroy?

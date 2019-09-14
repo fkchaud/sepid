@@ -1,6 +1,6 @@
 class OrderTypesController < ApplicationController
 
-  TYPES = %w[Integer Float String Boolean Date].freeze
+  TYPES = ['Integer', 'Float', 'String', 'Boolean', 'Date'].freeze
 
   def index
     @order_types = OrderType.all
@@ -20,12 +20,23 @@ class OrderTypesController < ApplicationController
 
   def create
     @order_type = OrderType.new(order_type_params)
-    render 'new' unless @order_type.save
+    if @order_type.save
+      flash[:success] = 'Tipo de Pedido creado con éxito.'
+      redirect_to @order_type
+    else
+      render 'new'
+    end
   end
 
   def update
     @order_type = OrderType.find(params[:id])
-    render 'edit' unless @order_type.update(order_type_params)
+    if @order_type.update order_type_params
+      flash[:success] = 'Tipo de Pedido actualizado con éxito.'
+      redirect_to @order_type
+    else
+      render 'edit'
+    end
+
   end
 
   def destroy

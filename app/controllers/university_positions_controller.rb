@@ -6,7 +6,12 @@ class UniversityPositionsController < ApplicationController
 
   def create
     @university_position = UniversityPosition.new university_position_params
-    render 'new' unless @university_position.save
+    if @university_position.save
+      flash[:success] = 'Cargo Universitario creado con éxito.'
+      redirect_to @university_position
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -23,7 +28,13 @@ class UniversityPositionsController < ApplicationController
 
   def update
     @university_position = UniversityPosition.find params[:id]
-    render 'edit' unless @university_position.update university_position_params
+    if @university_position.update university_position_params
+      flash[:success] = 'Proyecto actualizado con éxito.'
+      redirect_to @university_position
+    else
+      render 'edit'
+    end
+
   end
 
   def destroy
