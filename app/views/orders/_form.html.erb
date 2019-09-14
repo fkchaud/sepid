@@ -6,7 +6,6 @@
 <% end %>
 <%= form_with model: @order, url:project_orders_path, local: true do |form| %>
   <table>
-
     <tr>
       <td width="25%">
         <%= form.label :description_order, 'Descripción:', class: 'col col-form-label' %>
@@ -55,6 +54,7 @@
       </tr>
     <% end %>
   </table>
+
   <table>
     <tr>
       <%@order_type.order_detail_attributes.each do |attribute| %>
@@ -64,6 +64,9 @@
           </td>
         <% end %>
       <% end %>
+      <td>
+        <%= form.label :description_detail, "Descripción", class: 'col col-form-label' %>
+      </td>
       <td>
         <%= form.label :attribute_detail_type, "Inciso", class: 'col col-form-label' %>
       </td>
@@ -98,7 +101,10 @@
         <% end %>
       <% end %>
       <td>
-        <%= form.collection_select :subsection_id, @subsections, :id, :name, {}, class: 'form-control' %>
+        <%= detail.text_field :description_detail, class: 'form-control' %>
+      </td>
+      <td>
+        <%= detail.collection_select :subsection_id, @subsections, :id, :name, {}, class: 'form-control' %>
       </td>
       <td>
         <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>

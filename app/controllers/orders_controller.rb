@@ -1,9 +1,11 @@
 class OrdersController < ApplicationController
+
   def new
     @project = Project.find(params[:project_id])
     @order = Order.new
     @order_types = OrderType.where(is_disabled: nil)
   end
+
   def create
     # render plain: params[:order][:order_details_attributes].inspect
     # Crear el pedido
@@ -12,64 +14,61 @@ class OrdersController < ApplicationController
     @order.order_date = Time.now
     # Asociarle proyecto
     @order.project = Project.find(params[:order][:project_id])
-    @project = @order.project
+    project = @order.project
     # Buscar el tipo de pedido seleccionado
-    @order_type = OrderType.find(params[:order][:order_type_id])
+    order_type = OrderType.find(params[:order][:order_type_id])
     # Asociar historial
-    @order.order_status_histories.new(date_change_status_order: Time.now,
-                                      reason_change_status_order: "Pedido realizado",
-                                      order_status: OrderStatus.where(order_status_name: "Pedido realizado").take)
+    @order.order_status_histories.new(
+      date_change_status_order: Time.now,
+      reason_change_status_order: 'Pedido realizado',
+      order_status: OrderStatus.where(order_status_name: 'Pedido realizado').first
+    )
     # Bandera para comprobar si hubo error
     @flag = false
     # Validar el pedido
-    unless @order.valid?
-      @flag = true
-    end
-    # Buscar todas las instancias de incisos
-    @subsections = Subsection.enabled.all
+    @flag = true unless @order.valid?
     # Crear un hash en el que guardar los montos totales de cada inciso
-    @amounts = {}
-    @subsections.each do |x|
-      @amounts[x] = 0.0
-    end
+    amounts = {}
+    amounts.default = 0.0
     # Buscar todos los detalles de fondos del proyecto actual
-    @project_founds_details = ProjectFundsDetail.where(year: Time.now.year, project: @order.project.id)
-    (0...(@order_type.order_type_attributes.length)).each do |index|
+    @project_founds_details = ProjectFundsDetail.where(
+      year: Time.now.year, project: @order.project.id
+    )
+    (0...(order_type.order_type_attributes.length)).each do |index|
       # Crear los valores de los atributos
-      @current_order_attribute = @order.order_type_attribute_values.new(value: params[:order][:attribute_names][index])
-      unless @current_order_attribute.valid?
-        @flag = true
-      end
+      current_order_attribute = @order.order_type_attribute_values.new(
+        value: params[:order][:attribute_names][index]
+      )
+      @flag = true unless current_order_attribute.valid?
       # Asociar el valor del atributo con el atributo
-      @current_order_attribute.order_type_attribute = @order_type.order_type_attributes[index]
+      current_order_attribute.order_type_attribute = order_type.order_type_attributes[index]
     end
     # Crear cada detalle con sus atributos y relaicones
-    params[:order][:order_details_attributes].each do |key, value|
-      # Cambiar la siguiente línea de código en el futuro
-      @current_detail = @order.order_details.new(description_detail: "Sanata")
-      (0...@order_type.order_detail_attributes.length).each do |index|
-        @current_detail_attribute = @current_detail.order_detail_attribute_values.new(value: value[:attribute_names][index])
-        unless @current_detail_attribute.valid?
-          @flag = true
-        end
-        @current_detail_attribute.order_detail_attribute = @order_type.order_detail_attributes[index]
+    params[:order][:order_details_attributes].each do |_key, value|
+      # Cambiar la siguiente linea de codigo en el futuro
+      current_detail = @order.order_details.new
+      (0...order_type.order_detail_attributes.length).each do |index|
+        current_detail_attribute = current_detail.order_detail_attribute_values.new(
+          value: value[:attribute_names][index]
+        )
+        @flag = true unless current_detail_attribute.valid?
+        current_detail_attribute.order_detail_attribute = order_type.order_detail_attributes[index]
       end
-      @current_subsection = Subsection.find(params[:order][:subsection_id])
-      @current_detail.subsection = @current_subsection
-      # Acumular los montos para cada subsección
-      @amounts[@current_subsection] += value[:attribute_names][-1].to_f
+      current_detail.description_detail = value[:description_detail]
+      current_subsection = Subsection.find(value[:subsection_id])
+      current_detail.subsection = current_subsection
+      # Acumular los montos para cada inciso
+      amounts[current_subsection] += value[:attribute_names][-1].to_f
     end
-    # Verificar los créditos restantes de realizar la operación
-    @total_credits = @project.total_credits
-    @total_expenses = @project.total_expenses
-    @available_credits = @project.available_credits @total_credits, @total_expenses
-    @available_credits = @project.available_credits @available_credits, @amounts
+    # Verificar los creditos restantes de realizar la operacion
+    available_credits = project.available_credits(project.available_credits, amounts)
     # Verificar que los fondos no sean negativos
-    @available_credits.each do |key, value|
-      if value  < 0
+    available_credits.each do |key, value|
+      if value.negative?
         # Redireccionar y mostrar error
-        flash.now[:error] = 'El gasto del inciso ' + key.to_s + ' es superior a los fondos disponibles por $' + (-value).to_s
-        render "continue"
+        flash.now[:error] = "El gasto del inciso #{key} es superior" \
+                            "a los fondos disponibles por $#{-value}"
+        render 'continue'
         return
       end
     end
@@ -89,22 +88,27 @@ class OrdersController < ApplicationController
       end
     end
     @amouts_values = []
-    params[:order][:order_details_attributes].each do |key, value|
+    params[:order][:order_details_attributes].each do |_key, value|
       @amouts_values << value[:attribute_names][-1].to_f
     end
     (0...@order.order_details.length).each do |index|
-      @order.order_details[index].value_histories.create(date: Time.now,
-                                                         amount: @amouts_values[index],
-                                                         value_status: ValueStatus.where(value_status_name: "Estimado").take)
+      @order.order_details[index].value_histories.create(
+        date: Time.now,
+        amount: @amouts_values[index],
+        value_status: ValueStatus.where(value_status_name: 'Estimado').first
+      )
     end
   end
+
   def continue
     @order_type = OrderType.find(params[:order][:order_type_id])
     @project = Project.find(params[:project_id])
     @subsections = Subsection.where(is_disabled: nil)
     @order = Order.new
   end
+
   private
+
   def order_params
     params.require(:order).permit(:description_order, :reason_order)
   end
@@ -112,4 +116,5 @@ class OrdersController < ApplicationController
   def order_attribute_params
     params.require(:order).permit(:attribute_names)
   end
+
 end
