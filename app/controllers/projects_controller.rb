@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_projects,
-                only: [:create, :edit, :show]
+                only: [:edit, :show]
 
   def index
     if current_user.user_profile.name == 'Investigador'
@@ -21,16 +21,22 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new project_params
-    return if @project.save
-
-    render 'new'
+    if @project.save
+      flash[:success] = 'Proyecto creado con éxito.'
+      redirect_to @project
+    else
+      render 'new'
+    end
   end
 
   def update
     @project = Project.find params[:id]
-    return if @project.update project_params
-
-    render 'edit'
+    if @project.update project_params
+      flash[:success] = 'Proyecto actualizado con éxito.'
+      redirect_to @project
+    else
+      render 'edit'
+    end
   end
 
   def destroy

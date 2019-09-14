@@ -69,7 +69,7 @@ class Project < ApplicationRecord
   def total_credits
     project_funds_details = self.project_funds_details.where year: Time.now.year
     total_credits_per_subsection = {}
-    total_credits_per_subsection.default = 0
+    total_credits_per_subsection.default = 0.0
     project_funds_details.each do |pfd|
       next if pfd.subsection_shift && pfd.subsection_shift.last_status.name != 'Aprobado'
 
@@ -84,13 +84,9 @@ class Project < ApplicationRecord
       ['Cancelado', 'Rechazado'].include? o.order_status.order_status_name
     end
     total_expenses_per_subsection = {}
-    total_expenses_per_subsection.default = 0
-    if valid_orders.empty?
-      Subsection.enabled.each do |subsection|
-        total_expenses_per_subsection[subsection] = 0.0
-      end
-      return total_expenses_per_subsection
-    end
+    total_expenses_per_subsection.default = 0.0
+    return total_expenses_per_subsection if valid_orders.empty?
+
     order_details = valid_orders.order_details
     order_details.each do |od|
       total_expenses_per_subsection[od.subsection] += od.last_value.amount
@@ -103,7 +99,7 @@ class Project < ApplicationRecord
     expenses = self.total_expenses if expenses.nil?
 
     available_credits = {}
-    available_credits.default = 0
+    available_credits.default = 0.0
     credits.each_key { |key| available_credits[key] = credits[key] - expenses[key] }
     available_credits
   end

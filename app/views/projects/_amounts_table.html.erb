@@ -12,20 +12,20 @@
   <tbody>
   <tr>
     <td>Créditos totales:</td>
-    <% @total_credits.each do |subsection, amount| %>
-      <td><%= amount %></td>
+    <% Subsection.enabled.each do |subsection| %>
+      <td><%= @total_credits[subsection] %></td>
     <% end %>
   </tr>
   <tr>
     <td>Gastos totales:</td>
-    <% @total_expenses.each do |subsection, amount| %>
-      <td><%= amount %></td>
+    <% Subsection.enabled.each do |subsection| %>
+      <td><%= @total_expenses[subsection] %></td>
     <% end %>
   </tr>
   <tr>
     <td>Total disponible:</td>
-    <% @available_credits.each do |subsection, amount| %>
-      <td><%= amount %></td>
+    <% Subsection.enabled.each do |subsection| %>
+      <td><%= @available_credits[subsection] %></td>
     <% end %>
   </tr>
   </tbody>
