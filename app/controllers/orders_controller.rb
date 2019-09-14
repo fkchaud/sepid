@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
     @order.order_date = Time.now
     # Asociarle proyecto
     @order.project = Project.find(params[:order][:project_id])
+    @project = @order.project
     # Buscar el tipo de pedido seleccionado
     @order_type = OrderType.find(params[:order][:order_type_id])
     # Asociar historial
@@ -61,6 +62,9 @@ class OrdersController < ApplicationController
     @amounts.each do |key, value|
       if value  < 0
         # Redireccionar y mostrar error
+        flash[:error] = 'El gasto del inciso ' + key.to_s + ' es superior a los fondos disponibles por $' + (-value).to_s
+        render "continue"
+        return
       end
     end
     # Guardar todas las entidades
