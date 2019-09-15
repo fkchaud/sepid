@@ -37,9 +37,10 @@ class OrdersController < ApplicationController
       year: Time.now.year, project: @order.project.id
     )
     (0...(@order_type.order_type_attributes.length)).each do |index|
+      next if @order_type.order_type_attributes[index].is_disabled == nil
       # Crear los valores de los atributos
       current_order_attribute = @order.order_type_attribute_values.new(
-        value: params[:order][:attribute_names][index]
+          value: params[:order][:attribute_names][index]
       )
       @flag = true unless current_order_attribute.valid?
       # Asociar el valor del atributo con el atributo
@@ -47,9 +48,9 @@ class OrdersController < ApplicationController
     end
     # Crear cada detalle con sus atributos y relaicones
     params[:order][:order_details_attributes].each do |_key, value|
-      # Cambiar la siguiente linea de codigo en el futuro
       current_detail = @order.order_details.new
       (0...@order_type.order_detail_attributes.length).each do |index|
+        next if @order_type.order_detail_attributes[index].is_disabled == nil
         current_detail_attribute = current_detail.order_detail_attribute_values.new(
           value: value[:attribute_names][index]
         )
