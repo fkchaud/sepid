@@ -62,6 +62,11 @@ class OrdersController < ApplicationController
       # Acumular los montos para cada inciso
       amounts[current_subsection] += value[:attribute_names][-1].to_f
     end
+    # Verificar que los datos ingresados sean válidos
+    if @flag
+      render "continue"
+      return
+    end
     # Verificar los creditos restantes de realizar la operacion
     available_credits = @project.available_credits(@project.available_credits, amounts)
     # Verificar que los fondos no sean negativos
