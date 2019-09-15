@@ -14,15 +14,17 @@ class OrdersController < ApplicationController
     @order.order_date = Time.now
     # Asociarle proyecto
     @order.project = Project.find(params[:order][:project_id])
-    project = @order.project
+    @project = @order.project
     # Buscar el tipo de pedido seleccionado
-    order_type = OrderType.find(params[:order][:order_type_id])
+    @order_type = OrderType.find(params[:order][:order_type_id])
     # Asociar historial
     @order.order_status_histories.new(
       date_change_status_order: Time.now,
       reason_change_status_order: 'Pedido realizado',
       order_status: OrderStatus.where(order_status_name: 'Pedido realizado').first
     )
+    # Buscar todos los incisos
+    @subsections = Subsection.where(is_disabled: nil)
     # Bandera para comprobar si hubo error
     @flag = false
     # Validar el pedido
@@ -34,25 +36,25 @@ class OrdersController < ApplicationController
     @project_founds_details = ProjectFundsDetail.where(
       year: Time.now.year, project: @order.project.id
     )
-    (0...(order_type.order_type_attributes.length)).each do |index|
+    (0...(@order_type.order_type_attributes.length)).each do |index|
       # Crear los valores de los atributos
       current_order_attribute = @order.order_type_attribute_values.new(
         value: params[:order][:attribute_names][index]
       )
       @flag = true unless current_order_attribute.valid?
       # Asociar el valor del atributo con el atributo
-      current_order_attribute.order_type_attribute = order_type.order_type_attributes[index]
+      current_order_attribute.order_type_attribute = @order_type.order_type_attributes[index]
     end
     # Crear cada detalle con sus atributos y relaicones
     params[:order][:order_details_attributes].each do |_key, value|
       # Cambiar la siguiente linea de codigo en el futuro
       current_detail = @order.order_details.new
-      (0...order_type.order_detail_attributes.length).each do |index|
+      (0...@order_type.order_detail_attributes.length).each do |index|
         current_detail_attribute = current_detail.order_detail_attribute_values.new(
           value: value[:attribute_names][index]
         )
         @flag = true unless current_detail_attribute.valid?
-        current_detail_attribute.order_detail_attribute = order_type.order_detail_attributes[index]
+        current_detail_attribute.order_detail_attribute = @order_type.order_detail_attributes[index]
       end
       current_detail.description_detail = value[:description_detail]
       current_subsection = Subsection.find(value[:subsection_id])
@@ -61,12 +63,12 @@ class OrdersController < ApplicationController
       amounts[current_subsection] += value[:attribute_names][-1].to_f
     end
     # Verificar los creditos restantes de realizar la operacion
-    available_credits = project.available_credits(project.available_credits, amounts)
+    available_credits = @project.available_credits(@project.available_credits, amounts)
     # Verificar que los fondos no sean negativos
     available_credits.each do |key, value|
       if value.negative?
         # Redireccionar y mostrar error
-        flash.now[:error] = "El gasto del inciso #{key} es superior" \
+        flash.now[:error] = "El gasto del inciso #{key.name} es superior" \
                             "a los fondos disponibles por $#{-value}"
         render 'continue'
         return

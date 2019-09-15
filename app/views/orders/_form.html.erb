@@ -45,9 +45,9 @@
             <% end %>
             <%if attribute.attribute_type == "Boolean" %>
               <%= form.radio_button :attribute_names, "True", multiple: true %>
-              <%= form.label :age_child, "Si" %>
+              <%= form.label :yes, "Si" %>
               <%= form.radio_button :attribute_names, "False", multiple: true%>
-              <%= form.label :age_adult, "No"%>
+              <%= form.label :not, "No"%>
             <% end %>
           <% end %>
         </td>
