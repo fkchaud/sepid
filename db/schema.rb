@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_31_063627) do
+ActiveRecord::Schema.define(version: 2019_09_19_220728) do
 
   create_table "access_permits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "use_case_name"
@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 2019_08_31_063627) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "order_type_id"
+    t.index ["order_type_id"], name: "index_orders_on_order_type_id"
     t.index ["project_id"], name: "index_orders_on_project_id"
   end
 
@@ -294,6 +296,7 @@ ActiveRecord::Schema.define(version: 2019_08_31_063627) do
   add_foreign_key "order_type_attribute_values", "order_type_attributes"
   add_foreign_key "order_type_attribute_values", "orders"
   add_foreign_key "order_type_attributes", "order_types"
+  add_foreign_key "orders", "order_types"
   add_foreign_key "orders", "projects"
   add_foreign_key "project_funds_details", "funds_destinations"
   add_foreign_key "project_funds_details", "projects"

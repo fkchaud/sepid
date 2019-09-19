@@ -17,6 +17,8 @@ class OrdersController < ApplicationController
     @project = @order.project
     # Buscar el tipo de pedido seleccionado
     @order_type = OrderType.find(params[:order][:order_type_id])
+    # Asociar tipo de pedido al pedido
+    @order.order_type = @order_type
     # Asociar historial
     @order.order_status_histories.new(
       date_change_status_order: Time.now,
