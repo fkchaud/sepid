@@ -1,0 +1,25 @@
+<h1>Listado de pedidos</h1>
+<table class="table table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <th>Proyecto</th>
+    <th>Fecha</th>
+    <th>Descripción</th>
+    <th class="fit"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @orders.each do |order| %>
+    <tr class="align-items-center">
+      <td><%= order.project.project_code %></td>
+      <td><%= order.order_date %></td>
+      <td><%= order.description_order %></td>
+      <td class="fit">
+        <div class='btn-group'>
+          <%= link_to 'Mostrar', order_path(order), class: 'btn btn-outline-info' %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,45 @@
+<h1>Datos del pedido</h1>
+<table class="table table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <td>Fecha</td>
+    <td>Descripción</td>
+    <td>Motivo</td>
+    <%@order.order_type_attribute_values.each do |attribute| %>
+    <td><%=attribute.order_type_attribute.attribute_name %></td>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <td><%=@order.order_date %></td>
+  <td><%=@order.description_order %></td>
+  <td><%=@order.reason_order %></td>
+  <%@order.order_type_attribute_values.each do |attribute_value| %>
+    <td><%=attribute_value.value %></td>
+  <% end %>
+  </tbody>
+</table>
+<h1>Detalles del pedido</h1>
+<table class="table table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <%@order.order_details.each do |detail| %>
+      <%detail.order_detail_attribute_values.each do |attribute_detail| %>
+        <td><%=attribute_detail.order_detail_attribute.attribute_name%></td>
+      <% end %>
+    <% end %>
+    <td>Descripción</td>
+    <td>Valor</td>
+  </tr>
+  </thead>
+  <tbody>
+  <%@order.order_details.each do |detail| %>
+    <%detail.order_detail_attribute_values.each do |attribute_detail| %>
+      <td><%=attribute_detail.value%></td>
+    <% end %>
+    <td><%=detail.description_detail %></td>
+    <td><%=detail.last_value.amount %></td>
+  <% end %>
+  </tbody>
+</table>
+<%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-outline-info' %>

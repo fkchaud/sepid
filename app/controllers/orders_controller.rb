@@ -1,5 +1,27 @@
 class OrdersController < ApplicationController
 
+  def index
+    if current_user.user_profile.name == 'SeCYT_Admin'
+      @orders = Order.all.select do |o|
+        o.order_status.order_status_name == 'Pedido realizado'
+      end
+    end
+    if current_user.user_profile.name == 'SeCYT_Sec'
+      @orders = Order.all.select do |o|
+        o.order_status.order_status_name == 'Aprobado por CYT'
+      end
+    end
+    if current_user.user_profile.name == 'DEF_Admin'
+      @orders = Order.all.select do |o|
+        ['Aprobado por Secretario', 'Armado y aprobación de preventivo'].include? o.order_status.order_status_name
+      end
+    end
+  end
+
+  def show
+    @order = Order.find(params[:id])
+  end
+
   def new
     @project = Project.find(params[:project_id])
     @order = Order.new
@@ -35,6 +57,8 @@ class OrdersController < ApplicationController
     amounts = {}
     amounts.default = 0.0
     (0...(@order_type.order_type_attributes.length)).each do |index|
+      # Ignorar si el atributo está dado de baja
+      next unless @order_type.order_type_attributes[index].is_disabled.nil?
       # Crear los valores de los atributos
       current_order_attribute = @order.order_type_attribute_values.new(
           value: params[:order][:attribute_names][index]
@@ -47,6 +71,8 @@ class OrdersController < ApplicationController
     params[:order][:order_details_attributes].each do |_key, value|
       current_detail = @order.order_details.new
       (0...@order_type.order_detail_attributes.length).each do |index|
+        # Ignorar si el atributo está dado de baja
+        next unless @order_type.order_detail_attributes[index].is_disabled.nil?
         current_detail_attribute = current_detail.order_detail_attribute_values.new(
           value: value[:attribute_names][index]
         )
@@ -109,6 +135,16 @@ class OrdersController < ApplicationController
     @project = Project.find(params[:project_id])
     @subsections = Subsection.where(is_disabled: nil)
     @order = Order.new
+  end
+
+  def update
+    @order = Order.find(params[:id])
+    @order.order_status_histories.create(
+        date_change_status_order: Time.now,
+        reason_change_status_order: 'Aprobado por CYT',
+        order_status: OrderStatus.where(order_status_name: 'Aprobado por CYT').first
+    )
+    redirect_to orders_path
   end
 
   private
