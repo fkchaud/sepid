@@ -13,7 +13,8 @@ class OrdersController < ApplicationController
     end
     if current_user.user_profile.name == 'DEF_Admin'
       @orders = Order.all.select do |o|
-        ['Aprobado por Secretario', 'Armado y aprobación de preventivo'].include? o.order_status.order_status_name
+        ['Aprobado por Secretario', 'Armado y aprobación de preventivo',
+         'Licitación iniciada'].include? o.order_status.order_status_name
       end
     end
   end
@@ -139,10 +140,19 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
+    @ref = ''
+    case current_user.user_profile.name
+    when 'SeCYT_Admin'
+      @ref = 'Aprobado por CYT'
+    when 'SeCYT_Sec'
+      @ref = 'Aprobado por Secretario'
+    when 'DEF_Admin'
+      @ref = 'Armado y aprobación de preventivo'
+    end
     @order.order_status_histories.create(
         date_change_status_order: Time.now,
-        reason_change_status_order: 'Aprobado por CYT',
-        order_status: OrderStatus.where(order_status_name: 'Aprobado por CYT').first
+        reason_change_status_order: @ref,
+        order_status: OrderStatus.where(order_status_name: @ref).first
     )
     redirect_to orders_path
   end

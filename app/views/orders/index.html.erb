@@ -5,6 +5,7 @@
     <th>Proyecto</th>
     <th>Fecha</th>
     <th>Descripción</th>
+    <th>Estado</th>
     <th class="fit"></th>
   </tr>
   </thead>
@@ -14,6 +15,7 @@
       <td><%= order.project.project_code %></td>
       <td><%= order.order_date %></td>
       <td><%= order.description_order %></td>
+      <td><%=order.order_status.order_status_name %></td>
       <td class="fit">
         <div class='btn-group'>
           <%= link_to 'Mostrar', order_path(order), class: 'btn btn-outline-info' %>
