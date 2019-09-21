@@ -1,6 +1,11 @@
 class OrdersController < ApplicationController
 
   def index
+    if current_user.user_profile.name == 'Investigador'
+      @orders = Order.all.select do |o|
+        o.project.director == current_user || o.project.codirector == current_user
+      end
+    end
     if current_user.user_profile.name == 'SeCYT_Admin'
       @orders = Order.all.select do |o|
         o.order_status.order_status_name == 'Pedido realizado'
@@ -14,7 +19,8 @@ class OrdersController < ApplicationController
     if current_user.user_profile.name == 'DEF_Admin'
       @orders = Order.all.select do |o|
         ['Aprobado por Secretario', 'Armado y aprobación de preventivo',
-         'Licitación iniciada'].include? o.order_status.order_status_name
+         'Licitación iniciada', 'Devengado realizado',
+         'Pedido recibido'].include? o.order_status.order_status_name
       end
     end
   end

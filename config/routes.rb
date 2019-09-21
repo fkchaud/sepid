@@ -29,9 +29,7 @@ Rails.application.routes.draw do
   end
   resources :projects do
     post '/orders/continue(.:format)', to: 'orders#continue'
-    resources :orders do
-      resources :order_details
-    end
+    resources :orders
     resources :subsection_shifts, only: [:index, :show, :new, :create]
     get '/subsection_shifts/:id/approve',
         to: 'subsection_shifts#approve',
