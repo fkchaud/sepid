@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :user_profiles
   resources :orders do
     post '/start_tender', to: 'orders#start_tender'
+    post '/cancel_order', to: 'orders#cancel_order'
   end
   resources :projects do
     post '/orders/continue(.:format)', to: 'orders#continue'

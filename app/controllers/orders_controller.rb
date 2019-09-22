@@ -184,6 +184,16 @@ class OrdersController < ApplicationController
     end
   end
 
+  def cancel_order
+    @order = Order.find(params[:order_id])
+      @order.order_status_histories.create(
+          date_change_status_order: Time.now,
+          reason_change_status_order: 'Pedido cancelado',
+          order_status: OrderStatus.where(order_status_name: 'Pedido cancelado').first
+      )
+    redirect_to orders_path
+  end
+
   private
 
   def order_params

@@ -45,6 +45,9 @@
   <% end %>
   </tbody>
 </table>
+<%if  current_user.user_profile.name == 'Investigador' && @order.order_status.allow_cancel_order == true%>
+  <%= link_to 'Cancelar pedido', order_cancel_order_path(@order), method: "post", data: { confirm: '¿Seguro que desea cancelar?'}, class: 'btn btn-outline-info' %>
+<%end%>
 <%unless current_user.user_profile.name == 'Investigador' %>
   <%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-outline-info' %>
 <%end %>

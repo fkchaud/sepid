@@ -81,7 +81,7 @@ class Project < ApplicationRecord
   def total_expenses
     orders = self.orders.where('extract(year from order_date) = ?', Time.now.year)
     valid_orders = orders.reject do |o|
-      ['Cancelado', 'Rechazado'].include? o.order_status.order_status_name
+      ['Pedido cancelado', 'Pedido rechazado'].include? o.order_status.order_status_name
     end
     total_expenses_per_subsection = {}
     total_expenses_per_subsection.default = 0.0
