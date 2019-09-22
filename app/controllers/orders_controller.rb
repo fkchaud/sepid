@@ -156,7 +156,7 @@ class OrdersController < ApplicationController
       case @order.order_status.order_status_name
       when 'Aprobado por Secretario'
         @ref = 'Armado y aprobación de preventivo'
-      when 'Armado y aprobación de preventivo'
+      when 'Armado y aprobación de preventivo', 'Licitación iniciada'
         @ref = 'Devengado realizado'
       when 'Devengado realizado'
         @ref = 'Pedido recibido'
@@ -170,6 +170,18 @@ class OrdersController < ApplicationController
         order_status: OrderStatus.where(order_status_name: @ref).first
     )
     redirect_to orders_path
+  end
+
+  def start_tender
+    @order = Order.find(params[:order_id])
+    if current_user.user_profile.name == 'DEF_Admin'
+      @order.order_status_histories.create(
+          date_change_status_order: Time.now,
+          reason_change_status_order: 'Licitación iniciada',
+          order_status: OrderStatus.where(order_status_name: 'Licitación iniciada').first
+      )
+      redirect_to orders_path
+    end
   end
 
   private

@@ -45,4 +45,9 @@
   <% end %>
   </tbody>
 </table>
-<%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-outline-info' %>
+<%unless current_user.user_profile.name == 'Investigador' %>
+  <%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-outline-info' %>
+<%end %>
+<%if current_user.user_profile.name == 'DEF_Admin' && @order.order_status.order_status_name == 'Armado y aprobación de preventivo'%>
+  <%= link_to 'Iniciar licitación', order_start_tender_path(@order), method: "post", class: 'btn btn-outline-info' %>
+<%end%>
