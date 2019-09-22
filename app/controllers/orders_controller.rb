@@ -135,6 +135,7 @@ class OrdersController < ApplicationController
         value_status: ValueStatus.where(value_status_name: 'Estimado').first
       )
     end
+    redirect_to orders_path
   end
 
   def continue
