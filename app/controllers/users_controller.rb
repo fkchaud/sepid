@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find params[:id]
-    if @user.update project_params
+    if @user.update user_params
       flash[:success] = 'Usuario actualizado con éxito.'
       redirect_to @user
     else
