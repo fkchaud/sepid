@@ -36,9 +36,9 @@
     <% end %>
   </div>
 
-  <h5>Projects:</h5>
+  <h5>Proyectos:</h5>
   <%= f.collection_select :project_id,
-                        Project.all,
+                        Project.actual_year.enabled,
                         :id,
                         :project_name,
                         {},

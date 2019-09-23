@@ -60,10 +60,11 @@ class Project < ApplicationRecord
   scope :has_director, ->(user) { where(director: user).or(where(codirector: user)) }
   scope :actual_year, lambda {
     where(
-      'extract(year from start_date >= :year) AND extract(year from ending_date <= :year)',
+      'extract(year from start_date) >= :year AND extract(year from ending_date) <= :year',
       year: Time.now.year
     )
   }
+  scope :enabled, -> { where.not(project_status: ProjectStatus.find_by_name('Cancelado')) }
 
   # calculate money
   def total_credits
