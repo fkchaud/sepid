@@ -10,13 +10,20 @@ class User < ApplicationRecord
   attribute :file_number, :integer
   validates :file_number,
             presence: true,
-            numericality: { greater_than: 0 },
+            numericality: { greater_than: 0,
+                            less_than: 999999 },
             uniqueness: { scope: :is_disabled }
   attribute :last_name, :string
+  validates :last_name, format: { with: %r{\A[a-zA-Z ]*\z},
+                                  message: 'can only have letters and spaces' }
   attribute :first_name, :string
+  validates :first_name, format: { with: %r{\A[a-zA-Z ]*\z},
+                                  message: 'can only have letters and spaces' }
   attribute :email, :string
   attribute :telephone, :string
   attribute :cuil, :integer, limit: 8
+  validates :cuil, numericality: { greater_than: 10000000000,
+                                   less_than: 99999999999 }
   attribute :is_disabled, :datetime
 
   has_one :university_position

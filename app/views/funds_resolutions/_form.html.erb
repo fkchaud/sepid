@@ -1,8 +1,5 @@
 <%= form_with model: @funds_resolution, local: true do |f| %>
 
-  Params:
-  <%= render plain: params.inspect %>
-
   <% if @funds_resolution.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@funds_resolution.errors.count, "error") %> prohibited this article from being saved:</h2>

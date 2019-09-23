@@ -6,6 +6,7 @@
       <th>Legajo</th>
       <th>Nombre de Usuario</th>
       <th>Nombre Completo</th>
+      <th>Perfil de Usuario</th>
       <th class="fit"></th>
     </tr>
   </thead>
@@ -15,6 +16,7 @@
         <td><%= user.file_number %></td>
         <td><%= user.user_name %></td>
         <td><%= user.full_name %></td>
+        <td><%= user.user_profile.name %></td>
         <td class="fit">
           <div class='btn-group'>
             <%= link_to 'Mostrar', user_path(user), class: 'btn btn-outline-info' %>
