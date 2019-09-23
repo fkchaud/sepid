@@ -2,30 +2,6 @@
               url: [@funds_resolution, @funds_destination],
               local: true do |f| %>
 
-  <%# print params %>
-  <p class="row">
-    Params:
-    <%= render plain: params.inspect %>
-  </p>
-
-  <%# print @funds_destination %>
-  <p class="row">
-    @Resolución:
-    <%= render plain: @funds_resolution.inspect %>
-  </p>
-
-  <%# print @funds_destination %>
-  <p class="row">
-    @Destino:
-    <%= render plain: @funds_destination.inspect %>
-  </p>
-
-  <%# print @project_funds_detail %>
-  <p class="row">
-    @PFD:
-    <%= render plain: @funds_destination.project_funds_details.inspect %>
-  </p>
-
   <%# errors %>
   <% if @funds_destination.errors.any? %>
     <div id="error_explanation">
