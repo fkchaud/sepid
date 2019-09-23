@@ -6,7 +6,12 @@ class OrderStatusesController < ApplicationController
 
   def create
     @order_status = OrderStatus.new order_status_params
-    render 'new' unless @order_status.save
+    if @order_status.save
+      flash[:success] = 'Estado de Pedido creado con éxito.'
+      redirect_to @order_status
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -23,7 +28,12 @@ class OrderStatusesController < ApplicationController
 
   def update
     @order_status = OrderStatus.find params[:id]
-    render 'edit' unless @order_status.update order_status_params
+    if @order_status.update order_status_params
+      flash[:success] = 'Estado de Pedido actualizado con éxito.'
+      redirect_to @order_status
+    else
+      render 'edit'
+    end
   end
 
   def destroy

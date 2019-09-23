@@ -13,7 +13,12 @@ class ProjectTypesController < ApplicationController
 
   def create
     @project_type = ProjectType.new project_type_params
-    render 'new' unless @project_type.save
+    if @project_type.save
+      flash[:success] = 'Tipo de Proyecto creado con éxito.'
+      redirect_to @project_type
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -30,7 +35,12 @@ class ProjectTypesController < ApplicationController
 
   def update
     @project_type = ProjectType.find params[:id]
-    render 'edit' unless @project_type.update project_type_params
+    if @project_type.update project_type_params
+      flash[:success] = 'Tipo de Proyecto actualizado con éxito.'
+      redirect_to @project_type
+    else
+      render 'edit'
+    end
   end
 
   def destroy

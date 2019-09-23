@@ -1,0 +1,64 @@
+<h1>Listado de pedidos</h1>
+<div class="form-group row">
+  <%= label :project, 'Buscar:', class: 'col col-form-label' %>
+  <div class="col-10">
+    <input id="search_id" class="form-control" onkeyup="doSearch()" type="text" name="project[project_code]">
+  </div>
+</div>
+<table class="table table-hover" id = 'table_id'>
+  <thead class="thead-dark">
+  <tr>
+    <th>Proyecto</th>
+    <th>Fecha</th>
+    <th>Descripción</th>
+    <th>Estado</th>
+    <th class="fit"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @orders.each do |order| %>
+    <tr class="align-items-center">
+      <td><%= order.project.project_code %></td>
+      <td><%= order.order_date %></td>
+      <td><%= order.description_order %></td>
+      <td><%=order.order_status.order_status_name %></td>
+      <td class="fit">
+        <div class='btn-group'>
+          <%= link_to 'Mostrar', order_path(order), class: 'btn btn-outline-info' %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<script>
+    function doSearch()
+    {
+        var tableReg = document.getElementById('table_id');
+        var searchText = document.getElementById('search_id').value.toLowerCase();
+        var cellsOfRow="";
+        var found=false;
+        var compareWith="";
+
+        // Recorremos todas las filas con contenido de la tabla
+        for (var i = 1; i < tableReg.rows.length; i++)
+        {
+            cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
+            found = false;
+            // Recorremos todas las celdas
+                compareWith = cellsOfRow[0].innerHTML.toLowerCase();
+                // Buscamos el texto en el contenido de la celda
+                if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1))
+                {
+                    found = true;
+                }
+            if(found)
+            {
+                tableReg.rows[i].style.display = '';
+            } else {
+                // si no ha encontrado ninguna coincidencia, esconde la fila de la tabla
+                tableReg.rows[i].style.display = 'none';
+            }
+        }
+    }
+</script>

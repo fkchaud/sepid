@@ -63,12 +63,14 @@
     <orderEntry type="library" scope="PROVIDED" name="faraday (v0.15.4, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="faraday_middleware (v0.13.1, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.11.1, ruby-2.5.5-p157) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="font-awesome-rails (v4.7.0.5, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="gh (v0.14.0, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.2, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="highline (v1.7.10, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="i18n (v1.6.0, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jbuilder (v2.9.1, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jquery-rails (v4.3.5, ruby-2.5.5-p157) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="js_cookie_rails (v2.2.0, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json (v2.2.0, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="launchy (v2.4.3, ruby-2.5.5-p157) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="loofah (v2.2.3, ruby-2.5.5-p157) [gem]" level="application" />

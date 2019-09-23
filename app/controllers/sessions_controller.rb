@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    user = User.find_by(user_name: params[:session][:name].downcase)
+    user = User.enabled.find_by(user_name: params[:session][:name].downcase)
     if user && user.authenticate(params[:session][:password])
       unless user.is_disabled.nil?
         flash[:error] = 'Usuario no habilitado, comuníquese con el administrador del sistema'

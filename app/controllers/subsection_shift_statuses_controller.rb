@@ -7,7 +7,13 @@ class SubsectionShiftStatusesController < ApplicationController
   def create
     @subsection_shift_status =
       SubsectionShiftStatus.new subsection_shift_status_params
-    render 'new' unless @subsection_shift_status.save
+
+    if @subsection_shift_status.save
+      flash[:success] = 'Estado de Cambio de Inciso creado con éxito.'
+      redirect_to @subsection_shift_status
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -24,8 +30,12 @@ class SubsectionShiftStatusesController < ApplicationController
 
   def update
     @subsection_shift_status = SubsectionShiftStatus.find params[:id]
-    render 'edit' unless
-      @subsection_shift_status.update subsection_shift_status_params
+    if @subsection_shift_status.update subsection_shift_status_params
+      flash[:success] = 'Estado de Cambio de Inciso actualizado con éxito.'
+      redirect_to @subsection_shift_status
+    else
+      render 'edit'
+    end
   end
 
   def destroy

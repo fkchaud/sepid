@@ -1,38 +1,42 @@
 class ProjectsController < ApplicationController
+  before_action :set_projects,
+                only: [:edit, :show]
 
   def index
-    if current_user.user_profile.name == 'Super_Admin'
-      @projects = Project.all
-    end
     if current_user.user_profile.name == 'Investigador'
       @projects = Project.where(director_id: current_user.id).or(Project.where(codirector_id: current_user.id))
+    else
+      # if current_user.user_profile.name == 'Super_Admin'
+      @projects = Project.all
     end
   end
 
-  def show
-    @project = Project.find params[:id]
-  end
+  def show; end
 
   def new
     @project = Project.new
   end
 
-  def edit
-    @project = Project.find params[:id]
-  end
+  def edit; end
 
   def create
     @project = Project.new project_params
-    return if @project.save
-
-    render 'new'
+    if @project.save
+      flash[:success] = 'Proyecto creado con éxito.'
+      redirect_to @project
+    else
+      render 'new'
+    end
   end
 
   def update
     @project = Project.find params[:id]
-    return if @project.update project_params
-
-    render 'edit'
+    if @project.update project_params
+      flash[:success] = 'Proyecto actualizado con éxito.'
+      redirect_to @project
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -70,6 +74,13 @@ class ProjectsController < ApplicationController
             :project_type_id,
             :project_status_id
           )
+  end
+
+  def set_projects
+    @project = Project.find params[:id]
+    @total_credits = @project.total_credits
+    @total_expenses = @project.total_expenses
+    @available_credits = @project.available_credits @total_credits, @total_expenses
   end
 
 end

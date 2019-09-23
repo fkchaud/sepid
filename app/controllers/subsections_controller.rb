@@ -6,7 +6,12 @@ class SubsectionsController < ApplicationController
 
   def create
     @subsection = Subsection.new subsection_params
-    render 'new' unless @subsection.save
+    if @subsection.save
+      flash[:success] = 'Inciso creado con éxito.'
+      redirect_to @subsection
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -23,7 +28,13 @@ class SubsectionsController < ApplicationController
 
   def update
     @subsection = Subsection.find params[:id]
-    render 'edit' unless @subsection.update subsection_params
+    if @subsection.update subsection_params
+      flash[:success] = 'Inciso actualizado con éxito.'
+      redirect_to @subsection
+    else
+      render 'edit'
+    end
+
   end
 
   def destroy

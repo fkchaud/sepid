@@ -1,0 +1,74 @@
+<h1>Datos del pedido</h1>
+<table class="table table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <td>Fecha</td>
+    <td>Descripción</td>
+    <td>Motivo</td>
+    <%@order.order_type_attribute_values.each do |attribute| %>
+    <td><%=attribute.order_type_attribute.attribute_name %></td>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <td><%=@order.order_date %></td>
+  <td><%=@order.description_order %></td>
+  <td><%=@order.reason_order %></td>
+  <%@order.order_type_attribute_values.each do |attribute_value| %>
+    <td><%=attribute_value.value %></td>
+  <% end %>
+  </tbody>
+</table>
+<h1>Detalles del pedido</h1>
+<table class="table table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <%@order.order_details.each do |detail| %>
+      <%detail.order_detail_attribute_values.each do |attribute_detail| %>
+        <td><%=attribute_detail.order_detail_attribute.attribute_name%></td>
+      <% end %>
+    <% end %>
+    <td>Descripción</td>
+    <td>Valor</td>
+  </tr>
+  </thead>
+  <tbody>
+  <%@order.order_details.each do |detail| %>
+    <%detail.order_detail_attribute_values.each do |attribute_detail| %>
+      <td><%=attribute_detail.value%></td>
+    <% end %>
+    <td><%=detail.description_detail %></td>
+    <td><%=detail.last_value.amount %></td>
+  <% end %>
+  </tbody>
+</table>
+<%if current_user.user_profile.name == 'Investigador' %>
+  <h1>Estados por los que ha pasado el pedido</h1>
+  <table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <td>Nombre estado</td>
+      <td>Fecha de cambio de estado</td>
+      <td>Motivo cambio de estado</td>
+    </tr>
+    </thead>
+    <tbody>
+    <%@order.order_status_histories.each do |osh| %>
+      <tr>
+        <td><%=osh.order_status.order_status_name %></td>
+        <td><%=osh.date_change_status_order %></td>
+        <td><%=osh.reason_change_status_order %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<%end %>
+<%if  current_user.user_profile.name == 'Investigador' && @order.order_status.allow_cancel_order == true%>
+  <%= link_to 'Cancelar pedido', order_cancel_order_path(@order), method: "post", data: { confirm: '¿Seguro que desea cancelar?'}, class: 'btn btn-outline-info' %>
+<%end%>
+<%unless current_user.user_profile.name == 'Investigador'|| @order.order_status.order_status_name == 'Pedido retirado' %>
+  <%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-outline-info', data: { confirm: '¿Seguro que desea aprobar?' }%>
+<%end %>
+<%if current_user.user_profile.name == 'DEF_Admin' && @order.order_status.order_status_name == 'Armado y aprobación de preventivo'%>
+  <%= link_to 'Iniciar licitación', order_start_tender_path(@order), method: "post", class: 'btn btn-outline-info', data: { confirm: '¿Seguro que desea iniciar licitación?' } %>
+<%end%>

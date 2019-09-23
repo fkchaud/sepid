@@ -9,79 +9,32 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body style="padding-top: 3.5rem !important;">
-  <%= render 'layouts/navbar' %>
-  <table class="w-100">
-    <tr>
-      <td class="w-25 align-top" style="background-color:#E5F0E7;">
-        <nav id="sidebar">
-          <div class="sidebar-header">
-            <h3>Menú de navegación</h3>
-          </div>
-
-          <ul class="list-unstyled components">
-            <li>
-              <%= link_to 'CU 02: Administrar Usuarios', users_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-            <li>
-              <%= link_to 'CU 05: ABM Perfil de Usuario', user_profiles_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-            <li>
-              <%= link_to 'CU 06: ABM Cargo Universitario', university_positions_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-            <li>
-              <%= link_to 'CU 07: ABM Proyecto', projects_path %>
-              <span class="badge badge-info">Prettify</span>
-            </li>
-            <li>
-              <%= link_to 'CU 08: ABM Estado de Proyecto', project_statuses_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-            <li>
-              <%= link_to 'CU 09: ABM Tipo de Proyecto', project_types_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-            <li>
-              <%= link_to 'CU 10: Administrar Resoluciones', funds_resolutions_path %>
-              <span class="badge badge-warning">WIP</span>
-            </li>
-            <li>
-              <%= link_to 'CU 11: ABM Tipo de Resolución', resolution_types_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-            <li>
-              <%= link_to 'CU 13: Parametrizar Tipo de Pedido', order_types_path %>
-              <span class="badge badge-warning">WIP</span>
-            </li>
-            <li>
-              <%= link_to 'CU 18: ABM Inciso', subsections_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-            <li>
-              <%= link_to 'CU 19: ABM Estado de Cambio de Inciso', subsection_shift_statuses_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-            <li>
-              <%= link_to 'CU 29: ABM Estado del Pedido', order_statuses_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-            <li>
-              <%= link_to 'CU 30: ABM Estado de Valor', value_statuses_path %>
-              <span class="badge badge-success">Done</span>
-            </li>
-          </ul>
-        </nav>
-      </td>
-      <td>
-        <div class="container">
+  <body>
+    <%= render 'layouts/navbar' %>
+    <div class="d-flex flex-fill overflow-auto">
+      <%= render 'layouts/sidebar' %>
+      <div class="wrapper">
+        <button type="button" id="sidebar-toggler" class="btn btn-secondary<%= (cookies[:sidebar_status] == "true") ? " toggled" : "" %>">
+          <span class="fa fa-chevron-left"></span>
+        </button>
+        <div id="content">
           <%= yield %>
         </div>
-      </td>
-    </tr>
-  </table>
+      </div>
+    </div>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            let sidebar_status = <%= cookies[:sidebar_status] == "true" %>;
+            let sidebar_toggler = $("#sidebar-toggler");
+            let sidebar = $("#sidebar");
 
+            sidebar_toggler.on('click', function () {
+                sidebar.toggleClass('toggled');
+                $(this).toggleClass('toggled');
+                sidebar_status = !sidebar_status;
+                document.cookie = "sidebar_status=" + sidebar_status;
+            });
+        });
+    </script>
   </body>
 </html>

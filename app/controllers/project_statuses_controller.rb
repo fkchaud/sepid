@@ -6,7 +6,12 @@ class ProjectStatusesController < ApplicationController
 
   def create
     @project_status = ProjectStatus.new project_status_params
-    render 'new' unless @project_status.save
+    if @project_status.save
+      flash[:success] = 'Estado de Proyecto creado con éxito.'
+      redirect_to @project_status
+    else
+      render 'new'
+    end
   end
 
   def new
@@ -23,7 +28,12 @@ class ProjectStatusesController < ApplicationController
 
   def update
     @project_status = ProjectStatus.find params[:id]
-    render 'edit' unless @project_status.update project_status_params
+    if @project_status.update project_status_params
+      flash[:success] = 'Estado de Proyecto actualizado con éxito.'
+      redirect_to @project_status
+    else
+      render 'edit'
+    end
   end
 
   def destroy
