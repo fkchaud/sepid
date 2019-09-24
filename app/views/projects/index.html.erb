@@ -51,4 +51,6 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Agregar Proyecto', new_project_path, class: 'btn btn-outline-primary btn-block' %>
+<%if current_user.user_profile.name == "SeCYT_Admin" || current_user.user_profile.name =='Super_Admin' %>
+  <%= link_to 'Agregar Proyecto', new_project_path, class: 'btn btn-outline-primary btn-block' %>
+<%end %>
