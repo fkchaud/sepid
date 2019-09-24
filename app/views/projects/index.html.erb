@@ -41,6 +41,7 @@
               %>
             <% end %>
           <% end %>
+          <%= link_to 'Cambio de Inciso', project_subsection_shifts_path(project), class: 'btn btn-outline-info' unless project.disabled? %>
           <%if current_user.user_profile.name == "Investigador" && !project.disabled? %>
             <%= link_to 'Realizar pedido', new_project_order_path(project), class: 'btn btn-outline-info' %>
           <% end %>
