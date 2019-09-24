@@ -1,27 +1,29 @@
 class OrdersController < ApplicationController
 
   def index
-    if current_user.user_profile.name == 'Investigador'
+    case current_user.user_profile.name
+    when 'Investigador'
       @orders = Order.all.select do |o|
         o.project.director == current_user || o.project.codirector == current_user
       end
-    end
-    if current_user.user_profile.name == 'SeCYT_Admin'
+    when 'SeCYT_Admin'
       @orders = Order.all.select do |o|
         o.order_status.order_status_name == 'Pedido realizado'
       end
-    end
-    if current_user.user_profile.name == 'SeCYT_Sec'
+    when 'SeCYT_Sec'
       @orders = Order.all.select do |o|
         o.order_status.order_status_name == 'Aprobado por CYT'
       end
-    end
-    if current_user.user_profile.name == 'DEF_Admin'
+    when 'DEF_Admin'
       @orders = Order.all.select do |o|
         ['Aprobado por Secretario', 'Armado y aprobación de preventivo',
          'Licitación iniciada', 'Devengado realizado',
          'Pedido recibido', 'Pedido retirado'].include? o.order_status.order_status_name
       end
+    when 'Super_Admin'
+      @orders = Order.all
+    else
+      render 'layouts/forbidden', status: :forbidden
     end
   end
 
@@ -148,27 +150,27 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     @ref = ''
-    case current_user.user_profile.name
-    when 'SeCYT_Admin'
+    case @order.order_status.order_status_name
+    when 'Pedido realizado'
       @ref = 'Aprobado por CYT'
-    when 'SeCYT_Sec'
+    when 'Aprobado por CYT'
       @ref = 'Aprobado por Secretario'
-    when 'DEF_Admin'
-      case @order.order_status.order_status_name
-      when 'Aprobado por Secretario'
-        @ref = 'Armado y aprobación de preventivo'
-      when 'Armado y aprobación de preventivo', 'Licitación iniciada'
-        @ref = 'Devengado realizado'
-      when 'Devengado realizado'
-        @ref = 'Pedido recibido'
-      when 'Pedido recibido'
-        @ref = 'Pedido retirado'
-      end
+    when 'Aprobado por Secretario'
+      @ref = 'Armado y aprobación de preventivo'
+    when 'Armado y aprobación de preventivo', 'Licitación iniciada'
+      @ref = 'Devengado realizado'
+    when 'Devengado realizado'
+      @ref = 'Pedido recibido'
+    when 'Pedido recibido'
+      @ref = 'Pedido retirado'
+    else
+      render 'layouts/forbidden', status: :method_not_allowed
+      return
     end
     @order.order_status_histories.create(
-        date_change_status_order: Time.now,
-        reason_change_status_order: @ref,
-        order_status: OrderStatus.where(order_status_name: @ref).first
+      date_change_status_order: Time.now,
+      reason_change_status_order: @ref,
+      order_status: OrderStatus.where(order_status_name: @ref).first
     )
     redirect_to orders_path
   end

@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     elsif current_user.user_profile.name == 'SeCYT_Admin'
       user_profiles = UserProfile.where(name: 'Investigador')
     else
-      render 'forbidden'
+      render 'layouts/forbidden', status: :forbidden
       return
     end
     @users = User.profile(user_profiles)
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     elsif current_user.user_profile.name == 'SeCYT_Admin'
       UserProfile.enabled.where(name: 'Investigador')
     else
-      render 'forbidden'
+      render 'layouts/forbidden', status: :forbidden
     end
   end
 
