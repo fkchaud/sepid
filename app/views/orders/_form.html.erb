@@ -1,9 +1,4 @@
 <p>Atributos del pedido</p>
-<% flash.each do |key, value| %>
-  <div class="<%= flash_class(key) %>">
-    <%= value %>
-  </div>
-<% end %>
 <%= form_with model: @order, url:project_orders_path, local: true do |form| %>
   <table>
     <tr>

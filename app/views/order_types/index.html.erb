@@ -1,4 +1,9 @@
 <h1>Listado de tipos de pedidos</h1>
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
 <table class="table table-hover">
   <thead class="thead-dark">
   <tr>

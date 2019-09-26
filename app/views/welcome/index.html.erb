@@ -1,4 +1,9 @@
 <h1>Welcome#index</h1>
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
 <ul class="list-group w-fit">
   <li class="list-group-item d-flex justify-content-between align-items-center">
     <% if current_user %>

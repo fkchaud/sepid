@@ -35,6 +35,12 @@ class OrdersController < ApplicationController
     @project = Project.find(params[:project_id])
     @order = Order.new
     @order_types = OrderType.where(is_disabled: nil)
+    if @order_types.empty?
+      flash[:error] = 'No existe ningún tipo de pedido vigente, no se puede continuar con la acción.
+                         Contactar con el personal a cargo'
+      redirect_to welcome_index_path
+      return
+    end
   end
 
   def create
