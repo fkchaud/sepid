@@ -19,11 +19,13 @@
       <td><%=  attribute.attribute_type  %></td>
       <td class="fit">
         <div class="btn-group btn-group-sm">
-          <%=  link_to 'Editar', edit_order_type_order_type_attribute_path(attribute.order_type, attribute), class: 'btn btn-outline-primary'  %>
-          <%= link_to 'Eliminar', [attribute.order_type, attribute],
-                      class: 'btn btn-outline-danger',
-                      method: :delete,
-                      data: {confirm: 'Are you sure?'} %>
+          <%unless attribute.is_disabled  %>
+            <%=  link_to 'Editar', edit_order_type_order_type_attribute_path(attribute.order_type, attribute), class: 'btn btn-outline-primary'  %>
+            <%= link_to 'Eliminar', [attribute.order_type, attribute],
+                        class: 'btn btn-outline-danger',
+                        method: :delete,
+                        data: {confirm: 'Are you sure?'} %>
+          <%end %>
         </div>
       </td>
     </tr>

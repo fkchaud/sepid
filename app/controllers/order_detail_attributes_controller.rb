@@ -7,6 +7,11 @@ class OrderDetailAttributesController < ApplicationController
   def edit
     @order_type = OrderType.find(params[:order_type_id])
     @order_detail_attribute = @order_type.order_detail_attributes.find(params[:id])
+    if @order_detail_attribute.is_disabled
+      flash[:error] = 'No se puede editar un atributo de detalle dado de baja'
+      redirect_to order_type_path(@order_type)
+      return
+    end
   end
   def update 
     @order_type = OrderType.find(params[:order_type_id])
