@@ -3,7 +3,9 @@ class ProjectsController < ApplicationController
                 only: [:edit, :show]
 
   def index
-    if current_user.user_profile.name == 'Investigador'
+    if !current_user
+      render 'layouts/forbidden', status: :forbidden
+    elsif current_user.user_profile.name == 'Investigador'
       @projects = Project.where(director_id: current_user.id).or(Project.where(codirector_id: current_user.id))
     else
       # if current_user.user_profile.name == 'Super_Admin'
