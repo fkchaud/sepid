@@ -6,7 +6,7 @@ class OrderTypeAttributesController < ApplicationController
                                                            attribute_type: params[:order_type_attribute][:attribute_type],
                                                            order_type: @order_type, is_disabled: nil).take
     if !@order_type_attribute_exist.nil?
-      flash[:error] = 'Ya existe un atributo en este tipo de pedido'
+      flash[:error] = 'Ya existe un atributo igual en este tipo de pedido'
       redirect_to order_type_path(@order_type)
       return
     end
@@ -27,6 +27,14 @@ class OrderTypeAttributesController < ApplicationController
   def update
     @order_type = OrderType.find(params[:order_type_id])
     @order_type_attribute = @order_type.order_type_attributes.find(params[:id])
+    @order_type_attribute_exist = OrderTypeAttribute.where(attribute_name: params[:order_type_attribute][:attribute_name],
+                                                           attribute_type: params[:order_type_attribute][:attribute_type],
+                                                           order_type: @order_type, is_disabled: nil).take
+    if !@order_type_attribute_exist.nil?
+      flash[:error] = 'Ya existe un atributo en este tipo de pedido'
+      redirect_to edit_order_type_order_type_attribute_path(@order_type, @order_type_attribute)
+      return
+    end
     @order_type_attribute.update(order_type_attribute_params)
     redirect_to order_type_path(@order_type)
   end
