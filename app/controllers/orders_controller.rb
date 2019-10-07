@@ -193,6 +193,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def refuse_order
+    #render plain: params[:order_status_history].inspect
+    @order = Order.find(params[:order_id])
+    @order.order_status_histories.create(
+        date_change_status_order: Time.now,
+        reason_change_status_order: params[:order_status_history][:reason_change_status_order],
+        order_status: OrderStatus.where(order_status_name: 'Pedido rechazado').first
+    )
+    redirect_to orders_path
+  end
+
   def cancel_order
     @order = Order.find(params[:order_id])
       @order.order_status_histories.create(
