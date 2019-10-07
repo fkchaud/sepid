@@ -18,7 +18,6 @@
       </td>
     </tr>
     <%= form.hidden_field :order_type_id, value: @order_type.id %>
-    <%= form.hidden_field :project_id, value: @project.id %>
     <%@order_type.order_type_attributes.each do |attribute| %>
       <%if attribute.is_disabled.nil? %>
       <tr>
