@@ -23,10 +23,8 @@
 <table class="table table-hover">
   <thead class="thead-dark">
   <tr>
-    <%@order.order_details.each do |detail| %>
-      <%detail.order_detail_attribute_values.each do |attribute_detail| %>
+    <%@order.order_details[0].order_detail_attribute_values.each do |attribute_detail| %>
         <td><%=attribute_detail.order_detail_attribute.attribute_name%></td>
-      <% end %>
     <% end %>
     <td>Descripción</td>
     <td>Valor</td>
@@ -34,11 +32,13 @@
   </thead>
   <tbody>
   <%@order.order_details.each do |detail| %>
+    <tr>
     <%detail.order_detail_attribute_values.each do |attribute_detail| %>
       <td><%=attribute_detail.value%></td>
     <% end %>
     <td><%=detail.description_detail %></td>
     <td><%=detail.last_value.amount %></td>
+    </tr>
   <% end %>
   </tbody>
 </table>
