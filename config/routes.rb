@@ -28,6 +28,10 @@ Rails.application.routes.draw do
     post '/start_tender', to: 'orders#start_tender'
     post '/cancel_order', to: 'orders#cancel_order'
     post '/refuse_order', to: 'orders#refuse_order'
+    resources :order_details do
+      post '/adjust_preventive', to: 'order_details#adjust_preventive'
+      get '/show', to: 'order_details#show'
+    end
   end
   resources :projects do
     post '/orders/continue(.:format)', to: 'orders#continue'

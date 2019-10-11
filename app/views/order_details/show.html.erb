@@ -1,0 +1,19 @@
+<p>Código proyecto: <%=@order_detail.order.project.project_code %></p>
+<p>Nombre proyecto: <%=@order_detail.order.project.project_name %></p>
+<p>Motivo del pedido: <%=@order_detail.order.reason_order %></p>
+<p>Descripción del pedido: <%=@order_detail.order.description_order %></p>
+
+<%= form_with scope: :order_detail, url: order_order_detail_adjust_preventive_path(@order_detail.order, @order_detail), method: "post", local: true do |form| %>
+
+  <div class="form-group row">
+    <%= form.label :new_value, 'Valor:', class: 'col col-form-label' %>
+    <div class="col-10">
+      <%= form.number_field :new_value, class: 'form-control' %>
+    </div>
+  </div>
+
+  <p class="text-right">
+    <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
+    <%= form.submit 'Guardar', class: 'btn btn-success' %>
+  </p>
+<% end %>

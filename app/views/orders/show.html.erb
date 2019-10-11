@@ -28,6 +28,9 @@
     <% end %>
     <td>Descripción</td>
     <td>Valor</td>
+    <%if current_user.user_profile.name == 'DEF_Admin' && @order.order_status.order_status_name == 'Armado y aprobación de preventivo' %>
+      <td>Ajustar preventivo</td>
+    <%end %>
   </tr>
   </thead>
   <tbody>
@@ -36,8 +39,11 @@
     <%detail.order_detail_attribute_values.each do |attribute_detail| %>
       <td><%=attribute_detail.value%></td>
     <% end %>
-    <td><%=detail.description_detail %></td>
-    <td><%=detail.last_value.amount %></td>
+      <td><%=detail.description_detail %></td>
+      <td><%=detail.last_value.amount %></td>
+      <%if current_user.user_profile.name == 'DEF_Admin' && @order.order_status.order_status_name == 'Armado y aprobación de preventivo' %>
+        <td><%= link_to 'Ajustar preventivo', order_order_detail_show_path(@order, detail), method: "post", class: 'btn btn-outline-info'%></td>
+      <%end %>
     </tr>
   <% end %>
   </tbody>
@@ -82,7 +88,7 @@
     </div>
     <div class="form-group row">
       <div class="col-10">
-        <%= form.submit 'Rechazar', class: 'btn btn-success' %>
+        <%= form.submit 'Rechazar', data: { confirm: '¿Seguro que desea rechazar?'}, class: 'btn btn-success' %>
       </div>
     </div>
   <% end %>
