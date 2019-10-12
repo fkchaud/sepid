@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     post '/refuse_order', to: 'orders#refuse_order'
     resources :order_details do
       post '/adjust_preventive', to: 'order_details#adjust_preventive'
+      post '/refused_preventive', to: 'order_details#refused_preventive'
       get '/show', to: 'order_details#show'
     end
   end

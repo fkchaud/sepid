@@ -27,6 +27,7 @@
         <td><%=attribute_detail.order_detail_attribute.attribute_name%></td>
     <% end %>
     <td>Descripción</td>
+    <td>Inciso</td>
     <td>Valor</td>
     <%if current_user.user_profile.name == 'DEF_Admin' && @order.order_status.order_status_name == 'Armado y aprobación de preventivo' %>
       <td>Ajustar preventivo</td>
@@ -40,9 +41,10 @@
       <td><%=attribute_detail.value%></td>
     <% end %>
       <td><%=detail.description_detail %></td>
+      <td><%=detail.subsection.name %></td>
       <td><%=detail.last_value.amount %></td>
       <%if current_user.user_profile.name == 'DEF_Admin' && @order.order_status.order_status_name == 'Armado y aprobación de preventivo' %>
-        <td><%= link_to 'Ajustar preventivo', order_order_detail_show_path(@order, detail), method: "post", class: 'btn btn-outline-info'%></td>
+        <td><%= link_to 'Ajustar preventivo', order_order_detail_show_path(@order, detail), method: "get", class: 'btn btn-outline-info'%></td>
       <%end %>
     </tr>
   <% end %>
