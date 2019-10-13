@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
   end
   resources :projects do
+    get '/check_expenses', to: 'orders#check_expenses'
     post '/orders/continue(.:format)', to: 'orders#continue'
     resources :orders
     resources :subsection_shifts, only: [:index, :show, :new, :create]

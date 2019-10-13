@@ -214,6 +214,17 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def check_expenses
+    @project = Project.find(params[:project_id])
+    @years = (@project.start_date.year..@project.ending_date.year)
+    @subsections = Subsection.where(is_disabled: nil)
+    @orders_per_year = {}
+    @years.each do |year|
+      # Sacar los pedidos rechazados y cancelados
+      @orders_per_year[year] = @project.orders.where('extract(year from order_date) = ?', year)
+    end
+  end
+
   private
 
   def order_params
