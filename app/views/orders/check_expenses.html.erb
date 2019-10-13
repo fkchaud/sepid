@@ -17,6 +17,7 @@
 
 <%@years.each do |year| %>
   <div id = "<%=year %>" class="content" style="display: none">
+    <h2>Pedidos realizados el año <%=year %></h2>
     <table class="table table-hover">
       <thead class="thead-dark">
       <tr>
@@ -39,6 +40,46 @@
           <%end %>
         </tr>
       <%end %>
+      </tbody>
+    </table>
+
+    <h2>Gastos por inciso del año <%=year %></h2>
+    <table class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <td>Gastos totales</td>
+        <%@subsections.each do |subsection| %>
+          <td>Inciso <%=subsection.name %></td>
+        <%end %>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%=@total_expenses_per_year[year] %></td>
+        <%@subsections.each do |subsection| %>
+          <td><%=@expenses_per_years_subsection[year][subsection] %></td>
+        <%end %>
+      </tr>
+      </tbody>
+    </table>
+
+    <h2>Fondos no utilizados</h2>
+    <table class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <td>Fondos totales</td>
+        <%@subsections.each do |subsection| %>
+          <td>Inciso <%=subsection.name %></td>
+        <%end %>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%=@total_available_credits[year] %></td>
+        <%@subsections.each do |subsection| %>
+          <td><%=@available_credits_per_subsection[year][subsection] %></td>
+        <%end %>
+      </tr>
       </tbody>
     </table>
   </div>

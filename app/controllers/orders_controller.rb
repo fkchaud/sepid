@@ -219,9 +219,24 @@ class OrdersController < ApplicationController
     @years = (@project.start_date.year..@project.ending_date.year)
     @subsections = Subsection.where(is_disabled: nil)
     @orders_per_year = {}
+    @expenses_per_years_subsection = {}
+    @total_expenses_per_year = {}
+    @total_expenses_per_year.default = 0.0
+    @available_credits_per_subsection = {}
+    @available_credits_per_subsection.default = 0.0
+    @total_available_credits = {}
+    @total_available_credits.default = 0.0
     @years.each do |year|
-      # Sacar los pedidos rechazados y cancelados
       @orders_per_year[year] = @project.orders.where('extract(year from order_date) = ?', year)
+      @orders_per_year[year] = @orders_per_year[year].reject do |o|
+        ['Pedido cancelado', 'Pedido rechazado'].include? o.order_status.order_status_name
+      end
+      @expenses_per_years_subsection[year] = @project.total_expenses(year)
+      @available_credits_per_subsection[year] = @project.available_credits(@project.total_credits(year), @project.total_expenses(year), year)
+      @subsections.each do |subsection|
+        @total_expenses_per_year[year] += @expenses_per_years_subsection[year][subsection]
+        @total_available_credits[year] += @available_credits_per_subsection[year][subsection]
+      end
     end
   end
 
