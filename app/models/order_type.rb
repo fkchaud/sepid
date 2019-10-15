@@ -5,4 +5,6 @@ class OrderType < ApplicationRecord
   has_many :orders
   has_many :order_detail_attributes
   has_many :order_type_attributes
+
+  scope :enabled, -> { where(is_disabled: nil) }
 end

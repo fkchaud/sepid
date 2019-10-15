@@ -7,7 +7,7 @@
     <td>
       <select id="select_year" class ="form-control">
         <option></option>
-        <%@years.each do |year| %>
+        <% @years.each do |year| %>
           <option value=<%=year%> ><%=year%></option>
         <% end %>
       </select>
@@ -16,8 +16,8 @@
 </table>
 
 <%@years.each do |year| %>
-  <div id = "<%=year %>" class="content" style="display: none">
-    <h2>Pedidos realizados el año <%=year %></h2>
+  <div id="<%= year %>" class="content" style="display: none">
+    <h2>Pedidos realizados el año <%= year %></h2>
     <table class="table table-hover">
       <thead class="thead-dark">
       <tr>
@@ -25,40 +25,40 @@
         <td>Motivo del pedido</td>
         <td>Descripción</td>
         <%@subsections.each do |subsection| %>
-          <td>Inciso <%=subsection.name %></td>
+          <td>Inciso <%= subsection.name %></td>
         <%end %>
       </tr>
       </thead>
       <tbody>
-      <%@orders_per_year[year].each do |order| %>
+      <% @orders_per_year[year].each do |order| %>
         <tr>
-          <td><%=order.order_date %></td>
-          <td><%=order.reason_order %></td>
-          <td><%=order.description_order %></td>
-          <%@subsections.each do |subsection| %>
-            <td><%=order.order_expenses[subsection] %></td>
-          <%end %>
+          <td><%= order.order_date %></td>
+          <td><%= order.reason_order %></td>
+          <td><%= order.description_order %></td>
+          <% @subsections.each do |subsection| %>
+            <td><%= order.order_expenses[subsection] %></td>
+          <% end %>
         </tr>
-      <%end %>
+      <% end %>
       </tbody>
     </table>
 
-    <h2>Gastos por inciso del año <%=year %></h2>
+    <h2>Gastos por inciso del año <%= year %></h2>
     <table class="table table-hover">
       <thead class="thead-dark">
       <tr>
         <td>Gastos totales</td>
-        <%@subsections.each do |subsection| %>
-          <td>Inciso <%=subsection.name %></td>
-        <%end %>
+        <% @subsections.each do |subsection| %>
+          <td>Inciso <%= subsection.name %></td>
+        <% end %>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td><%=@total_expenses_per_year[year] %></td>
-        <%@subsections.each do |subsection| %>
-          <td><%=@expenses_per_years_subsection[year][subsection] %></td>
-        <%end %>
+        <td><%= @total_expenses_per_year[year] %></td>
+        <% @subsections.each do |subsection| %>
+          <td><%= @expenses_per_years_subsection[year][subsection] %></td>
+        <% end %>
       </tr>
       </tbody>
     </table>
@@ -92,5 +92,9 @@
             $(".content").hide();
             $("#" + $(this).val()).show();
         });
+
+        $("#select_year option:last").attr("selected", "selected");
+        $(".content").hide();
+        $("#" + $("#select_year").val()).show();
     });
 </script>

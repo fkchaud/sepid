@@ -5,4 +5,6 @@ class OrderStatus < ApplicationRecord
   validates :order_status_name, presence: true
 
   has_many :order_status_histories
+
+  scope :enabled, -> { where(is_disabled: nil) }
 end
