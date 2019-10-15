@@ -1,0 +1,14 @@
+data_method: MyDataMethods.orders_by_type
+chart:
+  options:
+    legend:
+      display: false
+    scales:
+      xAxes:
+        - scaleLabel:
+            display: true
+            labelString: Tipos de pedidos
+      yAxes:
+        - scaleLabel:
+            display: true
+            labelString: Pedidos

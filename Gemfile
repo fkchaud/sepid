@@ -41,7 +41,7 @@ gem 'bcrypt', '~> 3.1.7'
 # continuous integration
 gem 'coveralls', require: false
 gem 'travis'
-
+gem 'reports_kit'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

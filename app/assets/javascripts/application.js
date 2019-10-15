@@ -21,3 +21,4 @@
 //= require bootstrap-sprockets
 //= require nested_form_fields
 //= require cocoon
+//= require reports_kit/application

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get '/reports', to: 'reports#generate_reports'
+  mount ReportsKit::Engine, at: '/reports'
   resources :funds_resolutions do
     resources :funds_destinations
   end
