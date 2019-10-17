@@ -22,8 +22,12 @@ Rails.application.routes.draw do
   resources :project_statuses
   resources :university_positions
   resources :order_types do
-    resources :order_type_attributes
-    resources :order_detail_attributes
+    resources :order_type_attributes do
+      get '/enable_attribute', to: 'order_type_attributes#enable_attribute'
+    end
+    resources :order_detail_attributes do
+      get '/enable_attribute', to: 'order_detail_attributes#enable_attribute'
+    end
   end
   resources :user_profiles
   resources :orders do
