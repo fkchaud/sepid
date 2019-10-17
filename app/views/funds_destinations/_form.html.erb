@@ -4,8 +4,8 @@
 
   <%# errors %>
   <% if @funds_destination.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@funds_destination.errors.count, "error") %> prohibited this funds destination from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger">
+      <h5><%= pluralize(@funds_destination.errors.count, "error") %> prohibited this funds destination from being saved:</h5>
 
       <ul>
         <% @funds_destination.errors.full_messages.each do |msg| %>
@@ -36,9 +36,9 @@
     <% end %>
   </div>
 
-  <h5>Projects:</h5>
+  <h5>Proyectos:</h5>
   <%= f.collection_select :project_id,
-                        Project.all,
+                        Project.actual_year.enabled,
                         :id,
                         :project_name,
                         {},

@@ -1,9 +1,4 @@
 <p>Atributos del pedido</p>
-<% flash.each do |key, value| %>
-  <div class="<%= flash_class(key) %>">
-    <%= value %>
-  </div>
-<% end %>
 <%= form_with model: @order, url:project_orders_path, local: true do |form| %>
   <table>
     <tr>
@@ -23,14 +18,13 @@
       </td>
     </tr>
     <%= form.hidden_field :order_type_id, value: @order_type.id %>
-    <%= form.hidden_field :project_id, value: @project.id %>
     <%@order_type.order_type_attributes.each do |attribute| %>
+      <%if attribute.is_disabled.nil? %>
       <tr>
         <td>
           <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
         </td>
         <td>
-          <%if attribute.is_disabled.nil? %>
             <%if attribute.attribute_type == "Date" %>
               <%= form.date_field(:attribute_names, multiple: true, class: 'form-control') %>
             <% end %>
@@ -49,9 +43,9 @@
               <%= form.radio_button :attribute_names, "False", multiple: true%>
               <%= form.label :not, "No"%>
             <% end %>
-          <% end %>
         </td>
       </tr>
+      <% end %>
     <% end %>
   </table>
 

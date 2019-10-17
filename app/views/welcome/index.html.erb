@@ -1,4 +1,9 @@
 <h1>Welcome#index</h1>
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
 <ul class="list-group w-fit">
   <li class="list-group-item d-flex justify-content-between align-items-center">
     <% if current_user %>
@@ -58,7 +63,7 @@
     <span class="badge badge-success">Done</span>
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-center">
-    <%= link_to 'CU 20-29: Cambiar estado', orders_path, class: 'nav-link' %>&emsp;
+    <%= link_to 'CU 20-29: Cambiar estado', orders_path %>
     <span class="badge badge-info">Prettify</span>
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-center">

@@ -1,0 +1,100 @@
+<h1>Consultar gastos del proyecto: <%=@project.project_name %></h1>
+<table>
+  <tr>
+    <td>
+      <label for="select_year">Seleccionar año de consulta</label>
+    </td>
+    <td>
+      <select id="select_year" class ="form-control">
+        <option></option>
+        <% @years.each do |year| %>
+          <option value=<%=year%> ><%=year%></option>
+        <% end %>
+      </select>
+    </td>
+  </tr>
+</table>
+
+<%@years.each do |year| %>
+  <div id="<%= year %>" class="content" style="display: none">
+    <h2>Pedidos realizados el año <%= year %></h2>
+    <table class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <td>Fecha pedido</td>
+        <td>Motivo del pedido</td>
+        <td>Descripción</td>
+        <%@subsections.each do |subsection| %>
+          <td>Inciso <%= subsection.name %></td>
+        <%end %>
+      </tr>
+      </thead>
+      <tbody>
+      <% @orders_per_year[year].each do |order| %>
+        <tr>
+          <td><%= order.order_date %></td>
+          <td><%= order.reason_order %></td>
+          <td><%= order.description_order %></td>
+          <% @subsections.each do |subsection| %>
+            <td><%= order.order_expenses[subsection] %></td>
+          <% end %>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <h2>Gastos por inciso del año <%= year %></h2>
+    <table class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <td>Gastos totales</td>
+        <% @subsections.each do |subsection| %>
+          <td>Inciso <%= subsection.name %></td>
+        <% end %>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= @total_expenses_per_year[year] %></td>
+        <% @subsections.each do |subsection| %>
+          <td><%= @expenses_per_years_subsection[year][subsection] %></td>
+        <% end %>
+      </tr>
+      </tbody>
+    </table>
+
+    <h2>Fondos no utilizados</h2>
+    <table class="table table-hover">
+      <thead class="thead-dark">
+      <tr>
+        <td>Fondos totales</td>
+        <%@subsections.each do |subsection| %>
+          <td>Inciso <%=subsection.name %></td>
+        <%end %>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%=@total_available_credits[year] %></td>
+        <%@subsections.each do |subsection| %>
+          <td><%=@available_credits_per_subsection[year][subsection] %></td>
+        <%end %>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function(){
+        $(".content").hide();
+        $("#select_year").change(function(){
+            $(".content").hide();
+            $("#" + $(this).val()).show();
+        });
+
+        $("#select_year option:last").attr("selected", "selected");
+        $(".content").hide();
+        $("#" + $("#select_year").val()).show();
+    });
+</script>

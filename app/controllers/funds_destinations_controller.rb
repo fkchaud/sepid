@@ -17,7 +17,10 @@ class FundsDestinationsController < ApplicationController
     @funds_resolution = FundsResolution.find params[:funds_resolution_id]
     @funds_destination.funds_resolution = @funds_resolution
     @funds_destination.project_funds_details = distribute_among_proyects
-    return if @funds_destination.save
+    if @funds_destination.save
+      redirect_to @funds_resolution
+      return
+    end
 
     Subsection.enabled.each do |subsection|
       amount = @funds_destination

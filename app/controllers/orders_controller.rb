@@ -1,27 +1,29 @@
 class OrdersController < ApplicationController
 
   def index
-    if current_user.user_profile.name == 'Investigador'
+    case current_user.user_profile.name
+    when 'Investigador'
       @orders = Order.all.select do |o|
         o.project.director == current_user || o.project.codirector == current_user
       end
-    end
-    if current_user.user_profile.name == 'SeCYT_Admin'
+    when 'SeCYT_Admin'
       @orders = Order.all.select do |o|
         o.order_status.order_status_name == 'Pedido realizado'
       end
-    end
-    if current_user.user_profile.name == 'SeCYT_Sec'
+    when 'SeCYT_Sec'
       @orders = Order.all.select do |o|
         o.order_status.order_status_name == 'Aprobado por CYT'
       end
-    end
-    if current_user.user_profile.name == 'DEF_Admin'
+    when 'DEF_Admin'
       @orders = Order.all.select do |o|
         ['Aprobado por Secretario', 'Armado y aprobación de preventivo',
          'Licitación iniciada', 'Devengado realizado',
          'Pedido recibido', 'Pedido retirado'].include? o.order_status.order_status_name
       end
+    when 'Super_Admin'
+      @orders = Order.all
+    else
+      render 'layouts/forbidden', status: :forbidden
     end
   end
 
@@ -32,7 +34,13 @@ class OrdersController < ApplicationController
   def new
     @project = Project.find(params[:project_id])
     @order = Order.new
-    @order_types = OrderType.where(is_disabled: nil)
+    @order_types = OrderType.enabled
+    if @order_types.empty?
+      flash[:error] = 'No existe ningún tipo de pedido vigente, no se puede continuar con la acción.
+                         Contactar con el personal a cargo'
+      redirect_to welcome_index_path
+      return
+    end
   end
 
   def create
@@ -42,7 +50,7 @@ class OrdersController < ApplicationController
     # Setear la fecha del pedido
     @order.order_date = Time.now
     # Asociarle proyecto
-    @order.project = Project.find(params[:order][:project_id])
+    @order.project = Project.find(params[:project_id])
     @project = @order.project
     # Buscar el tipo de pedido seleccionado
     @order_type = OrderType.find(params[:order][:order_type_id])
@@ -66,11 +74,12 @@ class OrdersController < ApplicationController
     (0...(@order_type.order_type_attributes.length)).each do |index|
       # Ignorar si el atributo está dado de baja
       next unless @order_type.order_type_attributes[index].is_disabled.nil?
+
       # Crear los valores de los atributos
       current_order_attribute = @order.order_type_attribute_values.new(
-          value: params[:order][:attribute_names][index]
+        value: params[:order][:attribute_names][index]
       )
-      #@flag = true unless current_order_attribute.valid?
+      # @flag = true unless current_order_attribute.valid?
       # Asociar el valor del atributo con el atributo
       current_order_attribute.order_type_attribute = @order_type.order_type_attributes[index]
     end
@@ -80,10 +89,11 @@ class OrdersController < ApplicationController
       (0...@order_type.order_detail_attributes.length).each do |index|
         # Ignorar si el atributo está dado de baja
         next unless @order_type.order_detail_attributes[index].is_disabled.nil?
+
         current_detail_attribute = current_detail.order_detail_attribute_values.new(
           value: value[:attribute_names][index]
         )
-        #@flag = true unless current_detail_attribute.valid?
+        # @flag = true unless current_detail_attribute.valid?
         current_detail_attribute.order_detail_attribute = @order_type.order_detail_attributes[index]
       end
       current_detail.description_detail = value[:description_detail]
@@ -94,7 +104,7 @@ class OrdersController < ApplicationController
     end
     # Verificar que los datos ingresados sean válidos
     if @flag
-      render "continue"
+      render 'continue'
       return
     end
     # Verificar los creditos restantes de realizar la operacion
@@ -111,17 +121,17 @@ class OrdersController < ApplicationController
     end
     # Guardar todas las entidades
     # Guardar pedido
-    @order.save!
+    @order.save
     # Guardar atributos del pedido
     @order.order_type_attribute_values.each do |order_attribute|
-      order_attribute.save!
+      order_attribute.save
     end
     # Guardar detalles
     @order.order_details.each do |detail|
-      detail.save!
+      detail.save
       # Guardar atributos del detalle
       detail.order_detail_attribute_values.each do |detail_attribute|
-        detail_attribute.save!
+        detail_attribute.save
       end
     end
     @amouts_values = []
@@ -132,7 +142,7 @@ class OrdersController < ApplicationController
       @order.order_details[index].value_histories.create(
         date: Time.now,
         amount: @amouts_values[index],
-        value_status: ValueStatus.where(value_status_name: 'Estimado').first
+        value_status: ValueStatus.enabled.find_by_value_status_name('Estimado')
       )
     end
     redirect_to orders_path
@@ -148,27 +158,27 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     @ref = ''
-    case current_user.user_profile.name
-    when 'SeCYT_Admin'
+    case @order.order_status.order_status_name
+    when 'Pedido realizado'
       @ref = 'Aprobado por CYT'
-    when 'SeCYT_Sec'
+    when 'Aprobado por CYT'
       @ref = 'Aprobado por Secretario'
-    when 'DEF_Admin'
-      case @order.order_status.order_status_name
-      when 'Aprobado por Secretario'
-        @ref = 'Armado y aprobación de preventivo'
-      when 'Armado y aprobación de preventivo', 'Licitación iniciada'
-        @ref = 'Devengado realizado'
-      when 'Devengado realizado'
-        @ref = 'Pedido recibido'
-      when 'Pedido recibido'
-        @ref = 'Pedido retirado'
-      end
+    when 'Aprobado por Secretario'
+      @ref = 'Armado y aprobación de preventivo'
+    when 'Armado y aprobación de preventivo', 'Licitación iniciada'
+      @ref = 'Devengado realizado'
+    when 'Devengado realizado'
+      @ref = 'Pedido recibido'
+    when 'Pedido recibido'
+      @ref = 'Pedido retirado'
+    else
+      render 'layouts/forbidden', status: :method_not_allowed
+      return
     end
     @order.order_status_histories.create(
-        date_change_status_order: Time.now,
-        reason_change_status_order: @ref,
-        order_status: OrderStatus.where(order_status_name: @ref).first
+      date_change_status_order: Time.now,
+      reason_change_status_order: @ref,
+      order_status: OrderStatus.enabled.find_by_order_status_name(@ref)
     )
     redirect_to orders_path
   end
@@ -177,22 +187,59 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:order_id])
     if current_user.user_profile.name == 'DEF_Admin'
       @order.order_status_histories.create(
-          date_change_status_order: Time.now,
-          reason_change_status_order: 'Licitación iniciada',
-          order_status: OrderStatus.where(order_status_name: 'Licitación iniciada').first
+        date_change_status_order: Time.now,
+        reason_change_status_order: 'Licitación iniciada',
+        order_status: OrderStatus.enabled.find_by_order_status_name('Licitación iniciada')
       )
       redirect_to orders_path
     end
   end
 
+  def refuse_order
+    # render plain: params[:order_status_history].inspect
+    @order = Order.find(params[:order_id])
+    @order.order_status_histories.create(
+      date_change_status_order: Time.now,
+      reason_change_status_order: params[:order_status_history][:reason_change_status_order],
+      order_status: OrderStatus.where(order_status_name: 'Pedido rechazado').first
+    )
+    redirect_to orders_path
+  end
+
   def cancel_order
     @order = Order.find(params[:order_id])
-      @order.order_status_histories.create(
-          date_change_status_order: Time.now,
-          reason_change_status_order: 'Pedido cancelado',
-          order_status: OrderStatus.where(order_status_name: 'Pedido cancelado').first
-      )
+    @order.order_status_histories.create(
+      date_change_status_order: Time.now,
+      reason_change_status_order: 'Pedido cancelado',
+      order_status: OrderStatus.enabled.find_by_order_status_name('Pedido cancelado')
+    )
     redirect_to orders_path
+  end
+
+  def check_expenses
+    @project = Project.find(params[:project_id])
+    @years = (@project.start_date.year..@project.ending_date.year)
+    @subsections = Subsection.where(is_disabled: nil)
+    @orders_per_year = {}
+    @expenses_per_years_subsection = {}
+    @total_expenses_per_year = {}
+    @total_expenses_per_year.default = 0.0
+    @available_credits_per_subsection = {}
+    @available_credits_per_subsection.default = 0.0
+    @total_available_credits = {}
+    @total_available_credits.default = 0.0
+    @years.each do |year|
+      @orders_per_year[year] = @project.orders.where('extract(year from order_date) = ?', year)
+      @orders_per_year[year] = @orders_per_year[year].reject do |o|
+        ['Pedido cancelado', 'Pedido rechazado'].include? o.order_status.order_status_name
+      end
+      @expenses_per_years_subsection[year] = @project.total_expenses(year)
+      @available_credits_per_subsection[year] = @project.available_credits(@project.total_credits(year), @project.total_expenses(year), year)
+      @subsections.each do |subsection|
+        @total_expenses_per_year[year] += @expenses_per_years_subsection[year][subsection]
+        @total_available_credits[year] += @available_credits_per_subsection[year][subsection]
+      end
+    end
   end
 
   private

@@ -9,7 +9,7 @@ class FundsResolutionsController < ApplicationController
   def create
     @funds_resolution = FundsResolution.new funds_resolution_params
     if @funds_resolution.save
-      flash[:success] = 'Resolución cargada con éxito.'
+      flash.now[:success] = 'Resolución cargada con éxito.'
       redirect_to @funds_resolution
     else
       render 'new'

@@ -30,6 +30,7 @@
       <td class="fit">
         <div class='btn-group'>
           <%= link_to 'Mostrar', project_path(project), class: 'btn btn-outline-info' %>
+          <%= link_to 'Consultar gastos', project_check_expenses_path(project), class: 'btn btn-outline-info' %>
           <%if current_user.user_profile.name != "Investigador" %>
             <%= link_to 'Editar', edit_project_path(project), class: 'btn btn-outline-primary' %>
             <% unless project.project_status.name == 'Cancelado' %>
@@ -41,7 +42,8 @@
               %>
             <% end %>
           <% end %>
-          <%if current_user.user_profile.name == "Investigador" %>
+          <%= link_to 'Cambio de Inciso', project_subsection_shifts_path(project), class: 'btn btn-outline-info' unless project.disabled? %>
+          <%if current_user.user_profile.name == "Investigador" && !project.disabled? %>
             <%= link_to 'Realizar pedido', new_project_order_path(project), class: 'btn btn-outline-info' %>
           <% end %>
         </div>
@@ -50,4 +52,6 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Agregar Proyecto', new_project_path, class: 'btn btn-outline-primary btn-block' %>
+<%if current_user.user_profile.name == "SeCYT_Admin" || current_user.user_profile.name =='Super_Admin' %>
+  <%= link_to 'Agregar Proyecto', new_project_path, class: 'btn btn-outline-primary btn-block' %>
+<%end %>

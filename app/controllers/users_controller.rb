@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     elsif current_user.user_profile.name == 'SeCYT_Admin'
       user_profiles = UserProfile.where(name: 'Investigador')
     else
-      render 'forbidden'
+      render 'layouts/forbidden', status: :forbidden
       return
     end
     @users = User.profile(user_profiles)
@@ -36,7 +36,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find params[:id]
-    if @user.update project_params
+    if @user.update user_params
       flash[:success] = 'Usuario actualizado con éxito.'
       redirect_to @user
     else
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     elsif current_user.user_profile.name == 'SeCYT_Admin'
       UserProfile.enabled.where(name: 'Investigador')
     else
-      render 'forbidden'
+      render 'layouts/forbidden', status: :forbidden
     end
   end
 
