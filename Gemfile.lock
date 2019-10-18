@@ -283,6 +283,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   js_cookie_rails
+  mail (~> 2.7, >= 2.7.1)
   mysql2 (>= 0.4.4, < 0.6.0)
   nested_form_fields (~> 0.8.2)
   puma (~> 3.11)

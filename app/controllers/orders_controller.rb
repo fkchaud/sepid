@@ -182,6 +182,8 @@ class OrdersController < ApplicationController
       reason_change_status_order: @ref,
       order_status: OrderStatus.enabled.find_by_order_status_name(@ref)
     )
+    @user = @order.project.director
+    ChangeStatusMailer.with(user: @user).notify_change.deliver
     redirect_to orders_path
   end
 

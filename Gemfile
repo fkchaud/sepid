@@ -42,6 +42,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'coveralls', require: false
 gem 'travis'
 gem 'reports_kit'
+gem 'mail', '~> 2.7', '>= 2.7.1'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
