@@ -182,8 +182,11 @@ class OrdersController < ApplicationController
       reason_change_status_order: @ref,
       order_status: OrderStatus.enabled.find_by_order_status_name(@ref)
     )
-    @user = @order.project.director
-    ChangeStatusMailer.with(user: @user).notify_change.deliver
+    @director= @order.project.director
+    @codirector = @order.project.codirector
+    # Hay que mandarle el pedido también
+    ChangeStatusMailer.with(user: @director, order: @order).notify_change.deliver_later
+    ChangeStatusMailer.with(user: @codirector, order: @order).notify_change.deliver_later
     redirect_to orders_path
   end
 
@@ -195,6 +198,11 @@ class OrdersController < ApplicationController
         reason_change_status_order: 'Licitación iniciada',
         order_status: OrderStatus.enabled.find_by_order_status_name('Licitación iniciada')
       )
+      @director= @order.project.director
+      @codirector = @order.project.codirector
+      # Hay que mandarle el pedido también
+      ChangeStatusMailer.with(user: @director, order: @order).notify_change.deliver_later
+      ChangeStatusMailer.with(user: @codirector, order: @order).notify_change.deliver_later
       redirect_to orders_path
     end
   end
@@ -207,6 +215,11 @@ class OrdersController < ApplicationController
       reason_change_status_order: params[:order_status_history][:reason_change_status_order],
       order_status: OrderStatus.where(order_status_name: 'Pedido rechazado').first
     )
+    @director= @order.project.director
+    @codirector = @order.project.codirector
+    # Hay que mandarle el pedido también
+    ChangeStatusMailer.with(user: @director, order: @order).notify_change.deliver_later
+    ChangeStatusMailer.with(user: @codirector, order: @order).notify_change.deliver_later
     redirect_to orders_path
   end
 

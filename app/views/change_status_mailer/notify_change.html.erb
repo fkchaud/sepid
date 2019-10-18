@@ -5,9 +5,17 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-<h1>Nombre de usuario: <%= @user.user_name %></h1>
-<p>Primer nombre: <%= @user.first_name %></p>
-<p>Apellido: <%= @user.last_name %></p>
-<p>Estado cambió</p>
+<h1>Notificación de <%if @order.order_status.order_status_name != 'Pedido rechazado' %> cambio de estado<%else %> rechazo <%end%> del pedido</h1>
+<h2>Datos del proyecto</h2>
+<p>Projecto: <%=@order.project.project_name %></p>
+<p>Director de proyecto: <%=@order.project.director.last_name %>, <%=@order.project.director.first_name %></p>
+<p>Codirector de proyecto: <%=@order.project.codirector.last_name %>, <%=@order.project.codirector.first_name %></p>
+<h2>Datos del pedido</h2>
+<p>Descripción: <%=@order.description_order %></p>
+<p>Motivo del pedido: <%=@order.reason_order %></p>
+<p>Estado actual: <%=@order.order_status.order_status_name %></p>
+<%if @order.order_status.order_status_name == 'Pedido rechazado'%>
+  <p>Motivo del rechazo: <%=@order.order_status_histories.find_by_date_change_status_order(most_recent_date).reason_change_status_order %></p>
+<%end%>
 </body>
 </html>

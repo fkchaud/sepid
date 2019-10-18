@@ -1,6 +1,7 @@
 class ChangeStatusMailer < ApplicationMailer
   def notify_change
     @user = params[:user]
-    mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+    @order = params[:order]
+    mail(to: @user.email, subject: 'Cambio de estado')
   end
 end
