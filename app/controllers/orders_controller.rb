@@ -54,6 +54,14 @@ class OrdersController < ApplicationController
     @project = @order.project
     # Buscar el tipo de pedido seleccionado
     @order_type = OrderType.find(params[:order][:order_type_id])
+    # Buscar los atributos vigentes del tipo de pedido
+    @order_type_attributes = @order_type.order_type_attributes.reject do |ota|
+      !ota.is_disabled.nil?
+    end
+    #  Buscar los atributos del detalle vigente del tipo de pedido
+    @order_detail_attributes = @order_type.order_detail_attributes.reject do |oda|
+      !oda.is_disabled.nil?
+    end
     # Asociar tipo de pedido al pedido
     @order.order_type = @order_type
     # Asociar historial
@@ -71,30 +79,24 @@ class OrdersController < ApplicationController
     # Crear un hash en el que guardar los montos totales de cada inciso
     amounts = {}
     amounts.default = 0.0
-    (0...(@order_type.order_type_attributes.length)).each do |index|
-      # Ignorar si el atributo está dado de baja
-      next unless @order_type.order_type_attributes[index].is_disabled.nil?
-
+    (0...(@order_type_attributes.length)).each do |index|
       # Crear los valores de los atributos
       current_order_attribute = @order.order_type_attribute_values.new(
         value: params[:order][:attribute_names][index]
       )
       # @flag = true unless current_order_attribute.valid?
       # Asociar el valor del atributo con el atributo
-      current_order_attribute.order_type_attribute = @order_type.order_type_attributes[index]
+      current_order_attribute.order_type_attribute = @order_type_attributes[index]
     end
     # Crear cada detalle con sus atributos y relaicones
     params[:order][:order_details_attributes].each do |_key, value|
       current_detail = @order.order_details.new
-      (0...@order_type.order_detail_attributes.length).each do |index|
-        # Ignorar si el atributo está dado de baja
-        next unless @order_type.order_detail_attributes[index].is_disabled.nil?
-
+      (0...@order_detail_attributes.length).each do |index|
         current_detail_attribute = current_detail.order_detail_attribute_values.new(
           value: value[:attribute_names][index]
         )
         # @flag = true unless current_detail_attribute.valid?
-        current_detail_attribute.order_detail_attribute = @order_type.order_detail_attributes[index]
+        current_detail_attribute.order_detail_attribute = @order_detail_attributes[index]
       end
       current_detail.description_detail = value[:description_detail]
       current_subsection = Subsection.find(value[:subsection_id])
@@ -121,14 +123,14 @@ class OrdersController < ApplicationController
     end
     # Guardar todas las entidades
     # Guardar pedido
-    @order.save
+    @order.save!
     # Guardar atributos del pedido
     @order.order_type_attribute_values.each do |order_attribute|
-      order_attribute.save
+      order_attribute.save!
     end
     # Guardar detalles
     @order.order_details.each do |detail|
-      detail.save
+      detail.save!
       # Guardar atributos del detalle
       detail.order_detail_attribute_values.each do |detail_attribute|
         detail_attribute.save
