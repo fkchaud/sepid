@@ -19,7 +19,9 @@
       <td><%=  attribute.attribute_type  %></td>
       <td class="fit">
         <div class="btn-group btn-group-sm">
-          <%unless attribute.is_disabled %>
+          <%if attribute.is_disabled %>
+            <%=  link_to 'Habilitar', order_type_order_detail_attribute_enable_attribute_path(attribute.order_type, attribute), class: 'btn btn-outline-primary'  %>
+          <%else %>
             <%=  link_to 'Editar', edit_order_type_order_detail_attribute_path(attribute.order_type, attribute), class: 'btn btn-outline-primary'  %>
             <%= link_to 'Eliminar', [attribute.order_type, attribute],
                         class: 'btn btn-outline-danger',
