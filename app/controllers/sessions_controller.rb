@@ -1,5 +1,10 @@
 class SessionsController < ApplicationController
-  def new; end
+  def new
+    if current_user
+      flash[:error] = 'Ya se encuentra una sesión activa'
+      redirect_to welcome_index_path
+    end
+  end
 
   def create
     user = User.enabled.find_by(user_name: params[:session][:name].downcase)

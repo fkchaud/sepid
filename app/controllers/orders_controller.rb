@@ -88,21 +88,27 @@ class OrdersController < ApplicationController
       # Asociar el valor del atributo con el atributo
       current_order_attribute.order_type_attribute = @order_type_attributes[index]
     end
-    # Crear cada detalle con sus atributos y relaicones
-    params[:order][:order_details_attributes].each do |_key, value|
-      current_detail = @order.order_details.new
-      (0...@order_detail_attributes.length).each do |index|
-        current_detail_attribute = current_detail.order_detail_attribute_values.new(
-          value: value[:attribute_names][index]
-        )
-        # @flag = true unless current_detail_attribute.valid?
-        current_detail_attribute.order_detail_attribute = @order_detail_attributes[index]
+    if params[:order][:order_details_attributes].nil?
+      flash.now[:error] = "No hay ningún detalle cargado"
+      render 'continue'
+      return
+    else
+      # Crear cada detalle con sus atributos y relaicones
+      params[:order][:order_details_attributes].each do |_key, value|
+        current_detail = @order.order_details.new
+        (0...@order_detail_attributes.length).each do |index|
+          current_detail_attribute = current_detail.order_detail_attribute_values.new(
+              value: value[:attribute_names][index]
+          )
+          # @flag = true unless current_detail_attribute.valid?
+          current_detail_attribute.order_detail_attribute = @order_detail_attributes[index]
+        end
+        current_detail.description_detail = value[:description_detail]
+        current_subsection = Subsection.find(value[:subsection_id])
+        current_detail.subsection = current_subsection
+        # Acumular los montos para cada inciso
+        amounts[current_subsection] += value[:attribute_names][-1].to_f
       end
-      current_detail.description_detail = value[:description_detail]
-      current_subsection = Subsection.find(value[:subsection_id])
-      current_detail.subsection = current_subsection
-      # Acumular los montos para cada inciso
-      amounts[current_subsection] += value[:attribute_names][-1].to_f
     end
     # Verificar que los datos ingresados sean válidos
     if @flag
@@ -123,14 +129,14 @@ class OrdersController < ApplicationController
     end
     # Guardar todas las entidades
     # Guardar pedido
-    @order.save!
+    @order.save
     # Guardar atributos del pedido
     @order.order_type_attribute_values.each do |order_attribute|
-      order_attribute.save!
+      order_attribute.save
     end
     # Guardar detalles
     @order.order_details.each do |detail|
-      detail.save!
+      detail.save
       # Guardar atributos del detalle
       detail.order_detail_attribute_values.each do |detail_attribute|
         detail_attribute.save
@@ -182,8 +188,11 @@ class OrdersController < ApplicationController
       reason_change_status_order: @ref,
       order_status: OrderStatus.enabled.find_by_order_status_name(@ref)
     )
-    @user = @order.project.director
-    ChangeStatusMailer.with(user: @user).notify_change.deliver
+    @director= @order.project.director
+    @codirector = @order.project.codirector
+    # Hay que mandarle el pedido también
+    ChangeStatusMailer.with(user: @director, order: @order).notify_change.deliver_later
+    ChangeStatusMailer.with(user: @codirector, order: @order).notify_change.deliver_later
     redirect_to orders_path
   end
 
@@ -195,6 +204,11 @@ class OrdersController < ApplicationController
         reason_change_status_order: 'Licitación iniciada',
         order_status: OrderStatus.enabled.find_by_order_status_name('Licitación iniciada')
       )
+      @director= @order.project.director
+      @codirector = @order.project.codirector
+      # Hay que mandarle el pedido también
+      ChangeStatusMailer.with(user: @director, order: @order).notify_change.deliver_later
+      ChangeStatusMailer.with(user: @codirector, order: @order).notify_change.deliver_later
       redirect_to orders_path
     end
   end
@@ -207,6 +221,11 @@ class OrdersController < ApplicationController
       reason_change_status_order: params[:order_status_history][:reason_change_status_order],
       order_status: OrderStatus.where(order_status_name: 'Pedido rechazado').first
     )
+    @director= @order.project.director
+    @codirector = @order.project.codirector
+    # Hay que mandarle el pedido también
+    ChangeStatusMailer.with(user: @director, order: @order).notify_change.deliver_later
+    ChangeStatusMailer.with(user: @codirector, order: @order).notify_change.deliver_later
     redirect_to orders_path
   end
 

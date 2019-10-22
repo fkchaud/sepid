@@ -12,11 +12,13 @@
   <body>
     <%= render 'layouts/navbar' %>
     <div class="d-flex flex-fill overflow-auto">
-      <%= render 'layouts/sidebar' %>
-      <div class="wrapper">
-        <button type="button" id="sidebar-toggler" class="btn btn-secondary<%= (cookies[:sidebar_status] == "true") ? " toggled" : "" %>">
-          <span class="fa fa-chevron-left"></span>
-        </button>
+      <%if current_user %>
+        <%= render 'layouts/sidebar' %>
+        <div class="wrapper">
+          <button type="button" id="sidebar-toggler" class="btn btn-secondary<%= (cookies[:sidebar_status] == "true") ? " toggled" : "" %>">
+            <span class="fa fa-chevron-left"></span>
+          </button>
+      <%end %>
         <div id="content">
           <%= yield %>
         </div>
