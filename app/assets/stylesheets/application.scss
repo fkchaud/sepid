@@ -78,7 +78,6 @@ label {
 #navbar_id {
   border-style: double;
   background:linear-gradient(#565656, #B4BBFF);
-  border-radius: 20px;
 }
 
 // Sidebar
@@ -104,10 +103,7 @@ label {
   overflow: hidden;
   flex: 1;
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-  border-style: outset;
   margin-top: 5px;
-  background:linear-gradient(#E8F3FF, #E1E1E1);
-  border-radius: 20px;
 }
 
 #sidebar.toggled {
@@ -141,6 +137,15 @@ label {
   outline: none !important;
   box-shadow: none;
 }
+
+#sidebar a{
+  background-color: #3C3D8A;
+  border-style: inset;
+  color: white;
+  border-radius: 20px;
+}
+
 #sidebar a:hover {
-  background-color: SkyBlue;
+  background-color: #8780FF;
+  border-style: outset;
 }
