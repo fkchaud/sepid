@@ -13,8 +13,8 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_details, allow_destroy: true
 
   def order_status
-    most_recent_date = order_status_histories.maximum("date_change_status_order")
-    osh = order_status_histories.find_by_date_change_status_order(most_recent_date)
+    most_recent_date = order_status_histories.maximum("created_at")
+    osh = order_status_histories.find_by_created_at(most_recent_date)
     osh.order_status
   end
 
