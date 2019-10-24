@@ -8,7 +8,7 @@
         <%= link_to 'Administrar perfil de usuario', user_profiles_path, class: 'nav-link' %>
       </li>
     <%end%>
-    <%if current_user.user_profile.name =='SeCYT_Admin' || current_user.user_profile.name =='Investigador'%>
+    <%if current_user.user_profile.name == 'Super_Admin' || current_user.user_profile.name =='SeCYT_Admin' || current_user.user_profile.name =='Investigador'%>
       <li>
         <%= link_to 'Administrar proyectos', projects_path, class: 'nav-link' %>
       </li>
@@ -16,36 +16,39 @@
     <li>
       <%= link_to 'Administrar pedidos', orders_path, class: 'nav-link' %>
     </li>
+    <%if current_user.user_profile.name == 'Super_Admin' || current_user.user_profile.name =='SeCYT_Admin' || current_user.user_profile.name =='DEF_Admin'%>
+      <%= link_to 'generar reportes', reports_path, class: 'nav-link' %>
+    <%end%>
     <%if current_user.user_profile.name == 'Super_Admin'%>
       <li>
-        <%= link_to 'CU 06: ABM Cargo Universitario', university_positions_path, class: 'nav-link' %>
+        <%= link_to 'ABM Cargo Universitario', university_positions_path, class: 'nav-link' %>
       </li>
       <li>
-        <%= link_to 'CU 08: ABM Estado de Proyecto', project_statuses_path, class: 'nav-link' %>
+        <%= link_to 'ABM Estado de Proyecto', project_statuses_path, class: 'nav-link' %>
       </li>
       <li>
-        <%= link_to 'CU 09: ABM Tipo de Proyecto', project_types_path, class: 'nav-link' %>
+        <%= link_to 'ABM Tipo de Proyecto', project_types_path, class: 'nav-link' %>
       </li>
       <li>
-        <%= link_to 'CU 10: Administrar Resoluciones', funds_resolutions_path, class: 'nav-link' %>
+        <%= link_to 'Administrar Resoluciones', funds_resolutions_path, class: 'nav-link' %>
       </li>
       <li>
-        <%= link_to 'CU 11: ABM Tipo de Resolución', resolution_types_path, class: 'nav-link' %>
+        <%= link_to 'ABM Tipo de Resolución', resolution_types_path, class: 'nav-link' %>
       </li>
       <li>
-        <%= link_to 'CU 13: Parametrizar Tipo de Pedido', order_types_path, class: 'nav-link' %>
+        <%= link_to 'Parametrizar Tipo de Pedido', order_types_path, class: 'nav-link' %>
       </li>
       <li>
-        <%= link_to 'CU 18: ABM Inciso', subsections_path, class: 'nav-link' %>
+        <%= link_to 'ABM Inciso', subsections_path, class: 'nav-link' %>
       </li>
       <li>
-        <%= link_to 'CU 19: ABM Estado de Cambio de Inciso', subsection_shift_statuses_path, class: 'nav-link' %>
+        <%= link_to 'ABM Estado de Cambio de Inciso', subsection_shift_statuses_path, class: 'nav-link' %>
       </li>
       <li>
-        <%= link_to 'CU 29: ABM Estado del Pedido', order_statuses_path, class: 'nav-link' %>
+        <%= link_to 'ABM Estado del Pedido', order_statuses_path, class: 'nav-link' %>
       </li>
       <li>
-        <%= link_to 'CU 30: ABM Estado de Valor', value_statuses_path, class: 'nav-link' %>
+        <%= link_to 'ABM Estado de Valor', value_statuses_path, class: 'nav-link' %>
       </li>
     <%end%>
   </ul>

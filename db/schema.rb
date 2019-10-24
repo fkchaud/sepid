@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_220728) do
+ActiveRecord::Schema.define(version: 2019_10_23_063022) do
 
   create_table "access_permits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "use_case_name"
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2019_09_19_220728) do
   end
 
   create_table "order_status_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.datetime "date_change_status_order"
+    t.date "date_change_status_order"
     t.string "reason_change_status_order"
     t.bigint "order_status_id"
     t.bigint "order_id"

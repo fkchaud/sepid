@@ -1,14 +1,12 @@
-data_method: MyDataMethods.orders_by_status
+data_method: MyDataMethods.change_status_count
 chart:
   options:
-    legend:
-      display: false
     scales:
       xAxes:
         - scaleLabel:
             display: true
-            labelString: Tipos de pedidos
+            labelString: Fecha cambio estado
       yAxes:
         - scaleLabel:
             display: true
-            labelString: Pedidos
+            labelString: Cantidad
