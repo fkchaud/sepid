@@ -28,7 +28,12 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
+    if params[:id] == "continue"
+      redirect_to projects_path
+      return
+    else
+      @order = Order.find(params[:id])
+    end
   end
 
   def new
