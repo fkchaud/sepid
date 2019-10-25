@@ -1,6 +1,6 @@
 class OrderTypesController < ApplicationController
 
-  TYPES = ['Integer', 'Float', 'String', 'Boolean', 'Date'].freeze
+  TYPES = ['Número entero', 'Número decimal', 'Texto', 'Mail', 'Confirmación', 'Fecha'].freeze
 
   def index
     @order_types = OrderType.all

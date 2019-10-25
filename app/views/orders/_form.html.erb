@@ -25,19 +25,22 @@
           <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
         </td>
         <td>
-            <%if attribute.attribute_type == "Date" %>
+            <%if attribute.attribute_type == "Fecha" %>
               <%= form.date_field(:attribute_names, multiple: true, class: 'form-control') %>
             <% end %>
-            <%if attribute.attribute_type == "Integer" %>
-              <%= form.number_field(:attribute_names, multiple: true, class: 'form-control') %>
+            <%if attribute.attribute_type == "Número entero" %>
+              <%= form.number_field(:attribute_names, min: 0, multiple: true, class: 'form-control') %>
             <% end %>
-            <%if attribute.attribute_type == "Float" %>
-              <%= form.number_field(:attribute_names, multiple: true, step: 0.5, class: 'form-control') %>
+            <%if attribute.attribute_type == "Número decimal" %>
+              <%= form.number_field(:attribute_names, min: 0.0, multiple: true, step: 0.5, class: 'form-control') %>
             <% end %>
-            <%if attribute.attribute_type == "String" %>
+            <%if attribute.attribute_type == "Texto" %>
               <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
             <% end %>
-            <%if attribute.attribute_type == "Boolean" %>
+          <%if attribute.attribute_type == "Mail" %>
+            <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control', type: 'email' %>
+          <% end %>
+            <%if attribute.attribute_type == "Confirmación" %>
               <%= form.radio_button :attribute_names, "True", multiple: true %>
               <%= form.label :yes, "Si" %>
               <%= form.radio_button :attribute_names, "False", multiple: true%>
@@ -73,19 +76,22 @@
       <%@order_type.order_detail_attributes.each do |attribute| %>
         <%if attribute.is_disabled.nil? %>
           <td>
-            <%if attribute.attribute_type == "Date" %>
+            <%if attribute.attribute_type == "Fecha" %>
               <%= detail.date_field(:attribute_names, multiple: true, class: 'form-control') %>
             <% end %>
-            <%if attribute.attribute_type == "Integer" %>
-              <%= detail.number_field(:attribute_names, multiple: true, class: 'form-control') %>
+            <%if attribute.attribute_type == "Número entero" %>
+              <%= detail.number_field(:attribute_names, min: 0, multiple: true, class: 'form-control') %>
             <% end %>
-            <%if attribute.attribute_type == "Float" %>
-              <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>
+            <%if attribute.attribute_type == "Número decimal" %>
+              <%= detail.number_field(:attribute_names, min: 0.0, multiple: true, step: 0.1, class: 'form-control') %>
             <% end %>
-            <%if attribute.attribute_type == "String" %>
+            <%if attribute.attribute_type == "Texto" %>
               <%= detail.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
             <% end %>
-            <%if attribute.attribute_type == "Boolean" %>
+            <%if attribute.attribute_type == "Mail" %>
+              <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control', type: 'email' %>
+            <% end %>
+            <%if attribute.attribute_type == "Confirmación" %>
               <%= detail.radio_button :attribute_names, "True", multiple: true %>
               <%= detail.label :age_child, "Si" %>
               <%= detail.radio_button :attribute_names, "False", multiple: true%>
