@@ -71,6 +71,7 @@
     </tbody>
   </table>
 <%end %>
+<%= link_to "Volver", orders_path, class: 'btn btn-outline-secondary' %>
 <%unless current_user.user_profile.name == 'Investigador'|| @order.order_status.order_status_name == 'Pedido retirado' %>
   <%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-info', data: { confirm: '¿Seguro que desea aprobar?' }%>
 <%end %>
