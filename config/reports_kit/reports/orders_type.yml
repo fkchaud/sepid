@@ -1,10 +1,15 @@
 data_method: MyDataMethods.orders_by_type
+ui_filters:
+  - order_date
 chart:
   options:
     scales:
       xAxes:
         - scaleLabel:
+            display: true
             labelString: Fecha de pedido
       yAxes:
         - scaleLabel:
             labelString: Pedidos
+          ticks:
+            beginAtZero: true

@@ -1,3 +1,9 @@
 <h1>Generar reportes</h1>
-<%=render_report 'orders_type' %>
+<%=render_report 'orders_type' do |report|%>
+  <%=report.form do |f|%>
+    <div class="pull-right">
+      <%= f.date_range :order_date %>
+    </div>
+  <%end%>
+<%end%>
 <%=render_report 'order_status' %>
