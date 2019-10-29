@@ -72,10 +72,10 @@
   </table>
 <%end %>
 <%unless current_user.user_profile.name == 'Investigador'|| @order.order_status.order_status_name == 'Pedido retirado' %>
-  <%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-outline-info', data: { confirm: '¿Seguro que desea aprobar?' }%>
+  <%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-info', data: { confirm: '¿Seguro que desea aprobar?' }%>
 <%end %>
 <%if current_user.user_profile.name == 'DEF_Admin' && @order.order_status.order_status_name == 'Armado y aprobación de preventivo'%>
-  <%= link_to 'Iniciar licitación', order_start_tender_path(@order), method: "post", class: 'btn btn-outline-info', data: { confirm: '¿Seguro que desea iniciar licitación?' } %>
+  <%= link_to 'Iniciar licitación', order_start_tender_path(@order), method: "post", class: 'btn btn-info', data: { confirm: '¿Seguro que desea iniciar licitación?' } %>
 <%end%>
 <%if  current_user.user_profile.name == 'Investigador' %>
   <%= link_to 'Cancelar pedido', order_cancel_order_path(@order), method: "post", data: { confirm: '¿Seguro que desea cancelar?'}, class: 'btn btn-outline-info' if @order.order_status.allow_cancel_order == true %>
@@ -90,7 +90,7 @@
     </div>
     <div class="form-group row">
       <div class="col-10">
-        <%= form.submit 'Rechazar', data: { confirm: '¿Seguro que desea rechazar?'}, class: 'btn btn-success' %>
+        <%= form.submit 'Rechazar', data: { confirm: '¿Seguro que desea rechazar?'}, class: 'btn btn-outline-danger' %>
       </div>
     </div>
   <% end %>
