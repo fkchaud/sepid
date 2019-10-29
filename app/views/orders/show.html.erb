@@ -43,7 +43,7 @@
       <td><%=detail.description_detail %></td>
       <td><%=detail.subsection.name %></td>
       <td><%=detail.last_value.amount %></td>
-      <%if current_user.user_profile.name == 'DEF_Admin' && @order.order_status.order_status_name == 'Armado y aprobación de preventivo' %>
+      <%if (current_user.user_profile.name == 'DEF_Admin' || current_user.user_profile.name =='Super_Admin') && @order.order_status.order_status_name == 'Armado y aprobación de preventivo' %>
         <td><%= link_to 'Ajustar preventivo', order_order_detail_show_path(@order, detail), method: "get", class: 'btn btn-outline-info'%></td>
       <%end %>
     </tr>
@@ -71,6 +71,7 @@
     </tbody>
   </table>
 <%end %>
+<%= link_to "Volver", orders_path, class: 'btn btn-outline-secondary' %>
 <%unless current_user.user_profile.name == 'Investigador'|| @order.order_status.order_status_name == 'Pedido retirado' %>
   <%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-info', data: { confirm: '¿Seguro que desea aprobar?' }%>
 <%end %>
