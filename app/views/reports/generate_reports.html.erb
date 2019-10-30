@@ -1,15 +1,44 @@
 <h1>Generar reportes</h1>
-<%=render_report 'orders_type' do |report|%>
-  <%=report.form do |f|%>
-    <div class="pull-right">
-      <%= f.date_range :order_date%>
-    </div>
+<table>
+  <tr>
+    <td>
+      <label for="select_report">Seleccionar tipo de reporte</label>
+    </td>
+    <td>
+      <select id="select_report" class ="form-control">
+        <option></option>
+        <option value=order_type>Tipo de pedido</option>
+        <option value=change_status>Cambios de estado</option>
+      </select>
+    </td>
+  </tr>
+</table>
+<div id="order_type" class="content" style="display: none">
+  <%=render_report 'orders_type' do |report|%>
+    <%=report.form do |f|%>
+      <div class="pull-right">
+        <%= f.date_range :order_date%>
+      </div>
+    <%end%>
   <%end%>
-<%end%>
-<%=render_report 'order_status' do |report|%>
-  <%=report.form do |f|%>
-    <div class="pull-right">
-      <%= f.date_range :date_change_status_order%>
-    </div>
+</div>
+
+<div id="change_status" class="content" style="display: none">
+  <%=render_report 'order_status' do |report|%>
+    <%=report.form do |f|%>
+      <div class="pull-right">
+        <%= f.date_range :date_change_status_order%>
+      </div>
+    <%end%>
   <%end%>
-<%end%>
+</div>
+
+<script language="javascript" type="text/javascript">
+    $(document).ready(function(){
+        $(".content").hide();
+        $("#select_report").change(function(){
+            $(".content").hide();
+            $("#" + $(this).val()).show();
+        });
+    });
+</script>
