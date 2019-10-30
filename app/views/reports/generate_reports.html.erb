@@ -6,4 +6,10 @@
     </div>
   <%end%>
 <%end%>
-<%=render_report 'order_status' %>
+<%=render_report 'order_status' do |report|%>
+  <%=report.form do |f|%>
+    <div class="pull-right">
+      <%= f.date_range :date_change_status_order%>
+    </div>
+  <%end%>
+<%end%>
