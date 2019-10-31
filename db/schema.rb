@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_23_063022) do
+ActiveRecord::Schema.define(version: 2019_10_31_081526) do
 
   create_table "access_permits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "use_case_name"
@@ -261,6 +261,8 @@ ActiveRecord::Schema.define(version: 2019_10_23_063022) do
     t.bigint "user_profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_recovery_token"
+    t.timestamp "password_recovery_expiration"
     t.index ["university_position_id"], name: "index_users_on_university_position_id"
     t.index ["user_profile_id"], name: "index_users_on_user_profile_id"
   end

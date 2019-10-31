@@ -93,6 +93,27 @@ class UsersController < ApplicationController
      return
   end
 
+  def password_reset
+    @user = User.find_by(user_name: params[:user][:user_name])
+    if @user
+      password_recovery_token = SecureRandom.hex(32)
+      @user.password_recovery_token = password_recovery_token
+      @user.password_recovery_expiration = Time.now
+      begin
+        @user.save!
+        base_url = request.protocol + request.host_with_port
+        ResetPasswordMailer.reset_request(@user, base_url).deliver_later
+        render json: {success: 'request reset password successful'}, status: :ok
+      rescue Exception => e
+        render json: {error: 'Fail save user with temporal password recovery token'}, status: :internal_server_error
+      end
+    else
+      render json: {error: 'User not found'}, status: :not_found
+    end
+  end
+  def forget_password
+  end
+
   private
 
   def user_params

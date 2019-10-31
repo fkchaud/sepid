@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get '/password_reset/:tmp_token', to: 'password_reset#index'
+  patch '/password_reset/reset', to: 'password_reset#reset'
   get 'sessions/new'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
@@ -6,6 +8,8 @@ Rails.application.routes.draw do
   get '/reports', to: 'reports#generate_reports'
   get '/change_password', to: 'users#change_password'
   post '/change_password', to: 'users#change_password_continue'
+  post '/users/password_reset', to: 'users#password_reset'
+  get '/forget_password', to: 'users#forget_password'
   mount ReportsKit::Engine, at: '/reports'
   resources :funds_resolutions do
     resources :funds_destinations
