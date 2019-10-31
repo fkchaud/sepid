@@ -5,6 +5,8 @@ class User < ApplicationRecord
             presence: true,
             uniqueness: { scope: :is_disabled }
   attribute :password_digest, :string
+  validates :password, length: { minimum: 8 }, on: [:create, :new, :change_password_continue]
+  # attribute :password_confirmation, :string
   # validates :password_digest, presence: true
   # legajo = file_number
   attribute :file_number, :integer

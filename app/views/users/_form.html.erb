@@ -6,13 +6,22 @@
       <%= form.text_field :user_name, class: 'form-control' %>
     </div>
   </div>
-
-  <div class="form-group row">
-    <%= form.label :password, 'Contraseña:', class: 'col col-form-label' %>
-    <div class="col-10">
-      <%= form.text_field :password, class: 'form-control', type: 'password' %>
+<%if  controller.action_name == "new" || controller.action_name == "create"%>
+    <div class="form-group row">
+      <%= form.label :password, 'Contraseña:', class: 'col col-form-label' %>
+      <div class="col-10">
+        <%= form.text_field :password, class: 'form-control', type: 'password' %>
+      </div>
     </div>
-  </div>
+  <%end%>
+  <%if current_user.id == @user.id%>
+    <div class="form-group row">
+      <%= form.label :change_password, 'Contraseña:', class: 'col col-form-label' %>
+      <div class="col-10">
+        <%= link_to "Cambiar contraseña", change_password_path, class: 'btn btn-outline-primary' %>
+      </div>
+    </div>
+  <%end%>
 
   <div class="form-group row">
     <%= form.label :file_number, 'Legajo:', class: 'col col-form-label' %>

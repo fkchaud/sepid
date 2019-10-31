@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get '/reports', to: 'reports#generate_reports'
+  get '/change_password', to: 'users#change_password'
+  post '/change_password', to: 'users#change_password_continue'
   mount ReportsKit::Engine, at: '/reports'
   resources :funds_resolutions do
     resources :funds_destinations
