@@ -1,4 +1,6 @@
 data_method: MyDataMethods.change_status_count
+ui_filters:
+  - date_change_status_order
 chart:
   options:
     scales:
@@ -10,3 +12,5 @@ chart:
         - scaleLabel:
             display: true
             labelString: Cantidad
+            ticks:
+              beginAtZero: true

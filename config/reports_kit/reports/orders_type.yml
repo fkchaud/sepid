@@ -10,6 +10,7 @@ chart:
             labelString: Fecha de pedido
       yAxes:
         - scaleLabel:
+            display: true
             labelString: Pedidos
           ticks:
             beginAtZero: true

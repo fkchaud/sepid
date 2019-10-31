@@ -14,8 +14,5 @@
 <p>Descripción: <%=@order.description_order %></p>
 <p>Motivo del pedido: <%=@order.reason_order %></p>
 <p>Estado actual: <%=@order.order_status.order_status_name %></p>
-<%if @order.order_status.order_status_name == 'Pedido rechazado'%>
-  <p>Motivo del rechazo: <%=@order.order_status_histories.find_by_date_change_status_order(most_recent_date).reason_change_status_order %></p>
-<%end%>
 </body>
 </html>

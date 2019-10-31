@@ -89,7 +89,7 @@ class OrdersController < ApplicationController
       current_order_attribute = @order.order_type_attribute_values.new(
         value: params[:order][:attribute_names][index]
       )
-      # @flag = true unless current_order_attribute.valid?
+      @flag = true unless current_order_attribute.valid?
       # Asociar el valor del atributo con el atributo
       current_order_attribute.order_type_attribute = @order_type_attributes[index]
     end

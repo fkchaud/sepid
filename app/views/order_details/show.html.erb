@@ -20,6 +20,7 @@
   </div>
 
   <p class="text-right">
+    <%= link_to "Cancelar", order_path(@order_detail.order), class: 'btn btn-outline-secondary' %>
     <%= link_to "Rechazar el pedido", order_order_detail_refused_preventive_path(@order_detail.order, @order_detail), method: 'post', data: { confirm: '¿Seguro que desea cancelar?'}, class: 'btn btn-outline-secondary' %>
     <%= form.submit 'Guardar', class: 'btn btn-success' %>
   </p>
