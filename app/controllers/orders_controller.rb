@@ -8,17 +8,17 @@ class OrdersController < ApplicationController
       end
     when 'SeCYT_Admin'
       @orders = Order.all.select do |o|
-        o.order_status.order_status_name == 'Pedido realizado'
+        ['Pedido rechazado', 'Pedido cancelado', 'Pedido realizado'].include? o.order_status.order_status_name
       end
     when 'SeCYT_Sec'
       @orders = Order.all.select do |o|
-        o.order_status.order_status_name == 'Aprobado por CYT'
+        ['Pedido rechazado', 'Pedido cancelado', 'Aprobado por CYT'].include? o.order_status.order_status_name
       end
     when 'DEF_Admin'
       @orders = Order.all.select do |o|
         ['Aprobado por Secretario', 'Armado y aprobación de preventivo',
          'Licitación iniciada', 'Devengado realizado',
-         'Pedido recibido', 'Pedido retirado'].include? o.order_status.order_status_name
+         'Pedido recibido', 'Pedido retirado', 'Pedido rechazado', 'Pedido cancelado'].include? o.order_status.order_status_name
       end
     when 'Super_Admin'
       @orders = Order.all
@@ -203,7 +203,7 @@ class OrdersController < ApplicationController
 
   def start_tender
     @order = Order.find(params[:order_id])
-    if current_user.user_profile.name == 'DEF_Admin'
+    if (current_user.user_profile.name == 'DEF_Admin' || current_user.user_profile.name == 'Super_Admin')
       @order.order_status_histories.create(
         date_change_status_order: Time.now,
         reason_change_status_order: 'Licitación iniciada',
@@ -215,6 +215,7 @@ class OrdersController < ApplicationController
       ChangeStatusMailer.with(user: @director, order: @order).notify_change.deliver_later
       ChangeStatusMailer.with(user: @codirector, order: @order).notify_change.deliver_later
       redirect_to orders_path
+      return
     end
   end
 
