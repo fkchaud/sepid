@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
   def new
     if current_user
-      flash[:error] = 'Ya se encuentra una sesión activa'
       redirect_to welcome_index_path
     end
   end
