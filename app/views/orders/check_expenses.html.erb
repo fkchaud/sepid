@@ -6,7 +6,6 @@
     </td>
     <td>
       <select id="select_year" class ="form-control">
-        <option></option>
         <% @years.each do |year| %>
           <option value=<%=year%> ><%=year%></option>
         <% end %>
@@ -96,7 +95,7 @@
             $("#" + $(this).val()).show();
         });
 
-        $("#select_year option:last").attr("selected", "selected");
+        $("#select_year option:first").attr("selected", "selected");
         $(".content").hide();
         $("#" + $("#select_year").val()).show();
     });
