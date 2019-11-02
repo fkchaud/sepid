@@ -103,12 +103,18 @@ class UsersController < ApplicationController
         @user.save!
         base_url = request.protocol + request.host_with_port
         ResetPasswordMailer.reset_request(@user, base_url).deliver_later
-        render json: {success: 'request reset password successful'}, status: :ok
+        flash[:success] = "Mail de restauración de contraseña enviado con éxito"
+        redirect_to welcome_index_path
+        return
       rescue Exception => e
-        render json: {error: 'Fail save user with temporal password recovery token'}, status: :internal_server_error
+        flash[:error] = "Hubo un error al realizar el procedimiento, vuelva a intentarlo más tarde"
+        redirect_to forget_password_path
+        return
       end
     else
-      render json: {error: 'User not found'}, status: :not_found
+      flash[:error] = "No existe un usuario con el nombre ingresado"
+      redirect_to forget_password_path
+      return
     end
   end
   def forget_password
