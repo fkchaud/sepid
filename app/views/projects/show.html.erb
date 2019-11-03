@@ -1,5 +1,35 @@
 <h1>Proyecto</h1>
 
+<div class="row">
+  <label for="select_year" class="col-3 col-form-label">Seleccionar año de consulta: </label>
+  <select id="select_year" class="col-2 form-control">
+    <% @years.each do |year| %>
+      <option value="" selected disabled></option>
+      <option value=<%=year%> ><%=year%></option>
+    <% end %>
+  </select>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#select_year").change(function() {
+            let selectedYear = $(this).val();
+            window.location = window.location.href.split('?')[0] + `?year=${selectedYear}`;
+        });
+
+        let urlParams = new URLSearchParams(window.location.search);
+        let year = urlParams.get('year');
+
+        $("#select_year > option").each(function() {
+            if (this.value == year) {
+                this.selected = 'selected';
+            }
+        });
+    });
+</script>
+
+<br/>
+
 <% flash.each do |key, value| %>
   <div class="<%= flash_class(key) %>">
     <%= value %>

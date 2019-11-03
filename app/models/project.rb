@@ -67,7 +67,8 @@ class Project < ApplicationRecord
   scope :enabled, -> { where.not(project_status: ProjectStatus.find_by_name('Cancelado')) }
 
   # calculate money
-  def total_credits(year = Time.now.year)
+  def total_credits(year = nil)
+    year = Time.now.year if year.nil?
     project_funds_details = self.project_funds_details.where year: year
     total_credits_per_subsection = {}
     total_credits_per_subsection.default = 0.0
@@ -79,7 +80,8 @@ class Project < ApplicationRecord
     total_credits_per_subsection
   end
 
-  def total_expenses(year = Time.now.year)
+  def total_expenses(year = nil)
+    year = Time.now.year if year.nil?
     orders = self.orders.where('extract(year from order_date) = ?', year)
     valid_orders = orders.reject do |o|
       ['Pedido cancelado', 'Pedido rechazado'].include? o.order_status.order_status_name
@@ -97,7 +99,8 @@ class Project < ApplicationRecord
     total_expenses_per_subsection
   end
 
-  def available_credits(credits = nil, expenses = nil, year = Time.now.year)
+  def available_credits(credits = nil, expenses = nil, year = nil)
+    year = Time.now.year if year.nil?
     credits = self.total_credits(year) if credits.nil?
     expenses = self.total_expenses(year) if expenses.nil?
 

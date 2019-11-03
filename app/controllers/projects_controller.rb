@@ -13,7 +13,9 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @years = (@project.start_date.year..@project.ending_date.year)
+  end
 
   def new
     @project = Project.new
@@ -79,10 +81,11 @@ class ProjectsController < ApplicationController
   end
 
   def set_projects
+    year = params.fetch :year, nil
     @project = Project.find params[:id]
-    @total_credits = @project.total_credits
-    @total_expenses = @project.total_expenses
-    @available_credits = @project.available_credits @total_credits, @total_expenses
+    @total_credits = @project.total_credits year
+    @total_expenses = @project.total_expenses year
+    @available_credits = @project.available_credits @total_credits, @total_expenses, year
   end
 
 end
