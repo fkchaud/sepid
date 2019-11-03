@@ -18,13 +18,13 @@
       </td>
     </tr>
     <%= form.hidden_field :order_type_id, value: @order_type.id %>
-    <%@order_type.order_type_attributes.each do |attribute| %>
-      <%if attribute.is_disabled.nil? %>
-      <tr>
-        <td>
-          <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
-        </td>
-        <td>
+    <%if @order_invalid.nil? %>
+      <%@order_type_attributes.each do |attribute| %>
+        <tr>
+          <td>
+            <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
+          </td>
+          <td>
             <%if attribute.attribute_type == "Fecha" %>
               <%= form.date_field(:attribute_names, multiple: true, class: 'form-control') %>
             <% end %>
@@ -32,24 +32,55 @@
               <%= form.number_field(:attribute_names, min: 0, multiple: true, class: 'form-control') %>
             <% end %>
             <%if attribute.attribute_type == "Número decimal" %>
-              <%= form.number_field(:attribute_names, min: 0.0, multiple: true, step: 0.5, class: 'form-control') %>
+              <%= form.number_field(:attribute_names, min: 0.0, multiple: true, step: 0.1, class: 'form-control') %>
             <% end %>
             <%if attribute.attribute_type == "Texto" %>
               <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
             <% end %>
-          <%if attribute.attribute_type == "Mail" %>
-            <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control', type: 'email' %>
-          <% end %>
+            <%if attribute.attribute_type == "Mail" %>
+              <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control', type: 'email' %>
+            <% end %>
             <%if attribute.attribute_type == "Confirmación" %>
               <%= form.radio_button :attribute_names, "True", multiple: true %>
               <%= form.label :yes, "Si" %>
               <%= form.radio_button :attribute_names, "False", multiple: true%>
               <%= form.label :not, "No"%>
             <% end %>
-        </td>
-      </tr>
+          </td>
+        </tr>
       <% end %>
-    <% end %>
+    <%else%>
+      <%@order_type_attributes.each do |attribute| %>
+        <tr>
+          <td>
+            <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
+          </td>
+          <td>
+            <%if attribute.attribute_type == "Fecha" %>
+              <%= form.date_field(:attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_date.strftime("%Y-%m-%d").to_s, multiple: true, class: 'form-control') %>
+            <% end %>
+            <%if attribute.attribute_type == "Número entero" %>
+              <%= form.number_field(:attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_s, min: 0, multiple: true, class: 'form-control') %>
+            <% end %>
+            <%if attribute.attribute_type == "Número decimal" %>
+              <%= form.number_field(:attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_s, min: 0.0, multiple: true, step: 0.1, class: 'form-control') %>
+            <% end %>
+            <%if attribute.attribute_type == "Texto" %>
+              <%= form.text_field :attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_s, multiple: true, class: 'form-control' %>
+            <% end %>
+            <%if attribute.attribute_type == "Mail" %>
+              <%= form.text_field :attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_s, multiple: true, class: 'form-control', type: 'email' %>
+            <% end %>
+            <%if attribute.attribute_type == "Confirmación" %>
+              <%= form.radio_button :attribute_names, "Si", multiple: true %>
+              <%= form.label :yes, "Si" %>
+              <%= form.radio_button :attribute_names, "No", multiple: true%>
+              <%= form.label :not, "No"%>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <%end%>
   </table>
 
   <table>
@@ -92,9 +123,9 @@
               <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control', type: 'email' %>
             <% end %>
             <%if attribute.attribute_type == "Confirmación" %>
-              <%= detail.radio_button :attribute_names, "True", multiple: true %>
+              <%= detail.radio_button :attribute_names, "Si", multiple: true %>
               <%= detail.label :age_child, "Si" %>
-              <%= detail.radio_button :attribute_names, "False", multiple: true%>
+              <%= detail.radio_button :attribute_names, "No", multiple: true%>
               <%= detail.label :age_adult, "No"%>
             <% end %>
           </td>
