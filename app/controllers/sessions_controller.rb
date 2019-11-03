@@ -23,6 +23,6 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out
-    redirect_to welcome_index_path
+    redirect_to sessions_new_path
   end
 end
