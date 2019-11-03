@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
   def index
     unless current_user
-      redirect_to sessions_new_path
+      redirect_to login_path
     end
   end
 end

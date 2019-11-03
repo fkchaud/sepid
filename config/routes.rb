@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/password_reset/:tmp_token', to: 'password_reset#index'
+  get '/password_reset/:tmp_token', to: 'password_reset#index', as: 'password_reset_index'
   patch '/password_reset/reset', to: 'password_reset#reset'
   get 'sessions/new'
   get    '/login',   to: 'sessions#new'

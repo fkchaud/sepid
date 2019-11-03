@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PasswordResetControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get password_reset_index_url
+    get password_reset_index_url('some_token')
     assert_response :success
   end
 
