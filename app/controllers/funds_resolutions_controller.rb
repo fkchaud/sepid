@@ -46,7 +46,8 @@ class FundsResolutionsController < ApplicationController
         project_funds_details: fd.project_funds_details
                                  .select(:subsection_id)
                                  .group(:subsection_id)
-                                 .sum(:funds_amount)
+                                 .sum(:funds_amount),
+        projects: fd.project_funds_details.map { |pfd| pfd.project }.flatten.uniq
       }
     end
   end

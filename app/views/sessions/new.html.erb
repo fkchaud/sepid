@@ -5,20 +5,20 @@
     <%= value %>
   </div>
 <% end %>
-<table class="table table-hover" style="width: 50%;">
-  <%= form_for(:session, url: login_path) do |f| %>
-  <tr>
-    <td><%= f.label :name %></td>
-    <td><%= f.text_field :name, class: 'form-control' %></td>
-  </tr>
-  <tr>
-    <td><%= f.label :password %></td>
-    <td><%= f.password_field :password, class: 'form-control' %></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td><%= f.submit "Log in", class: "btn btn-primary" %></td>
-  </tr>
-  <% end %>
-</table>
+
+<div class="col-6">
+<%= form_for(:session, url: login_path) do |f| %>
+  <div class="form-group row">
+    <%= f.label :name, class: "col col-form-label" %>
+    <div class="col-8"><%= f.text_field :name, class: 'form-control' %></div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :password, class: "col col-form-label" %>
+    <div class="col-8"><%= f.password_field :password, class: 'form-control' %></div>
+  </div>
+  <div class="form-group row">
+    <div class="col-12"><%= f.submit "Log in", class: "btn btn-primary btn-block" %></div>
+  </div>
+<% end %>
+</div>
 <%= link_to "Olvide mi contraseña", forget_password_path, class: 'btn btn-secondary' %>

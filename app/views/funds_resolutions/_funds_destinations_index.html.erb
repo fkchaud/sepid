@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th>
-        Destino:
+        Destino
       </th>
       <% Subsection.enabled.each do |subsection| %>
         <th>
@@ -21,13 +21,22 @@
       </td>
     </tr>
   <% else %>
-    <% @funds_destinations.each do |funds_destination| %>
+    <% @funds_destinations.each_with_index do |funds_destination, fd_index| %>
       <tr class="align-items-center">
         <td><%= funds_destination[:data].name %></td>
         <% funds_destination[:project_funds_details].each do |pfd_key, pfd_value| %>
           <td><%= pfd_value %></td>
         <% end %>
-        <td>Editar, Eliminar, Proyectos</td>
+        <td class="fit">
+          <div class="btn-group">
+            <div onclick="showProjects(<%= fd_index %>)" class="btn btn-outline-primary" style="cursor: pointer;">Proyectos</div>
+          </div>
+        </td>
+      </tr>
+      <tr id="projects-<%= fd_index %>" class="funds-destinations-projects">
+        <td colspan="<%= 2 + Subsection.enabled.length %>">
+          <%= funds_destination[:projects].map {|p| p.project_code}.join(', ') %>
+        </td>
       </tr>
     <% end %>
   <% end %>
@@ -36,8 +45,12 @@
 
 <div class="row">
   <%= link_to 'Agregar destino',
-              new_funds_resolution_funds_destination_path(
-                @funds_resolution
-              ),
+              new_funds_resolution_funds_destination_path(@funds_resolution),
               class: 'btn btn-outline-primary btn-block'%>
 </div>
+
+<script type="text/javascript">
+  function showProjects(id) {
+    document.getElementById(`projects-${id}`).classList.toggle('funds-destinations-projects');
+  }
+</script>
