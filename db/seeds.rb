@@ -236,7 +236,7 @@ incentives_pfds = ProjectFundsDetail.create!(
     }
   }
 )
-7656
+
 puts '-- create funds_resolutions'
 funds_resolution = FundsResolution.create! [{
   number: '241/2018',
@@ -258,6 +258,60 @@ FundsDestination.create! [
   }
 ]
 
-# AccessPermit
+puts '-- create order_types'
+OrderType.create! [
+  {
+    name_type_order: 'Solicitud de Elementos',
+    order_type_attributes_attributes: [{ attribute_name: 'Rubro', attribute_type: 'Texto' }],
+    order_detail_attributes_attributes: [
+      { attribute_name: 'Código', attribute_type: 'Texto' },
+      { attribute_name: 'Cantidad', attribute_type: 'Número entero' }
+    ]
+  },
+  {
+    name_type_order: 'Solicitud de Reintegro',
+    order_type_attributes_attributes: [
+      { attribute_name: 'Fecha de gasto efectuado', attribute_type: 'Fecha' },
+      { attribute_name: 'Gasto (asistencia / viaje / compra)', attribute_type: 'Texto' },
+      { attribute_name: 'Nombre completo del beneficiario', attribute_type: 'Texto' },
+      { attribute_name: 'Legajo del beneficiario', attribute_type: 'Número entero' },
+      { attribute_name: 'DNI del beneficiario', attribute_type: 'Número entero' }
+    ],
+    order_detail_attributes_attributes: [
+      { attribute_name: 'Fecha del comprobante', attribute_type: 'Fecha' },
+      { attribute_name: 'Número del comprobante', attribute_type: 'Texto' },
+      { attribute_name: 'Tipo del comprobante (B o C)', attribute_type: 'Texto' },
+      { attribute_name: 'Número de folio del comprobante', attribute_type: 'Número entero' }
+    ]
+  },
+  {
+    name_type_order: 'Solicitud de Viáticos',
+    order_type_attributes_attributes: [
+      { attribute_name: 'Tipo de viático (asistencia/viaje)', attribute_type: 'Texto' },
+      { attribute_name: 'Fecha desde', attribute_type: 'Fecha' },
+      { attribute_name: 'Fecha hasta', attribute_type: 'Fecha' }
+    ],
+    order_detail_attributes_attributes: [
+      { attribute_name: 'Nombre del beneficiario', attribute_type: 'Texto' },
+      { attribute_name: 'DNI del beneficiario', attribute_type: 'Número entero' },
+      { attribute_name: 'Origen', attribute_type: 'Texto' },
+      { attribute_name: 'Destino', attribute_type: 'Texto' },
+      { attribute_name: 'Fecha desde', attribute_type: 'Fecha' },
+      { attribute_name: 'Fecha hasta', attribute_type: 'Fecha' }
+    ]
+  },
+  {
+    name_type_order: 'Solicitud de Pago Anticipado',
+    order_type_attributes_attributes: [
+      { attribute_name: 'Destino del pago', attribute_type: 'Texto' },
+      { attribute_name: 'Fecha desde', attribute_type: 'Fecha' },
+      { attribute_name: 'Fecha hasta', attribute_type: 'Fecha' }
+    ],
+    order_detail_attributes_attributes: [
+      { attribute_name: 'Categoría', attribute_type: 'Texto' },
+      { attribute_name: 'Fecha límite', attribute_type: 'Fecha' }
+    ]
+  }
+]
 
-# crear tipos de pedidos
+# AccessPermit

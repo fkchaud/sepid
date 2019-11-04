@@ -2,11 +2,13 @@ class OrderTypeAttributesController < ApplicationController
 
   def create
     @order_type = OrderType.find(params[:order_type_id])
-    @order_type_attribute_exist = OrderTypeAttribute.where(attribute_name: params[:order_type_attribute][:attribute_name],
-                                                           attribute_type: params[:order_type_attribute][:attribute_type],
-                                                           order_type: @order_type).take
+    @order_type_attribute_exist = OrderTypeAttribute.where(
+      attribute_name: params[:order_type_attribute][:attribute_name],
+      attribute_type: params[:order_type_attribute][:attribute_type],
+      order_type: @order_type
+    ).take(1)
     unless @order_type_attribute_exist.nil?
-      if @order_type_attribute_exist.is_disabled != nil
+      if !@order_type_attribute_exist.is_disabled.nil?
         flash[:error] = 'Los datos ingresados corresponden a un atirbuto dado de baja, favor de volver a habilitarlo en caso de querer utilizarlo'
       else
         flash[:error] = 'Ya existe un atributo igual en este tipo de pedido'
@@ -32,11 +34,13 @@ class OrderTypeAttributesController < ApplicationController
   def update
     @order_type = OrderType.find(params[:order_type_id])
     @order_type_attribute = @order_type.order_type_attributes.find(params[:id])
-    @order_type_attribute_exist = OrderTypeAttribute.where(attribute_name: params[:order_type_attribute][:attribute_name],
-                                                           attribute_type: params[:order_type_attribute][:attribute_type],
-                                                           order_type: @order_type).take
+    @order_type_attribute_exist = OrderTypeAttribute.where(
+      attribute_name: params[:order_type_attribute][:attribute_name],
+      attribute_type: params[:order_type_attribute][:attribute_type],
+      order_type: @order_type
+    ).take(1)
     unless @order_type_attribute_exist.nil?
-      if @order_type_attribute_exist.is_disabled != nil
+      if !@order_type_attribute_exist.is_disabled.nil?
         flash[:error] = 'Los datos ingresados corresponden a un atirbuto dado de baja, favor de volver a habilitarlo en caso de querer utilizarlo'
       else
         flash[:error] = 'Ya existe un atributo igual en este tipo de pedido'
