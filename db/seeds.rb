@@ -155,8 +155,8 @@ no_incentives_projects = Project.create!(
     {
       project_code: code,
       project_name: "Project #{code}",
-      start_date: '2018-01-01',
-      ending_date: '2018-12-31',
+      start_date: '2019-01-01',
+      ending_date: '2019-12-31',
       project_status: project_status_approved,
       project_type: project_type_pid,
       director: user_bromberg,
@@ -176,8 +176,8 @@ incentives_projects = Project.create!(
     {
       project_code: code,
       project_name: "Project #{code}",
-      start_date: '2018-01-01',
-      ending_date: '2018-12-31',
+      start_date: '2019-01-01',
+      ending_date: '2019-12-31',
       project_status: project_status_approved,
       project_type: project_type_pid, # maybe change to pid with incentives in the future
       director: user_bromberg,
@@ -191,21 +191,21 @@ no_incentives_pfds = ProjectFundsDetail.create!(
   no_incentives_projects.map { |project|
     {
       funds_amount: 267_300 / no_incentives_projects.length,
-      year: 2018,
+      year: 2019,
       subsection: subsections[0],
       project: project
     }
   } + no_incentives_projects.map { |project|
     {
       funds_amount: 178_200 / no_incentives_projects.length,
-      year: 2018,
+      year: 2019,
       subsection: subsections[1],
       project: project
     }
   } + no_incentives_projects.map { |project|
     {
       funds_amount: 445_500 / no_incentives_projects.length,
-      year: 2018,
+      year: 2019,
       subsection: subsections[2],
       project: project
     }
@@ -216,21 +216,21 @@ incentives_pfds = ProjectFundsDetail.create!(
   incentives_projects.map { |project|
     {
       funds_amount: 250_800 / incentives_projects.length,
-      year: 2018,
+      year: 2019,
       subsection: subsections[0],
       project: project
     }
   } + incentives_projects.map { |project|
     {
       funds_amount: 167_200 / incentives_projects.length,
-      year: 2018,
+      year: 2019,
       subsection: subsections[1],
       project: project
     }
   } + incentives_projects.map { |project|
     {
       funds_amount: 418_000 / incentives_projects.length,
-      year: 2018,
+      year: 2019,
       subsection: subsections[2],
       project: project
     }
@@ -239,8 +239,8 @@ incentives_pfds = ProjectFundsDetail.create!(
 
 puts '-- create funds_resolutions'
 funds_resolution = FundsResolution.create! [{
-  number: '241/2018',
-  date: '2018-04-05',
+  number: '241/2019',
+  date: '2019-04-05',
   resolution_type: funds_resolution
 }]
 
