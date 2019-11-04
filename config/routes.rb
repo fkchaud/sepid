@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       get '/show', to: 'order_details#show'
     end
   end
+  get '/subsection_shifts', to: 'subsection_shifts#index_all', as: 'subsection_shifts'
   resources :projects do
     get '/check_expenses', to: 'orders#check_expenses'
     post '/orders/continue(.:format)', to: 'orders#continue'

@@ -2,6 +2,10 @@ class SubsectionShiftsController < ApplicationController
   before_action :set_projects,
                 only: [:index, :new, :create, :show]
 
+  def index_all
+    @subsection_shifts = SubsectionShift.all
+  end
+
   def index
     @subsection_shifts = SubsectionShift.from_project(@project)
   end

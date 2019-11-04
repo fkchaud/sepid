@@ -1,0 +1,46 @@
+<h1>Pedidos de Cambio de Inciso</h1>
+<table class="table table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <th>Proyecto</th>
+    <th>Fecha</th>
+    <th>Motivo</th>
+    <th>Movimientos</th>
+    <th>Estado</th>
+    <th class="fit"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @subsection_shifts.each do |subsection_shift| %>
+    <tr>
+      <td><%= subsection_shift.project_funds_details.first.project.project_code %></td>
+      <td><%= subsection_shift.requested_date %></td>
+      <td><%= subsection_shift.requested_cause %></td>
+      <td>
+        <ul style="margin-bottom: 0; padding-left: 20px;">
+          <% subsection_shift.project_funds_details.each do |pfd| %>
+            <li><%= "Inciso #{pfd.subsection.name}: #{pfd.funds_amount}" %></li>
+          <% end %>
+        </ul>
+      </td>
+      <td><%= subsection_shift.last_status.name %></td>
+      <td class="fit">
+        <div class="btn-group">
+          <%= link_to 'Mostrar',
+                      project_subsection_shift_path(subsection_shift.project_funds_details.first.project, subsection_shift),
+                      class: 'btn btn-outline-info' %>
+          <% if ['Super_Admin', 'DEF_Admin'].include? current_user.user_profile.name and
+              subsection_shift.last_status.name == 'Solicitado' %>
+            <%= link_to 'Aprobar',
+                        approve_subsection_shift_path(subsection_shift),
+                        class: 'btn btn-outline-success' %>
+            <%= link_to 'Rechazar',
+                        reject_subsection_shift_path(subsection_shift),
+                        class: 'btn btn-outline-danger' %>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
