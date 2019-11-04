@@ -40,6 +40,15 @@ class FundsResolutionsController < ApplicationController
 
   def set_funds_resolution
     @funds_resolution = FundsResolution.find params[:id]
+    @funds_destinations = @funds_resolution.funds_destinations.map do |fd|
+      {
+        data: fd,
+        project_funds_details: fd.project_funds_details
+                                 .select(:subsection_id)
+                                 .group(:subsection_id)
+                                 .sum(:funds_amount)
+      }
+    end
   end
 
   def funds_resolution_params

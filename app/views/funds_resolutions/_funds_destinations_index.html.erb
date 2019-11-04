@@ -21,11 +21,11 @@
       </td>
     </tr>
   <% else %>
-    <% @funds_resolution.funds_destinations.each do |funds_destination| %>
+    <% @funds_destinations.each do |funds_destination| %>
       <tr class="align-items-center">
-        <td><%= funds_destination.name %></td>
-        <% funds_destination.project_funds_details.each do |pfd| %>
-          <td><%= pfd.funds_amount %></td>
+        <td><%= funds_destination[:data].name %></td>
+        <% funds_destination[:project_funds_details].each do |pfd_key, pfd_value| %>
+          <td><%= pfd_value %></td>
         <% end %>
         <td>Editar, Eliminar, Proyectos</td>
       </tr>
