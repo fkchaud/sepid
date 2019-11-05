@@ -28,9 +28,8 @@ class OrdersController < ApplicationController
   end
 
   def show
-    if params[:id] == "continue"
+    if params[:id] == 'continue'
       redirect_to projects_path
-      return
     else
       @order = Order.find(params[:id])
     end
@@ -40,12 +39,11 @@ class OrdersController < ApplicationController
     @project = Project.find(params[:project_id])
     @order = Order.new
     @order_types = OrderType.enabled
-    if @order_types.empty?
-      flash[:error] = 'No existe ningún tipo de pedido vigente, no se puede continuar con la acción.
-                         Contactar con el personal a cargo'
-      redirect_to welcome_index_path
-      return
-    end
+    return unless @order_types.empty?
+
+    flash[:error] = 'No existe ningún tipo de pedido vigente, no se puede continuar con la acción.
+                       Contactar con el personal a cargo'
+    redirect_to welcome_index_path
   end
 
   def create
@@ -95,7 +93,7 @@ class OrdersController < ApplicationController
       @flag = true unless current_order_attribute.valid?
     end
     if params[:order][:order_details_attributes].nil?
-      flash.now[:error] = "No hay ningún detalle cargado"
+      flash.now[:error] = 'No hay ningún detalle cargado'
       render 'continue'
       return
     else
@@ -104,7 +102,7 @@ class OrdersController < ApplicationController
         current_detail = @order.order_details.new
         (0...@order_detail_attributes.length).each do |index|
           current_detail_attribute = current_detail.order_detail_attribute_values.new(
-              value: value[:attribute_names][index]
+            value: value[:attribute_names][index]
           )
           current_detail_attribute.order_detail_attribute = @order_detail_attributes[index]
           @flag = true unless current_detail_attribute.valid?

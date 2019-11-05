@@ -4,4 +4,6 @@ class OrderDetailAttribute < ApplicationRecord
 
   belongs_to :order_type
   has_many :order_detail_attribute_values
+
+  scope :enabled, -> { where(is_disabled: nil) }
 end

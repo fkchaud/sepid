@@ -1,87 +1,62 @@
 <p>Atributos del pedido</p>
 <%= form_with model: @order, url:project_orders_path, local: true do |form| %>
-  <table>
-    <tr>
-      <td width="25%">
-        <%= form.label :description_order, 'Descripción:', class: 'col col-form-label' %>
-      </td>
-      <td>
-          <%= form.text_field :description_order, class: 'form-control' %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= form.label :reason_order, 'Motivo:', class: 'col col-form-label' %>
-      </td>
-      <td>
-          <%= form.text_field :reason_order, class: 'form-control' %>
-      </td>
-    </tr>
-    <%= form.hidden_field :order_type_id, value: @order_type.id %>
-    <%if @order_invalid.nil? %>
-      <%@order_type_attributes.each do |attribute| %>
-        <tr>
-          <td>
-            <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
-          </td>
-          <td>
-            <%if attribute.attribute_type == "Fecha" %>
-              <%= form.date_field(:attribute_names, multiple: true, class: 'form-control') %>
-            <% end %>
-            <%if attribute.attribute_type == "Número entero" %>
-              <%= form.number_field(:attribute_names, min: 0, multiple: true, class: 'form-control') %>
-            <% end %>
-            <%if attribute.attribute_type == "Número decimal" %>
-              <%= form.number_field(:attribute_names, min: 0.0, multiple: true, step: 0.1, class: 'form-control') %>
-            <% end %>
-            <%if attribute.attribute_type == "Texto" %>
-              <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
-            <% end %>
-            <%if attribute.attribute_type == "Mail" %>
-              <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control', type: 'email' %>
-            <% end %>
-            <%if attribute.attribute_type == "Confirmación" %>
-              <%= form.radio_button :attribute_names, "True", multiple: true %>
-              <%= form.label :yes, "Si" %>
-              <%= form.radio_button :attribute_names, "False", multiple: true%>
-              <%= form.label :not, "No"%>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <%else%>
-      <%@order_type_attributes.each do |attribute| %>
-        <tr>
-          <td>
-            <%= form.label :attribute_type, attribute.attribute_name, class: 'col col-form-label' %>
-          </td>
-          <td>
-            <%if attribute.attribute_type == "Fecha" %>
-              <%= form.date_field(:attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_date.strftime("%Y-%m-%d").to_s, multiple: true, class: 'form-control') %>
-            <% end %>
-            <%if attribute.attribute_type == "Número entero" %>
-              <%= form.number_field(:attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_s, min: 0, multiple: true, class: 'form-control') %>
-            <% end %>
-            <%if attribute.attribute_type == "Número decimal" %>
-              <%= form.number_field(:attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_s, min: 0.0, multiple: true, step: 0.1, class: 'form-control') %>
-            <% end %>
-            <%if attribute.attribute_type == "Texto" %>
-              <%= form.text_field :attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_s, multiple: true, class: 'form-control' %>
-            <% end %>
-            <%if attribute.attribute_type == "Mail" %>
-              <%= form.text_field :attribute_names, value: @order_invalid[@order_type_attributes.index(attribute)].to_s, multiple: true, class: 'form-control', type: 'email' %>
-            <% end %>
-            <%if attribute.attribute_type == "Confirmación" %>
-              <%= form.radio_button :attribute_names, "Si", multiple: true %>
-              <%= form.label :yes, "Si" %>
-              <%= form.radio_button :attribute_names, "No", multiple: true%>
-              <%= form.label :not, "No"%>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <%end%>
-  </table>
+  <div class="form-group row">
+    <%= form.label :description_order, 'Descripción:', class: 'col col-form-label' %>
+    <div class="col-lg-10"><%= form.text_field :description_order, class: 'form-control' %></div>
+  </div>
+  <div class="form-group row">
+    <%= form.label :reason_order, 'Motivo:', class: 'col col-form-label' %>
+    <div class="col-lg-10"><%= form.text_field :reason_order, class: 'form-control' %></div>
+  </div>
+  <%= form.hidden_field :order_type_id, value: @order_type.id %>
+  <% @order_type_attributes.each do |attribute| %>
+    <div class="form-group row">
+      <%= form.label :attribute_type, "#{attribute.attribute_name}:", class: 'col col-form-label' %>
+      <div class="col-lg-10">
+        <%- case attribute.attribute_type -%>
+        <%- when 'Fecha' -%>
+          <%= form.date_field :attribute_names,
+                              value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_date.strftime("%Y-%m-%d").to_s,
+                              multiple: true,
+                              class: 'form-control' %>
+        <%- when "Número entero" -%>
+          <%= form.number_field :attribute_names,
+                                value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                                min: 0,
+                                multiple: true,
+                                class: 'form-control' %>
+        <%- when "Número decimal" -%>
+          <%= form.number_field :attribute_names,
+                                value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                                min: 0.0,
+                                multiple: true,
+                                step: 0.1,
+                                class: 'form-control' %>
+        <%- when "Texto" -%>
+          <%= form.text_field :attribute_names,
+                              value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                              multiple: true,
+                              class: 'form-control' %>
+        <%- when "Mail" -%>
+          <%= form.text_field :attribute_names,
+                              value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                              multiple: true,
+                              class: 'form-control',
+                              type: 'email' %>
+        <%- when "Confirmación" -%>
+          <%= form.radio_button :attribute_names, "Si", multiple: true %>
+          <%= form.label :yes, "Si" %>
+          <%= form.radio_button :attribute_names, "No", multiple: true%>
+          <%= form.label :not, "No"%>
+        <%- else -%>
+          <%= form.text_field :attribute_names,
+                              value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                              multiple: true,
+                              class: 'form-control' %>
+        <%- end -%>
+      </div>
+    </div>
+  <% end %>
 
   <table>
     <tr>
@@ -104,32 +79,28 @@
     </tr>
 
     <%= form.nested_fields_for :order_details, wrapper_tag: :tr do |detail| %>
-      <%@order_type.order_detail_attributes.each do |attribute| %>
-        <%if attribute.is_disabled.nil? %>
-          <td>
-            <%if attribute.attribute_type == "Fecha" %>
-              <%= detail.date_field(:attribute_names, multiple: true, class: 'form-control') %>
-            <% end %>
-            <%if attribute.attribute_type == "Número entero" %>
-              <%= detail.number_field(:attribute_names, min: 0, multiple: true, class: 'form-control') %>
-            <% end %>
-            <%if attribute.attribute_type == "Número decimal" %>
-              <%= detail.number_field(:attribute_names, min: 0.0, multiple: true, step: 0.1, class: 'form-control') %>
-            <% end %>
-            <%if attribute.attribute_type == "Texto" %>
-              <%= detail.text_field :attribute_names, value:"", multiple: true, class: 'form-control' %>
-            <% end %>
-            <%if attribute.attribute_type == "Mail" %>
-              <%= form.text_field :attribute_names, value:"", multiple: true, class: 'form-control', type: 'email' %>
-            <% end %>
-            <%if attribute.attribute_type == "Confirmación" %>
-              <%= detail.radio_button :attribute_names, "Si", multiple: true %>
-              <%= detail.label :age_child, "Si" %>
-              <%= detail.radio_button :attribute_names, "No", multiple: true%>
-              <%= detail.label :age_adult, "No"%>
-            <% end %>
-          </td>
-        <% end %>
+      <% @order_type.order_detail_attributes.enabled.each do |attribute| %>
+        <td>
+          <%- case attribute.attribute_type -%>
+          <%- when "Fecha" -%>
+            <%= detail.date_field(:value, multiple: true, class: 'form-control') %>
+          <%- when "Número entero" -%>
+            <%= detail.number_field(:value, min: 0, multiple: true, class: 'form-control') %>
+          <%- when "Número decimal" -%>
+            <%= detail.number_field(:value, min: 0.0, multiple: true, step: 0.1, class: 'form-control') %>
+          <%- when "Texto" -%>
+            <%= detail.text_field :value, value:"", multiple: true, class: 'form-control' %>
+          <%- when "Mail" -%>
+            <%= form.text_field :value, value:"", multiple: true, class: 'form-control', type: 'email' %>
+          <%- when "Confirmación" -%>
+            <%= detail.radio_button :value, "Si", multiple: true %>
+            <%= detail.label :age_child, "Si" %>
+            <%= detail.radio_button :value, "No", multiple: true%>
+            <%= detail.label :age_adult, "No"%>
+          <%- else -%>
+            <%= detail.text_field :value, value:"", multiple: true, class: 'form-control' %>
+          <% end %>
+        </td>
       <% end %>
       <td>
         <%= detail.text_field :description_detail, class: 'form-control' %>
@@ -141,16 +112,15 @@
         <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>
       </td>
       <td>
-        <input type="button" value="Eliminar" onClick="eliminar(this)", class="btn btn-primary">
+        <input type="button" value="Eliminar" onClick="eliminar(this)" class="btn btn-primary">
       </td>
     <% end %>
 
-
     <tr>
-      <p class="text-right">
+      <td class="text-right">
         <%= link_to "Cancelar", :back, class: 'btn btn-outline-secondary' %>
         <%= form.submit 'Guardar', class: 'btn btn-success' %>
-      </p>
+      </td>
     </tr>
     <tr>
       <%= form.add_nested_fields_link :order_details, 'Agregar un nuevo detalle', class: 'btn btn-primary' %>

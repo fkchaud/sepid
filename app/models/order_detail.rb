@@ -6,6 +6,7 @@ class OrderDetail < ApplicationRecord
   belongs_to :subsection
   has_many :value_histories
   has_many :order_detail_attribute_values
+  accepts_nested_attributes_for :order_detail_attribute_values
 
   def last_value
     most_recent_date = value_histories.maximum("date")
