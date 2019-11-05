@@ -1,11 +1,14 @@
 <h1>Listado de tipos de pedidos</h1>
+<%# Muestra mensaje 'flash' en caso de haberlo %>
 <% flash.each do |key, value| %>
   <div class="<%= flash_class(key) %>">
     <%= value %>
   </div>
 <% end %>
+<%# Tabla de tipos de pedido %>
 <table class="table table-hover">
   <thead class="thead-dark">
+  <%# Encabezados de la tabla %>
   <tr>
     <th>Nombre</th>
     <th>Descripción</th>
@@ -13,12 +16,15 @@
   </tr>
   </thead>
   <tbody>
+  <%# Para cada TipoPedido encontrado en el controlador... %>
   <% @order_types.each do |order_type| %>
+  <%# ... creará una fila nueva con el contenido del TipoPedido %>
     <tr class="align-items-center<%= ' table-disabled' if order_type.is_disabled %>">
       <td><%= order_type.name_type_order %></td>
       <td><%= order_type.description_type_order %></td>
       <td class="fit">
         <div class='btn-group'>
+          <%# Enlaces para interactuar con el TipoPedido %>
           <%= link_to 'Mostrar', order_type_path(order_type), class: 'btn btn-outline-info' %>
           <%= link_to 'Editar', edit_order_type_path(order_type), class: 'btn btn-outline-primary' %>
           <%= link_to 'Eliminar', order_type_path(order_type),
@@ -31,4 +37,5 @@
   <% end %>
   </tbody>
 </table>
+<%# Enlace para agregar un nuevo TipoPedido %>
 <%= link_to 'Agregar tipo de pedido', new_order_type_path, class: 'btn btn-outline-primary btn-block' %>

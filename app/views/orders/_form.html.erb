@@ -2,11 +2,11 @@
 <%= form_with model: @order, url:project_orders_path, local: true do |form| %>
   <div class="form-group row">
     <%= form.label :description_order, 'Descripción:', class: 'col col-form-label' %>
-    <div class="col-lg-10"><%= form.text_field :description_order, class: 'form-control' %></div>
+    <div class="col-lg-10"><%= form.text_field :description_order, required: true, class: 'form-control' %></div>
   </div>
   <div class="form-group row">
     <%= form.label :reason_order, 'Motivo:', class: 'col col-form-label' %>
-    <div class="col-lg-10"><%= form.text_field :reason_order, class: 'form-control' %></div>
+    <div class="col-lg-10"><%= form.text_field :reason_order, required: true, class: 'form-control' %></div>
   </div>
   <%= form.hidden_field :order_type_id, value: @order_type.id %>
   <% @order_type_attributes.each do |attribute| %>
@@ -17,17 +17,20 @@
         <%- when 'Fecha' -%>
           <%= form.date_field :attribute_names,
                               value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_date.strftime("%Y-%m-%d").to_s,
+                              required: true,
                               multiple: true,
                               class: 'form-control' %>
         <%- when "Número entero" -%>
           <%= form.number_field :attribute_names,
                                 value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                                required: true,
                                 min: 0,
                                 multiple: true,
                                 class: 'form-control' %>
         <%- when "Número decimal" -%>
           <%= form.number_field :attribute_names,
                                 value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                                required: true,
                                 min: 0.0,
                                 multiple: true,
                                 step: 0.1,
@@ -35,11 +38,13 @@
         <%- when "Texto" -%>
           <%= form.text_field :attribute_names,
                               value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                              required: true,
                               multiple: true,
                               class: 'form-control' %>
         <%- when "Mail" -%>
           <%= form.text_field :attribute_names,
                               value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                              required: true,
                               multiple: true,
                               class: 'form-control',
                               type: 'email' %>
@@ -51,6 +56,7 @@
         <%- else -%>
           <%= form.text_field :attribute_names,
                               value: @order_invalid.nil? ? '' : @order_invalid[@order_type_attributes.index(attribute)].to_s,
+                              required: true,
                               multiple: true,
                               class: 'form-control' %>
         <%- end -%>
@@ -83,33 +89,33 @@
         <td>
           <%- case attribute.attribute_type -%>
           <%- when "Fecha" -%>
-            <%= detail.date_field(:value, multiple: true, class: 'form-control') %>
+            <%= detail.date_field(:attribute_names, required: true, multiple: true, class: 'form-control') %>
           <%- when "Número entero" -%>
-            <%= detail.number_field(:value, min: 0, multiple: true, class: 'form-control') %>
+            <%= detail.number_field(:attribute_names, min: 0, required: true, multiple: true, class: 'form-control') %>
           <%- when "Número decimal" -%>
-            <%= detail.number_field(:value, min: 0.0, multiple: true, step: 0.1, class: 'form-control') %>
+            <%= detail.number_field(:attribute_names, min: 0.0, required: true, multiple: true, step: 0.1, class: 'form-control') %>
           <%- when "Texto" -%>
-            <%= detail.text_field :value, value:"", multiple: true, class: 'form-control' %>
+            <%= detail.text_field :attribute_names, value:"", required: true, multiple: true, class: 'form-control' %>
           <%- when "Mail" -%>
-            <%= form.text_field :value, value:"", multiple: true, class: 'form-control', type: 'email' %>
+            <%= form.text_field :attribute_names, value:"", required: true, multiple: true, class: 'form-control', type: 'email' %>
           <%- when "Confirmación" -%>
-            <%= detail.radio_button :value, "Si", multiple: true %>
+            <%= detail.radio_button :attribute_names, "Si", required: true, multiple: true %>
             <%= detail.label :age_child, "Si" %>
-            <%= detail.radio_button :value, "No", multiple: true%>
+            <%= detail.radio_button :attribute_names, "No", required: true, multiple: true%>
             <%= detail.label :age_adult, "No"%>
           <%- else -%>
-            <%= detail.text_field :value, value:"", multiple: true, class: 'form-control' %>
+            <%= detail.text_field :attribute_names, value:"", required: true, multiple: true, class: 'form-control' %>
           <% end %>
         </td>
       <% end %>
       <td>
-        <%= detail.text_field :description_detail, class: 'form-control' %>
+        <%= detail.text_field :description_detail, required: true, class: 'form-control' %>
       </td>
       <td>
-        <%= detail.collection_select :subsection_id, @subsections, :id, :name, {}, class: 'form-control' %>
+        <%= detail.collection_select :subsection_id, @subsections, :id, :name, {}, required: true, class: 'form-control' %>
       </td>
       <td>
-        <%= detail.number_field(:attribute_names, multiple: true, step: 0.1, class: 'form-control') %>
+        <%= detail.number_field :attribute_names, required: true, min: 0, multiple: true, step: 0.1, class: 'form-control' %>
       </td>
       <td>
         <input type="button" value="Eliminar" onClick="eliminar(this)" class="btn btn-primary">

@@ -28,6 +28,7 @@ class User < ApplicationRecord
                                    less_than: 99_999_999_999 },
                    allow_blank: true
   attribute :is_disabled, :datetime
+  attribute :password_recovery_expiration, :datetime
 
   has_one :university_position
   belongs_to :user_profile
