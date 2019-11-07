@@ -22,3 +22,6 @@
 //= require nested_form_fields
 //= require cocoon
 //= require reports_kit/application
+//= require bootstrap
+//= require data-confirm-modal
+//= require confirm-modal

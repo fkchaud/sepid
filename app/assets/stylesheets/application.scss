@@ -3,6 +3,11 @@
 @import "bootstrap";
 @import "font-awesome";
 // Raw HTML
+.custom-model{
+  .modal-header{
+    color: red
+  }
+}
 
 body::after {
   content: "";

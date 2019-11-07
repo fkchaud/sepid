@@ -43,6 +43,7 @@ gem 'coveralls', require: false
 gem 'travis'
 gem 'reports_kit'
 gem 'mail', '~> 2.7', '>= 2.7.1'
+gem 'data-confirm-modal'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
