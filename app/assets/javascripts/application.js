@@ -24,4 +24,9 @@
 //= require reports_kit/application
 //= require bootstrap
 //= require data-confirm-modal
-//= require confirm-modal
+dataConfirmModal.setDefaults({
+    title: 'Confirmar acción',
+    commit: 'Confirmar',
+    cancel: 'Cancelar',
+    modalClass: 'custom-model'
+});
