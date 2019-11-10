@@ -60,37 +60,31 @@ class UsersController < ApplicationController
     end
   end
 
-  def change_password
-  end
+  def change_password; end
 
   def change_password_continue
-   # render plain: params[:user].inspect
-    if current_user.authenticate(params[:user][:current_password])
-      if params[:user][:password] != params[:user][:password_confirmation]
-        flash[:error] = "Contraseña nueva no coincide con la confirmada"
-        redirect_to change_password_path
-        return
-      end
-      if params[:user][:password].length < 8 || params[:user][:password_confirmation].length < 8
-        flash[:error] = "La contraseña debe ser mínimo de 8 caracteres"
-        redirect_to change_password_path
-        return
-      end
-      if params[:user][:password].length > 72 || params[:user][:password_confirmation].length > 72
-        flash[:error] = "La contraseña debe ser máximo de 72 caracteres"
-        redirect_to change_password_path
-        return
-      end
-      if current_user.update(password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
-        flash[:success] = "Contraseña cambiada con éxito"
-        redirect_to users_path
-        return
-      end
-    else
-      flash[:error] = "Contraseña incorrecta"
+    unless current_user.authenticate(params[:user][:current_password])
+      flash[:danger] = 'Contraseña incorrecta'
+      redirect_to change_password_path
+      return
     end
-     redirect_to change_password_path
-     return
+
+    if params[:user][:password] != params[:user][:password_confirmation]
+      flash[:danger] = 'Contraseña nueva no coincide con la confirmada'
+      redirect_to change_password_path
+    elsif params[:user][:password].length < 8 || params[:user][:password_confirmation].length < 8
+      flash[:danger] = 'La contraseña debe ser mínimo de 8 caracteres'
+      redirect_to change_password_path
+    elsif params[:user][:password].length > 72 || params[:user][:password_confirmation].length > 72
+      flash[:danger] = 'La contraseña debe ser máximo de 72 caracteres'
+      redirect_to change_password_path
+    elsif current_user.update(
+      password: params[:user][:password],
+      password_confirmation: params[:user][:password_confirmation]
+    )
+      flash[:success] = 'Contraseña cambiada con éxito'
+      redirect_to edit_user_path(current_user)
+    end
   end
 
   def password_reset
@@ -103,22 +97,19 @@ class UsersController < ApplicationController
         @user.save!
         base_url = request.protocol + request.host_with_port
         ResetPasswordMailer.reset_request(@user, base_url).deliver_later
-        flash[:success] = "Mail de restauración de contraseña enviado con éxito"
+        flash[:success] = 'Mail de restauración de contraseña enviado con éxito'
         redirect_to welcome_index_path
-        return
-      rescue Exception => e
-        flash[:error] = "Hubo un error al realizar el procedimiento, vuelva a intentarlo más tarde"
+      rescue StandardError => e
+        flash[:error] = 'Hubo un error al realizar el procedimiento, vuelva a intentarlo más tarde'
         redirect_to forget_password_path
-        return
       end
     else
-      flash[:error] = "No existe un usuario con el nombre ingresado"
+      flash[:error] = 'No existe un usuario con el nombre ingresado'
       redirect_to forget_password_path
-      return
     end
   end
-  def forget_password
-  end
+
+  def forget_password; end
 
   private
 
