@@ -30,12 +30,12 @@ class SubsectionShiftsController < ApplicationController
   def create
     @subsection_shift = SubsectionShift.new subsection_shift_params
     @subsection_shift.requested_date = Time.now
-    SubsectionShiftStatusHistory.create(
-      date: Time.now,
-      subsection_shift: @subsection_shift,
-      subsection_shift_status: SubsectionShiftStatus.enabled.find_by_name('Solicitado')
-    )
     if @subsection_shift.save
+      SubsectionShiftStatusHistory.create!(
+        date: Time.now,
+        subsection_shift: @subsection_shift,
+        subsection_shift_status: SubsectionShiftStatus.enabled.find_by_name('Solicitado')
+      )
       redirect_to project_subsection_shifts_url
     else
       render 'new'

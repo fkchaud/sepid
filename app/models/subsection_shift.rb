@@ -29,11 +29,12 @@ class SubsectionShift < ApplicationRecord
 
   def all_subsections_sum_zero
     suma = project_funds_details.sum { |pfd| pfd.funds_amount }
-    if suma != 0
-      project_funds_details.each do |pfd|
-        pfd.errors.add :funds_amount, 'must sum 0'
-      end
+    return unless suma != 0
+
+    project_funds_details.each do |pfd|
+      pfd.errors.add :funds_amount, 'must sum 0'
     end
+    errors.add :project_funds_details, 'must sum 0'
   end
 
   def pfd_doesnt_drop_below_zero
