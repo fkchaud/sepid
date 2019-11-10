@@ -87,24 +87,30 @@
     <%= form.nested_fields_for :order_details, wrapper_tag: :tr do |detail| %>
       <% @order_type.order_detail_attributes.enabled.each do |attribute| %>
         <td>
-          <%- case attribute.attribute_type -%>
-          <%- when "Fecha" -%>
-            <%= detail.date_field(:attribute_names, required: true, multiple: true, class: 'form-control') %>
-          <%- when "Número entero" -%>
-            <%= detail.number_field(:attribute_names, min: 0, required: true, multiple: true, class: 'form-control') %>
-          <%- when "Número decimal" -%>
-            <%= detail.number_field(:attribute_names, min: 0.0, required: true, multiple: true, step: 0.1, class: 'form-control') %>
-          <%- when "Texto" -%>
-            <%= detail.text_field :attribute_names, value:"", required: true, multiple: true, class: 'form-control' %>
-          <%- when "Mail" -%>
-            <%= form.text_field :attribute_names, value:"", required: true, multiple: true, class: 'form-control', type: 'email' %>
-          <%- when "Confirmación" -%>
-            <%= detail.radio_button :attribute_names, "Si", required: true, multiple: true %>
-            <%= detail.label :age_child, "Si" %>
-            <%= detail.radio_button :attribute_names, "No", required: true, multiple: true%>
-            <%= detail.label :age_adult, "No"%>
-          <%- else -%>
-            <%= detail.text_field :attribute_names, value:"", required: true, multiple: true, class: 'form-control' %>
+          <% if attribute.attribute_name == 'Código' && @order_type.name_type_order == 'Solicitud de Elementos' %>
+            <%= detail.text_field :attribute_names, value:"", placeholder: "4.3.6-2345.9", required: true, multiple: true, class: 'form-control' %>
+          <% elsif attribute.attribute_name == 'Cantidad' && @order_type.name_type_order == 'Solicitud de Elementos' %>
+            <%= detail.number_field(:attribute_names, min: 0, max: 20, required: true, multiple: true, class: 'form-control') %>
+          <% else %>
+            <%- case attribute.attribute_type -%>
+            <%- when "Fecha" -%>
+              <%= detail.date_field(:attribute_names, required: true, multiple: true, class: 'form-control') %>
+            <%- when "Número entero" -%>
+              <%= detail.number_field(:attribute_names, min: 0, required: true, multiple: true, class: 'form-control') %>
+            <%- when "Número decimal" -%>
+              <%= detail.number_field(:attribute_names, min: 0.0, required: true, multiple: true, step: 0.1, class: 'form-control') %>
+            <%- when "Texto" -%>
+              <%= detail.text_field :attribute_names, value:"", required: true, multiple: true, class: 'form-control' %>
+            <%- when "Mail" -%>
+              <%= form.text_field :attribute_names, value:"", required: true, multiple: true, class: 'form-control', type: 'email' %>
+            <%- when "Confirmación" -%>
+              <%= detail.radio_button :attribute_names, "Si", required: true, multiple: true %>
+              <%= detail.label :age_child, "Si" %>
+              <%= detail.radio_button :attribute_names, "No", required: true, multiple: true%>
+              <%= detail.label :age_adult, "No"%>
+            <%- else -%>
+              <%= detail.text_field :attribute_names, value:"", required: true, multiple: true, class: 'form-control' %>
+            <% end %>
           <% end %>
         </td>
       <% end %>
