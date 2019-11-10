@@ -1,5 +1,5 @@
 class PasswordResetController < ApplicationController
-  @@EXPIRATION_TIME_MINUTES = 10
+  @@EXPIRATION_TIME_MINUTES = 60
   def index
     password_recovery_token = params[:tmp_token]
     @user = User.find_by(password_recovery_token: password_recovery_token)
