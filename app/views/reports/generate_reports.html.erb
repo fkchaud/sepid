@@ -14,6 +14,7 @@
   </tr>
 </table>
 <div id="order_type" class="content" style="display: none">
+  <h1>Cantidad de pedidos realizados por tipo</h1>
   <%=render_report 'orders_type' do |report|%>
     <%=report.form do |f|%>
       <div class="pull-right">
@@ -24,6 +25,7 @@
 </div>
 
 <div id="change_status" class="content" style="display: none">
+  <h1>Cantidad de cambios de estado de todos los pedidos</h1>
   <%=render_report 'order_status' do |report|%>
     <%=report.form do |f|%>
       <div class="pull-right">
