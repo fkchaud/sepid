@@ -16,9 +16,11 @@
     <li>
       <%= link_to 'Administrar pedidos', orders_path, class: 'nav-link' %>
     </li>
+    <% if current_user.user_profile.name == 'SeCYT_Admin' || current_user.user_profile.name == 'Super_Admin' || current_user.user_profile.name == 'DEF_Admin' %>
     <li>
       <%= link_to 'Administrar Resoluciones', funds_resolutions_path, class: 'nav-link' %>
     </li>
+    <% end %>
     <%if current_user.user_profile.name == 'DEF_Admin' || current_user.user_profile.name == 'Super_Admin' %>
       <%= link_to 'Administrar Pedidos de Cambio de Inciso', subsection_shifts_path, class: 'nav-link' %>
     <%end %>
