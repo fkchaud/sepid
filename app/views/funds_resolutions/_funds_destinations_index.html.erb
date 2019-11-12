@@ -25,7 +25,7 @@
       <tr class="align-items-center">
         <td><%= funds_destination[:data].name %></td>
         <% funds_destination[:project_funds_details].each do |pfd_key, pfd_value| %>
-          <td><%= pfd_value %></td>
+          <td><%= pfd_value.round(1) %></td>
         <% end %>
         <td class="fit">
           <div class="btn-group">

@@ -229,21 +229,21 @@ puts '-- create non incentived project_funds_details'
 no_incentives_pfds = ProjectFundsDetail.create!(
   no_incentives_projects.map { |project|
     {
-      funds_amount: 267_300 / no_incentives_projects.length,
+      funds_amount: 267_300.0 / no_incentives_projects.length,
       year: 2019,
       subsection: subsections[0],
       project: project
     }
   } + no_incentives_projects.map { |project|
     {
-      funds_amount: 178_200 / no_incentives_projects.length,
+      funds_amount: 178_200.0 / no_incentives_projects.length,
       year: 2019,
       subsection: subsections[1],
       project: project
     }
   } + no_incentives_projects.map { |project|
     {
-      funds_amount: 445_500 / no_incentives_projects.length,
+      funds_amount: 445_500.0 / no_incentives_projects.length,
       year: 2019,
       subsection: subsections[2],
       project: project
@@ -254,21 +254,21 @@ puts '-- create incentived project_funds_details'
 incentives_pfds = ProjectFundsDetail.create!(
   incentives_projects.map { |project|
     {
-      funds_amount: 250_800 / incentives_projects.length,
+      funds_amount: 250_800.0 / incentives_projects.length,
       year: 2019,
       subsection: subsections[0],
       project: project
     }
   } + incentives_projects.map { |project|
     {
-      funds_amount: 167_200 / incentives_projects.length,
+      funds_amount: 167_200.0 / incentives_projects.length,
       year: 2019,
       subsection: subsections[1],
       project: project
     }
   } + incentives_projects.map { |project|
     {
-      funds_amount: 418_000 / incentives_projects.length,
+      funds_amount: 418_000.0 / incentives_projects.length,
       year: 2019,
       subsection: subsections[2],
       project: project
