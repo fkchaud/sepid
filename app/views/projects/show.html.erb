@@ -3,8 +3,8 @@
 <div class="row">
   <label for="select_year" class="col-3 col-form-label">Seleccionar año de consulta: </label>
   <select id="select_year" class="col-2 form-control">
+    <option value="" selected disabled></option>
     <% @years.each do |year| %>
-      <option value="" selected disabled></option>
       <option value=<%=year%> ><%=year%></option>
     <% end %>
   </select>
