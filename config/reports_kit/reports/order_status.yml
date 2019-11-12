@@ -12,5 +12,5 @@ chart:
         - scaleLabel:
             display: true
             labelString: Cantidad
-            ticks:
-              beginAtZero: true
+          ticks:
+            beginAtZero: true
