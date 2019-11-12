@@ -58,9 +58,13 @@ puts '-- create project_types'
 ProjectType.create! [
   { name: 'PID', purpose: '03 - Servicios Sociales', function: '05 - Ciencia y Técnica',
     program: '18 - Investigación', activity: '02 - Investigación Aplicada',
+    financing: '11 - Contribución del Tesoro' },
+  { name: 'PID IN', purpose: '03 - Servicios Sociales', function: '05 - Ciencia y Técnica',
+    program: '18 - Investigación', activity: '02 - Investigación Aplicada',
     financing: '11 - Contribución del Tesoro' }
 ]
 project_type_pid = ProjectType.find_by_name('PID')
+project_type_pid_in = ProjectType.find_by_name('PID IN')
 
 puts '-- create project_statuses'
 ProjectStatus.create! [
@@ -138,10 +142,30 @@ User.create! [
     first_name: 'Dos',
     email: 'sepid.UTN@gmail.com',
     user_profile: UserProfile.find_by_name('Investigador')
+  },
+  {
+    user_name: 'vazquez',
+    password: '12345678',
+    file_number: 6,
+    last_name: 'Vazquez',
+    first_name: 'Alejandro',
+    email: 'sepid.UTN@gmail.com',
+    user_profile: UserProfile.find_by_name('Investigador')
+  },
+  {
+    user_name: 'cortez',
+    password: '12345678',
+    file_number: 7,
+    last_name: 'Cortez',
+    first_name: 'Alberto',
+    email: 'sepid.UTN@gmail.com',
+    user_profile: UserProfile.find_by_name('Investigador')
   }
 ]
 user_bromberg = User.find_by_user_name('bromberg')
 user_inv2 = User.find_by_user_name('investigador2')
+user_vazquez = User.find_by_user_name('vazquez')
+user_cortez = User.find_by_user_name('cortez')
 
 no_incentives_codes = 'UTN5007,UTN4508,UTN4544,UTN4623,INN3986,' \
                       'UTN4564,IAN4037,IAN4940,UTN4046,UTN4343,IFN4491,UTN4450,' \
@@ -185,6 +209,21 @@ incentives_projects = Project.create!(
     }
   end
 )
+
+showable_projects = Project.create! [{
+  project_code: 'INI7640',
+  project_name: 'Integración y calidad del desarrollo de Software dirigido por modelos en entornos Ágiles',
+  start_date: '2019-01-01',
+  ending_date: '2020-12-31',
+  project_status: project_status_approved,
+  project_type: project_type_pid_in,
+  director: user_vazquez,
+  codirector: user_cortez,
+  technological_scientific_unit: 'FR Mendoza - GRUPO AUSEGTIC. GRUPO DE INVESTIGACIÓN Y SERVICIOS DE AUDITORÍA Y SEGURIDAD DE TIC',
+  project_program: 'Sistemas de Información e Informática',
+  activity_type: 'Investigación Aplicada'
+}]
+incentives_projects += showable_projects
 
 puts '-- create non incentived project_funds_details'
 no_incentives_pfds = ProjectFundsDetail.create!(
