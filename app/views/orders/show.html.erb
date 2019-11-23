@@ -31,7 +31,7 @@
     <td>Descripción</td>
     <td>Inciso</td>
     <td>Valor</td>
-    <%if current_user.user_profile.name == 'DEF_Admin' && @order.order_status.order_status_name == 'Armado y aprobación de preventivo' %>
+    <%if can_action?('Administrar pedidos', 'Ajustar preventivo') %>
       <td>Ajustar preventivo</td>
     <%end %>
   </tr>
@@ -45,14 +45,14 @@
       <td><%=detail.description_detail %></td>
       <td><%=detail.subsection.name %></td>
       <td><%=detail.last_value.amount %></td>
-      <%if (current_user.user_profile.name == 'DEF_Admin' || current_user.user_profile.name =='Super_Admin') && @order.order_status.order_status_name == 'Armado y aprobación de preventivo' %>
+      <%if can_action?('Administrar pedidos', 'Ajustar preventivo') %>
         <td><%= link_to 'Ajustar preventivo', order_order_detail_show_path(@order, detail), method: "get", class: 'btn btn-outline-info'%></td>
       <%end %>
     </tr>
   <% end %>
   </tbody>
 </table>
-<%if current_user.user_profile.name == 'Investigador' %>
+<%if can_action?('Administrar pedidos', 'Ver cambios de estado') %>
   <h1>Estados por los que ha pasado el pedido</h1>
   <table class="table table-hover">
     <thead class="thead-dark">
@@ -74,16 +74,17 @@
   </table>
 <%end %>
 <%= link_to "Volver", orders_path, class: 'btn btn-outline-secondary' %>
-<%unless current_user.user_profile.name == 'Investigador' || @order.order_status.order_status_name == 'Pedido retirado' || @order.order_status.order_status_name == 'Pedido rechazado'|| @order.order_status.order_status_name == 'Pedido cancelado'%>
+<%if can_action?('Administrar pedidos', 'Aprobar pedido')%>
   <%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-info', data: { confirm: '¿Seguro que desea aprobar?' }%>
 <%end %>
-<%if (current_user.user_profile.name == 'DEF_Admin' || current_user.user_profile.name == 'Super_Admin') && @order.order_status.order_status_name == 'Armado y aprobación de preventivo'%>
+<%if can_action?('Administrar pedidos', 'Iniciar licitación')%>
   <%= link_to 'Iniciar licitación', order_start_tender_path(@order), method: "post", class: 'btn btn-info', data: { confirm: '¿Seguro que desea iniciar licitación?' } %>
 <%end%>
-<%if  current_user.user_profile.name == 'Investigador' %>
+<%if  can_action?('Administrar pedidos', 'Cancelar pedido') %>
   <%= link_to 'Cancelar pedido', order_cancel_order_path(@order), method: "post", data: { confirm: '¿Seguro que desea cancelar?'}, class: 'btn btn-outline-info' if @order.order_status.allow_cancel_order == true %>
-<%else %>
-  <%unless  @order.order_status.order_status_name == 'Devengado realizado' || @order.order_status.order_status_name == 'Pedido recibido' || @order.order_status.order_status_name == 'Pedido retirado' || @order.order_status.order_status_name == 'Pedido rechazado' || @order.order_status.order_status_name == 'Pedido cancelado'%>
+<%end%>
+<%unless  @order.order_status.order_status_name == 'Devengado realizado' || @order.order_status.order_status_name == 'Pedido recibido' || @order.order_status.order_status_name == 'Pedido retirado' || @order.order_status.order_status_name == 'Pedido rechazado' || @order.order_status.order_status_name == 'Pedido cancelado'%>
+  <%if  can_action?('Administrar pedidos', 'Rechazar pedido') %>
     <%= form_with(model: [ @order, @order.order_status_histories.build ], url: order_refuse_order_path(@order), local: true) do |form| %>
       <div class="form-group row">
         <%= form.label :reason_change_status_order, 'Motivo del rechazo:', class: 'col col-form-label' %>
@@ -97,5 +98,5 @@
         </div>
       </div>
     <% end %>
-  <% end %>
-<%end%>
+  <%end%>
+<% end %>

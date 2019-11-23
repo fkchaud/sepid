@@ -15,11 +15,15 @@
           <div class='btn-group'>
             <%= link_to 'Mostrar', value_status_path(value_status), class: 'btn btn-outline-info' %>
             <% unless value_status.is_disabled %>
-              <%= link_to 'Editar', edit_value_status_path(value_status), class: 'btn btn-outline-primary' %>
-              <%= link_to 'Eliminar', value_status_path(value_status),
-                          class: 'btn btn-outline-danger',
-                          method: :delete,
-                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <%if can_action?('Administrar Estado de Valor', 'Editar estado de valor') %>
+                <%= link_to 'Editar', edit_value_status_path(value_status), class: 'btn btn-outline-primary' %>
+              <%end%>
+              <%if can_action?('Administrar Estado de Valor', 'Eliminar estado de valor') %>
+                <%= link_to 'Eliminar', value_status_path(value_status),
+                            class: 'btn btn-outline-danger',
+                            method: :delete,
+                            data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <%end%>
             <% end %>
           </div>
         </td>
@@ -27,4 +31,6 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Agregar Estado de Valor', new_value_status_path, class: 'btn btn-outline-primary btn-block' %>
+<%if can_action?('Administrar Estado de Valor', 'Agregar estado de valor') %>
+  <%= link_to 'Agregar Estado de Valor', new_value_status_path, class: 'btn btn-outline-primary btn-block' %>
+<%end%>

@@ -17,16 +17,22 @@
           <div class='btn-group'>
             <%= link_to 'Mostrar', subsection_path(subsection), class: 'btn btn-outline-info' %>
             <% unless subsection.is_disabled %>
-              <%= link_to 'Editar', edit_subsection_path(subsection), class: 'btn btn-outline-primary' %>
-              <%= link_to 'Eliminar', subsection_path(subsection),
-                          class: 'btn btn-outline-danger',
-                          method: :delete,
-                          data: { confirm: '¿Seguro que desea eliminar?' } %>
-            <% end %>
+              <%if can_action?('Administrar Inciso', 'Editar inciso') %>
+                <%= link_to 'Editar', edit_subsection_path(subsection), class: 'btn btn-outline-primary' %>
+              <%end%>
+              <%if can_action?('Administrar Inciso', 'Eliminar inciso') %>
+                <%= link_to 'Eliminar', subsection_path(subsection),
+                            class: 'btn btn-outline-danger',
+                            method: :delete,
+                            data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <% end %>
+            <%end%>
           </div>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Agregar Inciso', new_subsection_path, class: 'btn btn-outline-primary btn-block' %>
+<%if can_action?('Administrar Inciso', 'Agregar inciso') %>
+  <%= link_to 'Agregar Inciso', new_subsection_path, class: 'btn btn-outline-primary btn-block' %>
+<%end%>

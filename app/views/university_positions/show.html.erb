@@ -14,11 +14,15 @@
   </div>
   <% unless @university_position.is_disabled %>
   <div class="col text-right">
-    <%= link_to 'Eliminar', university_position_path(@university_position),
-                class: 'btn btn-outline-danger',
-                method: :delete,
-                data: { confirm: '¿Seguro que desea eliminar?' } %>
-    <%= link_to 'Editar', edit_university_position_path(@university_position), class: 'btn btn-outline-primary' %>
+    <%if can_action?('Administrar Cargo Universitario', 'Eliminar cargo universitario') %>
+      <%= link_to 'Eliminar', university_position_path(@university_position),
+                  class: 'btn btn-outline-danger',
+                  method: :delete,
+                  data: { confirm: '¿Seguro que desea eliminar?' } %>
+    <%end%>
+    <%if can_action?('Administrar Cargo Universitario', 'Editar cargo universitario') %>
+      <%= link_to 'Editar', edit_university_position_path(@university_position), class: 'btn btn-outline-primary' %>
+    <%end%>
   </div>
   <% end %>
 </div>

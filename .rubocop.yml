@@ -27,3 +27,6 @@ Style/WordArray:
 
 Style/InverseMethods:
   Enabled: false
+
+Layout/AlignHash:
+  Enabled: false

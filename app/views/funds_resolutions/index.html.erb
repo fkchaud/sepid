@@ -22,4 +22,6 @@
   <% end %>
   </tbody>
 </table>
-<%= link_to 'Agregar Resolución de Fondos', new_funds_resolution_path, class: 'btn btn-outline-primary btn-block' %>
+<%if can_action?('Administrar Resoluciones', 'Agregar resolución de fondos') %>
+  <%= link_to 'Agregar Resolución de Fondos', new_funds_resolution_path, class: 'btn btn-outline-primary btn-block' %>
+<%end%>

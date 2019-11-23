@@ -44,6 +44,19 @@ class UserProfilesController < ApplicationController
     redirect_to user_profiles_path
   end
 
+  def admin_access
+    @user_profile = UserProfile.find(params[:user_profile_id])
+  end
+
+  def change_access
+    # render plain: params[:user_profile].inspect
+    @user_profile = UserProfile.find(params[:user_profile_id])
+    @user_profile.access[params[:user_profile][:key]][params[:user_profile][:permit]] = !@user_profile.access[params[:user_profile][:key]][params[:user_profile][:permit]]
+    @user_profile.update(access: @user_profile.access)
+    redirect_to user_profile_admin_access_url(@user_profile)
+  end
+
+
   private
 
   def user_profile_params

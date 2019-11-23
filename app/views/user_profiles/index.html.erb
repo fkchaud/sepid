@@ -17,16 +17,25 @@
           <div class='btn-group'>
             <%= link_to 'Mostrar', user_profile_path(user_profile), class: 'btn btn-outline-info' %>
             <% unless user_profile.is_disabled %>
-              <%= link_to 'Editar', edit_user_profile_path(user_profile), class: 'btn btn-outline-primary' %>
-              <%= link_to 'Eliminar', user_profile_path(user_profile),
-                          class: 'btn btn-outline-danger',
-                          method: :delete,
-                          data: { confirm: '¿Seguro que desea eliminar?' } %>
-            <% end %>
+              <%if can_action?('Administrar perfil de usuario', 'Editar perfil')%>
+                <%= link_to 'Editar', edit_user_profile_path(user_profile), class: 'btn btn-outline-primary' %>
+              <%end%>
+              <%if can_action?('Administrar perfil de usuario', 'Eliminar perfil')%>
+                <%= link_to 'Eliminar', user_profile_path(user_profile),
+                            class: 'btn btn-outline-danger',
+                            method: :delete,
+                            data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <% end %>
+              <%if can_action?('Administrar perfil de usuario', 'Asignar permisos') %>
+                <%= link_to 'Permisos', user_profile_admin_access_path(user_profile), class: 'btn btn-outline-primary' %>
+              <%end%>
+            <%end%>
           </div>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Agregar Perfil de Usuario', new_user_profile_path, class: 'btn btn-outline-primary btn-block' %>
+<%if can_action?('Administrar perfil de usuario', 'Agregar perfil')%>
+  <%= link_to 'Agregar Perfil de Usuario', new_user_profile_path, class: 'btn btn-outline-primary btn-block' %>
+<%end%>

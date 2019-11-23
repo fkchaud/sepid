@@ -19,11 +19,15 @@
           <div class='btn-group'>
             <%= link_to 'Mostrar', university_position_path(university_position), class: 'btn btn-outline-info' %>
             <% unless university_position.is_disabled %>
-              <%= link_to 'Editar', edit_university_position_path(university_position), class: 'btn btn-outline-primary' %>
-              <%= link_to 'Eliminar', university_position_path(university_position),
-                          class: 'btn btn-outline-danger',
-                          method: :delete,
-                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <%if can_action?('Administrar Cargo Universitario', 'Editar cargo universitario') %>
+                <%= link_to 'Editar', edit_university_position_path(university_position), class: 'btn btn-outline-primary' %>
+              <%end%>
+              <%if can_action?('Administrar Cargo Universitario', 'Eliminar cargo universitario') %>
+                <%= link_to 'Eliminar', university_position_path(university_position),
+                            class: 'btn btn-outline-danger',
+                            method: :delete,
+                            data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <%end%>
             <% end %>
           </div>
         </td>
@@ -31,4 +35,6 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Agregar Cargo Universitario', new_university_position_path, class: 'btn btn-outline-primary btn-block' %>
+<%if can_action?('Administrar Cargo Universitario', 'Agregar cargo universitario') %>
+  <%= link_to 'Agregar Cargo Universitario', new_university_position_path, class: 'btn btn-outline-primary btn-block' %>
+<%end%>

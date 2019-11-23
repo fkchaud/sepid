@@ -17,11 +17,15 @@
           <div class='btn-group'>
             <%= link_to 'Mostrar', order_status_path(order_status), class: 'btn btn-outline-info' %>
             <% unless order_status.is_disabled %>
-              <%= link_to 'Editar', edit_order_status_path(order_status), class: 'btn btn-outline-primary' %>
-              <%= link_to 'Eliminar', order_status_path(order_status),
-                          class: 'btn btn-outline-danger',
-                          method: :delete,
-                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <%if can_action?('Administrar Estado del Pedido', 'Editar estado de pedido')%>
+                <%= link_to 'Editar', edit_order_status_path(order_status), class: 'btn btn-outline-primary' %>
+              <%end%>
+              <%if can_action?('Administrar Estado del Pedido', 'Eliminar estado de pedido')%>
+                <%= link_to 'Eliminar', order_status_path(order_status),
+                            class: 'btn btn-outline-danger',
+                            method: :delete,
+                            data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <%end%>
             <% end %>
           </div>
         </td>
@@ -29,4 +33,6 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Agregar Estado de Pedido', new_order_status_path, class: 'btn btn-outline-primary btn-block' %>
+<%if can_action?('Administrar Estado del Pedido', 'Agregar estado de pedido')%>
+  <%= link_to 'Agregar Estado de Pedido', new_order_status_path, class: 'btn btn-outline-primary btn-block' %>
+<%end%>

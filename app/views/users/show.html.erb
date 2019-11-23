@@ -13,12 +13,16 @@
     <%= link_to 'Volver al índice', users_path, class: 'btn btn-outline-secondary' %>
   </div>
   <% unless @user.is_disabled %>
-  <div class="col text-right">
-    <%= link_to 'Eliminar', user_path(@user),
-                class: 'btn btn-outline-danger',
-                method: :delete,
-                data: { confirm: '¿Seguro que desea eliminar?' } %>
-    <%= link_to 'Editar', edit_user_path(@user), class: 'btn btn-outline-primary' %>
+    <%if can_action?('Administrar usuarios', 'Eliminar usuario')%>
+      <div class="col text-right">
+        <%= link_to 'Eliminar', user_path(@user),
+                    class: 'btn btn-outline-danger',
+                    method: :delete,
+                    data: { confirm: '¿Seguro que desea eliminar?' } %>
+    <% end %>
+    <%if can_action?('Administrar usuarios', 'Editar usuario')%>
+      <%= link_to 'Editar', edit_user_path(@user), class: 'btn btn-outline-primary' %>
+    <%end%>
   </div>
   <% end %>
 </div>

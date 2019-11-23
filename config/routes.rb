@@ -35,7 +35,10 @@ Rails.application.routes.draw do
       get '/enable_attribute', to: 'order_detail_attributes#enable_attribute'
     end
   end
-  resources :user_profiles
+  resources :user_profiles do
+    get '/admin_access', to: 'user_profiles#admin_access'
+    patch '/change_access', to: 'user_profiles#change_access'
+  end
   resources :orders do
     post '/start_tender', to: 'orders#start_tender'
     post '/cancel_order', to: 'orders#cancel_order'

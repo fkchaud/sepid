@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_31_081526) do
+ActiveRecord::Schema.define(version: 2019_11_22_065820) do
 
   create_table "access_permits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "use_case_name"
@@ -245,6 +245,8 @@ ActiveRecord::Schema.define(version: 2019_10_31_081526) do
     t.datetime "is_disabled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "access_permits"
+    t.text "access"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

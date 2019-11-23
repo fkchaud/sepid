@@ -14,11 +14,15 @@
   </div>
   <% unless @project_status.is_disabled %>
   <div class="col text-right">
-    <%= link_to 'Eliminar', project_status_path(@project_status),
-                class: 'btn btn-outline-danger',
-                method: :delete,
-                data: { confirm: '¿Seguro que desea eliminar?' } %>
-    <%= link_to 'Editar', edit_project_status_path(@project_status), class: 'btn btn-outline-primary' %>
+    <%if can_action?('Administrar Estado de Proyecto', 'Eliminar estado de proyecto') %>
+      <%= link_to 'Eliminar', project_status_path(@project_status),
+                  class: 'btn btn-outline-danger',
+                  method: :delete,
+                  data: { confirm: '¿Seguro que desea eliminar?' } %>
+    <%end%>
+    <%if can_action?('Administrar Estado de Proyecto', 'Editar estado de proyecto') %>
+      <%= link_to 'Editar', edit_project_status_path(@project_status), class: 'btn btn-outline-primary' %>
+    <%end%>
   </div>
   <% end %>
 </div>

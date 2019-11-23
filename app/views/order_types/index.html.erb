@@ -26,11 +26,15 @@
         <div class='btn-group'>
           <%# Enlaces para interactuar con el TipoPedido %>
           <%= link_to 'Mostrar', order_type_path(order_type), class: 'btn btn-outline-info' %>
-          <%= link_to 'Editar', edit_order_type_path(order_type), class: 'btn btn-outline-primary' %>
-          <%= link_to 'Eliminar', order_type_path(order_type),
-                      class: 'btn btn-outline-danger',
-                      method: :delete,
-                      data: { confirm: '¿Seguro que desea eliminar?' } if order_type.is_disabled.nil? %>
+          <%if can_action?('Parametrizar Tipo de Pedido', 'Editar tipo de pedido') %>
+            <%= link_to 'Editar', edit_order_type_path(order_type), class: 'btn btn-outline-primary' %>
+          <%end%>
+          <%if can_action?('Parametrizar Tipo de Pedido', 'Eliminar tipo de pedido') %>
+            <%= link_to 'Eliminar', order_type_path(order_type),
+                        class: 'btn btn-outline-danger',
+                        method: :delete,
+                        data: { confirm: '¿Seguro que desea eliminar?' } if order_type.is_disabled.nil? %>
+          <%end%>
         </div>
       </td>
     </tr>
@@ -38,4 +42,6 @@
   </tbody>
 </table>
 <%# Enlace para agregar un nuevo TipoPedido %>
-<%= link_to 'Agregar tipo de pedido', new_order_type_path, class: 'btn btn-outline-primary btn-block' %>
+<%if can_action?('Parametrizar Tipo de Pedido', 'Agregar tipo de pedido') %>
+  <%= link_to 'Agregar tipo de pedido', new_order_type_path, class: 'btn btn-outline-primary btn-block' %>
+<%end%>

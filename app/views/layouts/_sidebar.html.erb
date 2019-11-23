@@ -1,63 +1,83 @@
 <nav id="sidebar" class="bg-light<%= (cookies[:sidebar_status] == "true") ? " toggled" : "" %>">
   <ul class="list-unstyled components">
-    <%if current_user.user_profile.name == 'Super_Admin' || current_user.user_profile.name =='SeCYT_Admin' %>
+    <%if admin_module('Administrar usuarios') %>
       <li>
         <%= link_to 'Administrar usuarios', users_path, class: 'nav-link' %>
       </li>
       <li>
+    <%end %>
+    <%if admin_module('Administrar perfil de usuario') %>
         <%= link_to 'Administrar perfil de usuario', user_profiles_path, class: 'nav-link' %>
       </li>
     <%end%>
-    <%unless current_user.user_profile.name == 'SeCYT_Sec'%>
+    <%if admin_module('Administrar proyectos')%>
       <li>
         <%= link_to 'Administrar proyectos', projects_path, class: 'nav-link' %>
       </li>
     <%end%>
-    <li>
-      <%= link_to 'Administrar pedidos', orders_path, class: 'nav-link' %>
-    </li>
-    <% if current_user.user_profile.name == 'SeCYT_Admin' || current_user.user_profile.name == 'Super_Admin' || current_user.user_profile.name == 'DEF_Admin' %>
+    <%if admin_module('Administrar pedidos') %>
+      <li>
+        <%= link_to 'Administrar pedidos', orders_path, class: 'nav-link' %>
+      </li>
+    <%end %>
+    <% if admin_module('Administrar Resoluciones') %>
     <li>
       <%= link_to 'Administrar Resoluciones', funds_resolutions_path, class: 'nav-link' %>
     </li>
     <% end %>
-    <%if current_user.user_profile.name == 'DEF_Admin' || current_user.user_profile.name == 'Super_Admin' %>
+    <%if admin_module('Administrar Pedidos de cambio de Inciso') %>
       <%= link_to 'Administrar Pedidos de Cambio de Inciso', subsection_shifts_path, class: 'nav-link' %>
     <%end %>
-    <%if current_user.user_profile.name == 'Super_Admin' || current_user.user_profile.name =='SeCYT_Admin' || current_user.user_profile.name =='DEF_Admin'%>
+    <%if admin_module('Generar reportes')%>
       <%= link_to 'Generar reportes', reports_path, class: 'nav-link' %>
+    <%end %>
+    <%if admin_module('Administrar Cargo Universitario') %>
       <li>
         <%= link_to 'Administrar Cargo Universitario', university_positions_path, class: 'nav-link' %>
       </li>
     <%end%>
-    <%if current_user.user_profile.name == 'Super_Admin'%>
+    <%if admin_module('Administrar Estado de Proyecto')%>
       <li>
         <%= link_to 'Administrar Estado de Proyecto', project_statuses_path, class: 'nav-link' %>
       </li>
+      <%end%>
+    <%if admin_module('Administrar Tipo de Proyecto') %>
       <li>
         <%= link_to 'Administrar Tipo de Proyecto', project_types_path, class: 'nav-link' %>
       </li>
+    <%end%>
+    <%if admin_module('Administrar Tipo de Resolución') %>
       <li>
         <%= link_to 'Administrar Tipo de Resolución', resolution_types_path, class: 'nav-link' %>
       </li>
+      <%end%>
+    <%if admin_module('Parametrizar Tipo de Pedido') %>
       <li>
         <%= link_to 'Parametrizar Tipo de Pedido', order_types_path, class: 'nav-link' %>
       </li>
+      <%end%>
+    <%if admin_module('Administrar Inciso') %>
       <li>
         <%= link_to 'Administrar Inciso', subsections_path, class: 'nav-link' %>
       </li>
+      <%end%>
+    <%if admin_module('Administrar Estado de Cambio de Inciso') %>
       <li>
         <%= link_to 'Administrar Estado de Cambio de Inciso', subsection_shift_statuses_path, class: 'nav-link' %>
       </li>
+    <%end%>
+    <%if admin_module('Administrar Estado del Pedido') %>
       <li>
         <%= link_to 'Administrar Estado del Pedido', order_statuses_path, class: 'nav-link' %>
       </li>
+      <%end%>
+    <%if admin_module('Administrar Estado del Pedido') %>
       <li>
         <%= link_to 'Administrar Estado de Valor', value_statuses_path, class: 'nav-link' %>
       </li>
     <%end%>
   </ul>
-  <%if current_user.user_profile.name == 'Super_Admin' %>
+  <%if admin_module('Back up') %>
     <button onclick="makeBackup()" class="btn btn-warning btn-block">Backup</button>
   <%end%>
 </nav>

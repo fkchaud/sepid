@@ -1,5 +1,6 @@
 # PerfilUsuario
 class UserProfile < ApplicationRecord
+  serialize :access, Hash
   attribute :name, :string
   validates :name, presence: true
   attribute :description, :string

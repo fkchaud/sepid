@@ -43,11 +43,15 @@
           <%= link_to 'Mostrar',
                       project_subsection_shift_path(@project, subsection_shift),
                       class: 'btn btn-outline-info' %>
-          <% if ['Super_Admin', 'DEF_Admin'].include? current_user.user_profile.name and
+          <%if can_action?('Administrar Pedidos de cambio de Inciso', 'Aprobar cambio de inciso') and
+              subsection_shift.last_status.name == 'Solicitado' %>
+            <%= link_to 'Aprobar',
+                        project_approve_subsection_shift_path(@project, subsection_shift),
+                        class: 'btn btn-outline-success' %>
+            <%end%>
+
+          <% if can_action?('Administrar Pedidos de cambio de Inciso', 'Rechazar cambio de inciso') and
                 subsection_shift.last_status.name == 'Solicitado' %>
-          <%= link_to 'Aprobar',
-                      project_approve_subsection_shift_path(@project, subsection_shift),
-                      class: 'btn btn-outline-success' %>
           <%= link_to 'Rechazar',
                       project_reject_subsection_shift_path(@project, subsection_shift),
                       class: 'btn btn-outline-danger' %>
@@ -58,4 +62,6 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Realizar Pedido de Cambio de Inciso', new_project_subsection_shift_path, class: 'btn btn-outline-primary btn-block' %>
+<%if can_action?('Administrar proyectos', 'Solicitar cambio de inciso') %>
+  <%= link_to 'Realizar Pedido de Cambio de Inciso', new_project_subsection_shift_path, class: 'btn btn-outline-primary btn-block' %>
+<%end%>

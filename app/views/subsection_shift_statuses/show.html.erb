@@ -14,11 +14,15 @@
   </div>
   <% unless @subsection_shift_status.is_disabled %>
   <div class="col text-right">
-    <%= link_to 'Eliminar', subsection_shift_status_path(@subsection_shift_status),
-                class: 'btn btn-outline-danger',
-                method: :delete,
-                data: { confirm: '¿Seguro que desea eliminar?' } %>
-    <%= link_to 'Editar', edit_subsection_shift_status_path(@subsection_shift_status), class: 'btn btn-outline-primary' %>
+    <%if can_action?('Administrar Estado de Cambio de Inciso', 'Eliminar estado de cambio de inciso') %>
+      <%= link_to 'Eliminar', subsection_shift_status_path(@subsection_shift_status),
+                  class: 'btn btn-outline-danger',
+                  method: :delete,
+                  data: { confirm: '¿Seguro que desea eliminar?' } %>
+    <%end%>
+    <%if can_action?('Administrar Estado de Cambio de Inciso', 'Editar estado de cambio de inciso') %>
+      <%= link_to 'Editar', edit_subsection_shift_status_path(@subsection_shift_status), class: 'btn btn-outline-primary' %>
+    <%end%>
   </div>
   <% end %>
 </div>
