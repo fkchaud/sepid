@@ -34,7 +34,7 @@ subsections = Subsection.create! [
 ]
 
 puts '-- create value_statuses'
-ValueStatus.create! [
+value_statuses = ValueStatus.create! [
   { value_status_name: 'Estimado'   },
   { value_status_name: 'Preventivo' },
   { value_status_name: 'Final'      },
@@ -76,7 +76,7 @@ ProjectStatus.create! [
 project_status_approved = ProjectStatus.find_by_name('Aprobado')
 
 puts '-- create order_statuses'
-OrderStatus.create! [
+order_statuses = OrderStatus.create! [
   { order_status_name: 'Pedido realizado',                  allow_cancel_order: true  },
   { order_status_name: 'Pedido rechazado',                  allow_cancel_order: false },
   { order_status_name: 'Pedido cancelado',                  allow_cancel_order: false },
@@ -709,6 +709,8 @@ incentives_pfds = ProjectFundsDetail.create!(
   }
 )
 
+projects = incentives_projects + no_incentives_projects
+
 puts '-- create funds_resolutions'
 funds_resolution = FundsResolution.create! [{
   number: '241/2019',
@@ -731,7 +733,7 @@ FundsDestination.create! [
 ]
 
 puts '-- create order_types'
-OrderType.create! [
+order_types = OrderType.create! [
   {
     name_type_order: 'Solicitud de Elementos',
     order_type_attributes_attributes: [{ attribute_name: 'Rubro', attribute_type: 'Texto' }],
@@ -786,4 +788,83 @@ OrderType.create! [
   }
 ]
 
-# AccessPermit
+puts '-- create element_orders'
+element_order_samples = [
+  {
+    reason: 'Es necesario para que todos los investigadores tengan una.',
+    description: 'Laptop Asus X555la.',
+    category: 'Informática',
+    code: '4.3.6-6160.19',
+    detail_description: 'Laptop Asus X555la',
+    subsection: subsections[2],
+    quantity: 1
+  },
+  {
+    reason: 'Para guardar documentación.',
+    description: 'Biblioratos A4.',
+    category: 'Librería, papelería y útiles de oficina',
+    code: '2.9.2-274.11',
+    detail_description: 'Biblioratos A4',
+    subsection: subsections[0],
+    quantity: 3
+  },
+  {
+    reason: 'Para imprimir informes.',
+    description: 'Papel oficio.',
+    category: 'Librería, papelería y útiles de oficina',
+    code: '2.3.1-6563.763',
+    detail_description: 'Resma de papel oficio',
+    subsection: subsections[0],
+    quantity: 2
+  }
+]
+
+rand(5..10).times do
+  random_data = element_order_samples.sample
+  random_date = rand(Date.new(2019, 4, 5)..[Date.today, Date.new(2019, 12, 31)].min)
+
+  order = Order.create(
+    order_date: random_date,
+    reason_order: random_data[:reason],
+    description_order: random_data[:description],
+    order_type: order_types[0],
+    project: projects.sample
+  )
+
+  OrderStatusHistory.create(
+    order: order,
+    order_status: order_statuses[0],
+    date_change_status_order: random_date
+  )
+
+  OrderTypeAttributeValue.create(
+    value: random_data[:category],
+    order: order,
+    order_type_attribute: order_types[0].order_type_attributes[0]
+  )
+
+  order_detail = OrderDetail.create(
+    description_detail: random_data[:detail_description],
+    order: order,
+    subsection: random_data[:subsection]
+  )
+
+  ValueHistory.create(
+    amount: rand(100..1000),
+    date: random_date,
+    order_detail: order_detail,
+    value_status: value_statuses[0]
+  )
+
+  OrderDetailAttributeValue.create(
+    value: random_data[:code],
+    order_detail: order_detail,
+    order_detail_attribute: order_types[0].order_detail_attributes[0]
+  )
+
+  OrderDetailAttributeValue.create(
+    value: random_data[:quantity],
+    order_detail: order_detail,
+    order_detail_attribute: order_types[0].order_detail_attributes[1]
+  )
+end
