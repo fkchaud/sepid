@@ -22,8 +22,7 @@ class Order < ApplicationRecord
 
   # Obtener el último EstadoPedido
   def order_status
-    most_recent_date = order_status_histories.maximum("created_at")
-    osh = order_status_histories.find_by_created_at(most_recent_date)
+    osh = order_status_histories.last
     osh.order_status
   end
 

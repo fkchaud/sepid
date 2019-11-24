@@ -868,3 +868,34 @@ rand(5..10).times do
     order_detail_attribute: order_types[0].order_detail_attributes[1]
   )
 end
+
+# acá creás los otros tipos
+
+# este no hay que cambiarlo, ya se aplica a todos los tipos
+puts '-- change order statuses'
+orders = Order.all
+orders.each do |order|
+  new_status_idx = rand(0..(order_statuses.length - 1))
+
+  next if new_status_idx.zero?
+
+  if new_status_idx <= 2
+    new_date = rand((order.order_status_histories.last.date_change_status_order)..[Date.today, Date.new(2019, 12, 31)].min)
+    OrderStatusHistory.create(
+      date_change_status_order: new_date,
+      order: order,
+      order_status: order_statuses[new_status_idx],
+      reason_change_status_order: order_statuses[new_status_idx].order_status_name
+    )
+  else
+    (3..new_status_idx).each do |idx|
+      new_date = rand((order.order_status_histories.last.date_change_status_order)..[Date.today, Date.new(2019, 12, 31)].min)
+      OrderStatusHistory.create(
+        date_change_status_order: new_date,
+        order: order,
+        order_status: order_statuses[idx],
+        reason_change_status_order: order_statuses[idx].order_status_name
+      )
+    end
+  end
+end
