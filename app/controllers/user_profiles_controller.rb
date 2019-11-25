@@ -53,6 +53,7 @@ class UserProfilesController < ApplicationController
     @user_profile = UserProfile.find(params[:user_profile_id])
     @user_profile.access[params[:user_profile][:key]][params[:user_profile][:permit]] = !@user_profile.access[params[:user_profile][:key]][params[:user_profile][:permit]]
     @user_profile.update(access: @user_profile.access)
+    flash[:success] = "Permiso cambiado con éxito"
     redirect_to user_profile_admin_access_url(@user_profile)
   end
 

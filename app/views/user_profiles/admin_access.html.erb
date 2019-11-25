@@ -1,3 +1,8 @@
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
 <h1>Administrar permisos para <%=@user_profile.name %></h1>
 <%@user_profile.access.each do |key, value| %>
   <h2><%=key%></h2>
