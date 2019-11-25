@@ -77,11 +77,13 @@
 <%if can_action?('Administrar pedidos', 'Aprobar pedido')%>
   <%= link_to 'Aprobar', order_path, method: "put", class: 'btn btn-info', data: { confirm: '¿Seguro que desea aprobar?' }%>
 <%end %>
-<%if can_action?('Administrar pedidos', 'Iniciar licitación')%>
+<%if can_action?('Administrar pedidos', 'Iniciar licitación') && @order.order_status.order_status_name == 'Armado y aprobación de preventivo'%>
   <%= link_to 'Iniciar licitación', order_start_tender_path(@order), method: "post", class: 'btn btn-info', data: { confirm: '¿Seguro que desea iniciar licitación?' } %>
 <%end%>
-<%if  can_action?('Administrar pedidos', 'Cancelar pedido') %>
-  <%= link_to 'Cancelar pedido', order_cancel_order_path(@order), method: "post", data: { confirm: '¿Seguro que desea cancelar?'}, class: 'btn btn-outline-info' if @order.order_status.allow_cancel_order == true %>
+<%if @order.order_status.allow_cancel_order %>
+  <%if  can_action?('Administrar pedidos', 'Cancelar pedido') %>
+    <%= link_to 'Cancelar pedido', order_cancel_order_path(@order), method: "post", data: { confirm: '¿Seguro que desea cancelar?'}, class: 'btn btn-outline-info' if @order.order_status.allow_cancel_order == true %>
+  <%end%>
 <%end%>
 <%unless  @order.order_status.order_status_name == 'Devengado realizado' || @order.order_status.order_status_name == 'Pedido recibido' || @order.order_status.order_status_name == 'Pedido retirado' || @order.order_status.order_status_name == 'Pedido rechazado' || @order.order_status.order_status_name == 'Pedido cancelado'%>
   <%if  can_action?('Administrar pedidos', 'Rechazar pedido') %>
