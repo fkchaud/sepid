@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   post '/change_password', to: 'users#change_password_continue'
   post '/users/password_reset', to: 'users#password_reset'
   get '/forget_password', to: 'users#forget_password'
+  get 'admin_backup', to: 'backup#admin_backup'
+  get 'make_backup', to: 'backup#make_backup'
+  post 'recover_backup', to: 'backup#recover_backup'
   mount ReportsKit::Engine, at: '/reports'
   resources :funds_resolutions do
     resources :funds_destinations

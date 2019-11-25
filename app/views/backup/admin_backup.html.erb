@@ -1,0 +1,17 @@
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
+<h1>Administrar backup</h1>
+<p>Realizar backup: </p>
+<%= link_to 'Realizar backup', make_backup_path, class: 'btn btn-outline-info' %>
+<h2>Listado de backups por fecha</h2>
+<%(0...@files.length).each do |i| %>
+  <%=@dates[i] %>
+  <%= form_with(scope: :user, url: recover_backup_path, local: true) do |form| %>
+    <%= form.hidden_field :file, value: @files[i] %>
+    <%= form.submit 'Recuperar', class: 'btn btn-outline-danger' %>
+  <% end %>
+  <br>
+<% end %>
