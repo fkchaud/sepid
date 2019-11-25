@@ -1,5 +1,11 @@
 <h1>Administrar Resoluciones de Fondos</h1>
 
+<% flash.each do |key, value| %>
+  <div class="text-center alert alert-<%= key %>" role="alert">
+    <%= value %>
+  </div>
+<% end %>
+
 <table class="table table-hover">
   <thead class="thead-dark">
   <tr>
@@ -16,6 +22,16 @@
       <td class="fit">
         <div class='btn-group'>
           <%= link_to 'Mostrar', funds_resolution_path(funds_resolution), class: 'btn btn-outline-info' %>
+          <% if funds_resolution.is_editable %>
+            <%# TODO: add permission verification %>
+            <%= link_to 'Editar', edit_funds_resolution_path(funds_resolution), class: 'btn btn-outline-primary' %>
+            <%# TODO: add permission verification %>
+            <%= link_to 'Eliminar',
+                        funds_resolution_path(funds_resolution),
+                        class: 'btn btn-outline-danger',
+                        method: :delete,
+                        data: { confirm: '¿Seguro que desea eliminar?' } %>
+          <% end %>
         </div>
       </td>
     </tr>

@@ -6,6 +6,9 @@ class FundsResolutionsController < ApplicationController
 
   def index
     @funds_resolutions = FundsResolution.all
+    @funds_resolutions.each do |fr|
+      fr.is_editable = (Time.now - fr.created_at) / 86_400 <= DAYS_TO_EDIT
+    end
   end
 
   def create
@@ -22,9 +25,17 @@ class FundsResolutionsController < ApplicationController
     @funds_resolution = FundsResolution.new
   end
 
-  def edit; end
+  def edit
+    @is_editable = (Time.now - @funds_resolution.created_at) / 86_400 <= DAYS_TO_EDIT
+    unless @is_editable
+      flash[:danger] = "Ha pasado el límite de #{DAYS_TO_EDIT} días para editar o eliminar."
+      redirect_to funds_resolutions_path
+    end
+  end
 
-  def show; end
+  def show
+    @is_editable = false
+  end
 
   def update
     if @funds_resolution.update funds_resolution_params
@@ -35,14 +46,23 @@ class FundsResolutionsController < ApplicationController
     end
   end
 
-  # can I destroy?
-  def destroy; end
+  def destroy
+    funds_resolution = FundsResolution.find(params[:id])
+    is_destroyable = (Time.now - funds_resolution.created_at) / 86_400 <= DAYS_TO_EDIT
+    if is_destroyable
+      funds_resolution.funds_destinations.each { |fd| fd.project_funds_details.destroy_all }
+      funds_resolution.funds_destinations.destroy_all
+      @funds_resolution.destroy
+    else
+      flash[:danger] = "Ha pasado el límite de #{DAYS_TO_EDIT} días para editar o eliminar."
+    end
+    redirect_to funds_resolutions_path
+  end
 
   private
 
   def set_funds_resolution
     @funds_resolution = FundsResolution.find(params[:id])
-    @is_editable = (Time.now - @funds_resolution.created_at) / 86_400 <= DAYS_TO_EDIT
     @funds_destinations = @funds_resolution.funds_destinations.map do |fd|
       {
         data: fd,

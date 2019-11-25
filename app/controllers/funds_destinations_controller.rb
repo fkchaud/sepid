@@ -85,6 +85,13 @@ class FundsDestinationsController < ApplicationController
     render 'edit'
   end
 
+  def destroy
+    @funds_destination = FundsDestination.find params[:id]
+    @funds_destination.project_funds_details.destroy_all
+    @funds_destination.destroy
+    redirect_to funds_resolution_path(params[:funds_resolution_id])
+  end
+
   private
 
   def funds_destination_params

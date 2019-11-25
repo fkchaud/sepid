@@ -29,11 +29,19 @@
         <% end %>
         <td class="fit">
           <div class="btn-group">
-            <%# TODO: add permission verification %>
-            <%= link_to 'Editar',
-                        edit_funds_resolution_funds_destination_path(@funds_resolution, funds_destination[:data]),
-                        class: 'btn btn-outline-primary' %>
             <div onclick="showProjects(<%= fd_index %>)" class="btn btn-outline-primary" style="cursor: pointer;">Proyectos</div>
+            <% if @is_editable %>
+              <%# TODO: add permission verification %>
+              <%= link_to 'Editar',
+                          edit_funds_resolution_funds_destination_path(@funds_resolution, funds_destination[:data]),
+                          class: 'btn btn-outline-primary' %>
+              <%# TODO: add permission verification %>
+              <%= link_to 'Eliminar',
+                          funds_resolution_funds_destination_path(@funds_resolution, funds_destination[:data]),
+                          class: 'btn btn-outline-danger',
+                          method: :delete,
+                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+            <% end %>
           </div>
         </td>
       </tr>

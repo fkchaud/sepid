@@ -1,5 +1,7 @@
 # ResolucionFondos
 class FundsResolution < ApplicationRecord
+  attr_accessor :is_editable
+
   # attributes
   attribute :number, :string
   attribute :date, :date
