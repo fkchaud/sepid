@@ -2,6 +2,8 @@ class FundsResolutionsController < ApplicationController
   before_action :set_funds_resolution,
                 only: [:edit, :show, :update, :destroy]
 
+  DAYS_TO_EDIT = 7
+
   def index
     @funds_resolutions = FundsResolution.all
   end
@@ -39,7 +41,8 @@ class FundsResolutionsController < ApplicationController
   private
 
   def set_funds_resolution
-    @funds_resolution = FundsResolution.find params[:id]
+    @funds_resolution = FundsResolution.find(params[:id])
+    @is_editable = (Time.now - @funds_resolution.created_at) / 86_400 <= DAYS_TO_EDIT
     @funds_destinations = @funds_resolution.funds_destinations.map do |fd|
       {
         data: fd,
