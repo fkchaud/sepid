@@ -814,7 +814,6 @@ order_types = OrderType.create! [
   {
     name_type_order: 'Solicitud de Pago Anticipado',
     order_type_attributes_attributes: [
-      { attribute_name: 'Destino del pago', attribute_type: 'Texto' },
       { attribute_name: 'Fecha desde',      attribute_type: 'Fecha' },
       { attribute_name: 'Fecha hasta',      attribute_type: 'Fecha' }
     ],
@@ -1135,9 +1134,73 @@ rand(5..10).times do
   end
 end
 
-# acá creás los otros tipos
 
-# este no hay que cambiarlo, ya se aplica a todos los tipos
+puts '-- create upfront_orders'
+rand(5..10).times do
+  random_date = rand(Date.new(2019, 4, 5)..[Date.today, Date.new(2019, 12, 31)].min)
+  random_date_from = rand(random_date..(random_date + 60))
+  random_date_to = rand(random_date_from..(random_date_from + 7))
+  random_date_limit = rand(random_date..random_date_from)
+
+  course_name = Faker::Educator.course_name
+
+  order = Order.create!(
+    order_date: random_date,
+    reason_order: 'Información relevante para la investigación',
+    description_order: 'Inscripción al Congreso sobre ' + course_name,
+    order_type: order_types[3],
+    project: projects.sample
+  )
+
+  OrderStatusHistory.create!(
+    order: order,
+    order_status: order_statuses[0],
+    date_change_status_order: random_date
+  )
+
+  # date_from: '',
+  OrderTypeAttributeValue.create!(
+    value: random_date_from,
+    order: order,
+    order_type_attribute: order_types[3].order_type_attributes[0]
+  )
+
+  # date_to: '',
+  OrderTypeAttributeValue.create!(
+    value: random_date_to,
+    order: order,
+    order_type_attribute: order_types[3].order_type_attributes[1]
+  )
+
+  order_detail = OrderDetail.create!(
+    description_detail: 'Inscripción a ' + course_name,
+    order: order,
+    subsection: subsections[1]
+  )
+
+  ValueHistory.create!(
+    amount: rand(100..1000),
+    date: random_date,
+    order_detail: order_detail,
+    value_status: value_statuses[0]
+  )
+
+  # category: '', # No socio AMCA
+  OrderDetailAttributeValue.create!(
+    value: Faker::Subscription.plan,
+    order_detail: order_detail,
+    order_detail_attribute: order_types[3].order_detail_attributes[0]
+  )
+
+  # date_limit: '',
+  OrderDetailAttributeValue.create!(
+    value: random_date_limit,
+    order_detail: order_detail,
+    order_detail_attribute: order_types[3].order_detail_attributes[1]
+  )
+end
+
+
 puts '-- change order statuses'
 orders = Order.all
 orders.each do |order|
