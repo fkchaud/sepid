@@ -7,7 +7,7 @@
       <li>
     <%end %>
     <%if admin_module('Administrar perfil de usuario') %>
-        <%= link_to 'Administrar perfil de usuario', user_profiles_path, class: 'nav-link' %>
+      <%= link_to 'Administrar perfil de usuario', user_profiles_path, class: 'nav-link' %>
       </li>
     <%end%>
     <%if admin_module('Administrar proyectos')%>
@@ -21,9 +21,9 @@
       </li>
     <%end %>
     <% if admin_module('Administrar Resoluciones') %>
-    <li>
-      <%= link_to 'Administrar Resoluciones', funds_resolutions_path, class: 'nav-link' %>
-    </li>
+      <li>
+        <%= link_to 'Administrar Resoluciones', funds_resolutions_path, class: 'nav-link' %>
+      </li>
     <% end %>
     <%if admin_module('Administrar Pedidos de cambio de Inciso') %>
       <%= link_to 'Administrar Pedidos de Cambio de Inciso', subsection_shifts_path, class: 'nav-link' %>
@@ -40,7 +40,7 @@
       <li>
         <%= link_to 'Administrar Estado de Proyecto', project_statuses_path, class: 'nav-link' %>
       </li>
-      <%end%>
+    <%end%>
     <%if admin_module('Administrar Tipo de Proyecto') %>
       <li>
         <%= link_to 'Administrar Tipo de Proyecto', project_types_path, class: 'nav-link' %>
@@ -50,17 +50,17 @@
       <li>
         <%= link_to 'Administrar Tipo de Resolución', resolution_types_path, class: 'nav-link' %>
       </li>
-      <%end%>
+    <%end%>
     <%if admin_module('Parametrizar Tipo de Pedido') %>
       <li>
         <%= link_to 'Parametrizar Tipo de Pedido', order_types_path, class: 'nav-link' %>
       </li>
-      <%end%>
+    <%end%>
     <%if admin_module('Administrar Inciso') %>
       <li>
         <%= link_to 'Administrar Inciso', subsections_path, class: 'nav-link' %>
       </li>
-      <%end%>
+    <%end%>
     <%if admin_module('Administrar Estado de Cambio de Inciso') %>
       <li>
         <%= link_to 'Administrar Estado de Cambio de Inciso', subsection_shift_statuses_path, class: 'nav-link' %>
@@ -70,20 +70,14 @@
       <li>
         <%= link_to 'Administrar Estado del Pedido', order_statuses_path, class: 'nav-link' %>
       </li>
-      <%end%>
+    <%end%>
     <%if admin_module('Administrar Estado del Pedido') %>
       <li>
         <%= link_to 'Administrar Estado de Valor', value_statuses_path, class: 'nav-link' %>
       </li>
     <%end%>
+    <%if admin_module('Back up') %>
+      <%= link_to 'Backup',admin_backup_path, class: 'nav-link' %>
+    <%end%>
   </ul>
-  <%if admin_module('Back up') %>
-    <button onclick="makeBackup()" class="btn btn-warning btn-block">Backup</button>
-  <%end%>
 </nav>
-
-<script type="text/javascript">
-    function makeBackup() {
-        alert("Backup successful");
-    }
-</script>
