@@ -9,6 +9,7 @@
         <option></option>
         <option value=order_type>Tipo de pedido</option>
         <option value=change_status>Cambios de estado</option>
+        <option value=order_proyect>Pedidos por proyecto</option>
       </select>
     </td>
   </tr>
@@ -30,6 +31,17 @@
     <%=report.form do |f|%>
       <div class="pull-right">
         <%= f.date_range :date_change_status_order%>
+      </div>
+    <%end%>
+  <%end%>
+</div>
+
+<div id="order_proyect" class="content" style="display: none">
+  <h1>Cantidad de pedidos por proyecto</h1>
+  <%=render_report 'orders_projects' do |report|%>
+    <%=report.form do |f|%>
+      <div class="pull-right">
+        <%= f.date_range :order_date%>
       </div>
     <%end%>
   <%end%>

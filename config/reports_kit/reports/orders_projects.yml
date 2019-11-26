@@ -1,0 +1,16 @@
+data_method: MyDataMethods.orders_by_projects
+ui_filters:
+  - order_date
+chart:
+  options:
+    scales:
+      xAxes:
+        - scaleLabel:
+            display: true
+            labelString: Fecha de pedido
+      yAxes:
+        - scaleLabel:
+            display: true
+            labelString: Cantidad
+          ticks:
+            beginAtZero: true
