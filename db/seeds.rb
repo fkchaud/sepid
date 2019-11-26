@@ -872,7 +872,7 @@ rand(5..10).times do
 end
 
 
-puts '-- create! refund_orders'
+puts '-- create refund_orders'
 refund_order_samples = [
   {
     reason: 'Urgencia en transportar datos',
@@ -997,6 +997,107 @@ rand(5..10).times do
     order_detail: order_detail,
     order_detail_attribute: order_types[1].order_detail_attributes[3]
   )
+end
+
+puts '-- create travel_orders'
+rand(5..10).times do
+  random_date = rand(Date.new(2019, 4, 5)..[Date.today, Date.new(2019, 12, 31)].min)
+  random_date_from = rand(random_date..(random_date + 60))
+  random_date_to = rand((random_date_from + 1)..(random_date_from + 7))
+  description = 'Asistencia al Congreso en ' + Faker::University.name
+  location_to = Faker::Address.city
+
+  order = Order.create!(
+    order_date: random_date,
+    reason_order: 'Relevante para la investigación',
+    description_order: description,
+    order_type: order_types[2],
+    project: projects.sample
+  )
+
+  OrderStatusHistory.create!(
+    order: order,
+    order_status: order_statuses[0],
+    date_change_status_order: random_date
+  )
+
+  #     order_type: '', # Tipo de viático (asistencia/viaje)
+  OrderTypeAttributeValue.create!(
+    value: 'Viaje',
+    order: order,
+    order_type_attribute: order_types[2].order_type_attributes[0]
+  )
+
+  # date_from: '', # Fecha desde
+  OrderTypeAttributeValue.create!(
+    value: random_date_from,
+    order: order,
+    order_type_attribute: order_types[2].order_type_attributes[1]
+  )
+
+  # date_to: '', # Fecha hasta
+  OrderTypeAttributeValue.create!(
+    value: random_date_to,
+    order: order,
+    order_type_attribute: order_types[2].order_type_attributes[2]
+  )
+
+  rand(1..3).times do
+    order_detail = OrderDetail.create!(
+      description_detail: description,
+      order: order,
+      subsection: subsections[1]
+    )
+
+    ValueHistory.create!(
+      amount: rand(100..500),
+      date: random_date,
+      order_detail: order_detail,
+      value_status: value_statuses[0]
+    )
+
+    # beneficiary_name: '', # Nombre del beneficiario
+    OrderDetailAttributeValue.create!(
+      value: Faker::Name.name_with_middle,
+      order_detail: order_detail,
+      order_detail_attribute: order_types[2].order_detail_attributes[0]
+    )
+
+    # beneficiary_id: '', # DNI del beneficiario,
+    OrderDetailAttributeValue.create!(
+      value: rand(8_000_000..41_000_000),
+      order_detail: order_detail,
+      order_detail_attribute: order_types[2].order_detail_attributes[1]
+    )
+
+    # location_from: 'Mendoza',
+    OrderDetailAttributeValue.create!(
+      value: 'Mendoza',
+      order_detail: order_detail,
+      order_detail_attribute: order_types[2].order_detail_attributes[2]
+    )
+
+    # location_to: '', # Lugar de destino
+    OrderDetailAttributeValue.create!(
+      value: location_to,
+      order_detail: order_detail,
+      order_detail_attribute: order_types[2].order_detail_attributes[3]
+    )
+
+    # date_from_dt
+    OrderDetailAttributeValue.create!(
+      value: random_date_from,
+      order_detail: order_detail,
+      order_detail_attribute: order_types[2].order_detail_attributes[4]
+    )
+
+    # date_to_dt
+    OrderDetailAttributeValue.create!(
+      value: random_date_to,
+      order_detail: order_detail,
+      order_detail_attribute: order_types[2].order_detail_attributes[5]
+    )
+  end
 end
 
 # acá creás los otros tipos
