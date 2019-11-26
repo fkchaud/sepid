@@ -24,7 +24,7 @@
       <td><%=@dates[i] %></td>
       <td><%= form_with(scope: :user, url: recover_backup_path, local: true) do |form| %>
           <%= form.hidden_field :file, value: @files[i] %>
-          <%= form.submit 'Recuperar', class: 'btn btn-outline-danger' %>
+          <%= form.submit 'Recuperar', data: { confirm: "¿Seguro que desea recuperar el backup realizado el #{@dates[i]}?" }, class: 'btn btn-outline-danger' %>
         <% end %></td>
     </tr>
   <% end %>
