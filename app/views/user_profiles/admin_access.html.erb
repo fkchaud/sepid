@@ -6,18 +6,30 @@
 <h1>Administrar permisos para <%=@user_profile.name %></h1>
 <%@user_profile.access.each do |key, value| %>
   <h2><%=key%></h2>
+  <table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+      <td>Acción</td>
+      <td>Habilitado</td>
+      <td></td>
+    </tr>
+    </thead>
   <%value.each do |permit| %>
-    <%=permit[0]%>:
-    <%if permit[1] %>
-      Si
-    <%else %>
-      No
-    <%end%>
-    <%= form_with(model: @user_profile, url: user_profile_change_access_path(@user_profile), method:"patch", local: true) do |form| %>
-      <%= form.hidden_field :key, value: key %>
-      <%= form.hidden_field :permit, value: permit[0] %>
-      <%= form.submit 'Cambiar', class: 'btn btn-outline-danger' %>
-    <% end %>
-    <br>
+      <tbody>
+      <tr>
+        <td><%=permit[0]%></td>
+        <td><%if permit[1] %>
+            Si
+          <%else %>
+            No
+          <%end%></td>
+        <td><%= form_with(model: @user_profile, url: user_profile_change_access_path(@user_profile), method:"patch", local: true) do |form| %>
+            <%= form.hidden_field :key, value: key %>
+            <%= form.hidden_field :permit, value: permit[0] %>
+            <%= form.submit 'Cambiar', class: 'btn btn-outline-danger' %>
+          <% end %></td>
+      </tr>
+      </tbody>
   <% end %>
+  </table>
 <%end%>
