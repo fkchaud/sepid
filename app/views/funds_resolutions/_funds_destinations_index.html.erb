@@ -31,16 +31,18 @@
           <div class="btn-group">
             <div onclick="showProjects(<%= fd_index %>)" class="btn btn-outline-primary" style="cursor: pointer;">Proyectos</div>
             <% if @is_editable %>
-              <%# TODO: add permission verification %>
-              <%= link_to 'Editar',
-                          edit_funds_resolution_funds_destination_path(@funds_resolution, funds_destination[:data]),
-                          class: 'btn btn-outline-primary' %>
-              <%# TODO: add permission verification %>
-              <%= link_to 'Eliminar',
-                          funds_resolution_funds_destination_path(@funds_resolution, funds_destination[:data]),
-                          class: 'btn btn-outline-danger',
-                          method: :delete,
-                          data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <%if can_action?('Administrar Resoluciones', 'Editar destino de fondos') %>
+                <%= link_to 'Editar',
+                            edit_funds_resolution_funds_destination_path(@funds_resolution, funds_destination[:data]),
+                            class: 'btn btn-outline-primary' %>
+              <%end%>
+              <%if can_action?('Administrar Resoluciones', 'Eliminar destino de fondos') %>
+                <%= link_to 'Eliminar',
+                            funds_resolution_funds_destination_path(@funds_resolution, funds_destination[:data]),
+                            class: 'btn btn-outline-danger',
+                            method: :delete,
+                            data: { confirm: '¿Seguro que desea eliminar?' } %>
+              <%end%>
             <% end %>
           </div>
         </td>
@@ -56,12 +58,14 @@
 </table>
 
 <div class="row">
-  <%# TODO: add permission verification %>
   <% if @is_editable %>
-  <%= link_to 'Agregar destino',
-              new_funds_resolution_funds_destination_path(@funds_resolution),
-              class: 'btn btn-outline-primary btn-block' %>
-  <% end %>
+    <%if can_action?('Administrar Resoluciones', 'Agregar destino de fondos') %>
+      <%= link_to 'Agregar destino',
+                  new_funds_resolution_funds_destination_path(@funds_resolution),
+                  class: 'btn btn-outline-primary btn-block' %>
+    <% end %>
+  <%end%>
+
 </div>
 
 <script type="text/javascript">

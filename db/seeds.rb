@@ -125,7 +125,14 @@ UserProfile.create! [
         'Cancelar pedido' => true,
         'Rechazar pedido' => false
       },
-      'Administrar Resoluciones' => { 'Agregar resolución de fondos' => false },
+      'Administrar Resoluciones' => {
+          'Agregar resolución de fondos' => false,
+          'Editar resolución de fondos' => false,
+          'Eliminar resolución de fondos' => false,
+          'Agregar destino de fondos' => false,
+          'Editar destino de fondos' => false,
+          'Eliminar destino de fondos' => false
+      },
       'Administrar Pedidos de cambio de Inciso' => {
         'Aprobar cambio de inciso' => false,
         'Rechazar cambio de inciso' => false
@@ -212,7 +219,14 @@ UserProfile.create! [
         'Cancelar pedido' => true,
         'Rechazar pedido' => true
       },
-      'Administrar Resoluciones' => { 'Agregar resolución de fondos' => true },
+      'Administrar Resoluciones' => {
+          'Agregar resolución de fondos' => true,
+          'Editar resolución de fondos' => true,
+          'Eliminar resolución de fondos' => true,
+          'Agregar destino de fondos' => true,
+          'Editar destino de fondos' => true,
+          'Eliminar destino de fondos' => true
+      },
       'Administrar Pedidos de cambio de Inciso' => {
         'Aprobar cambio de inciso' => true,
         'Rechazar cambio de inciso' => true
@@ -299,7 +313,14 @@ UserProfile.create! [
         'Cancelar pedido' => false,
         'Rechazar pedido' => true
       },
-      'Administrar Resoluciones' => { 'Agregar resolución de fondos' => true },
+      'Administrar Resoluciones' => {
+          'Agregar resolución de fondos' => true,
+          'Editar resolución de fondos' => true,
+          'Eliminar resolución de fondos' => true,
+          'Agregar destino de fondos' => true,
+          'Editar destino de fondos' => true,
+          'Eliminar destino de fondos' => true
+      },
       'Administrar Pedidos de cambio de Inciso' => {
         'Aprobar cambio de inciso' => true,
         'Rechazar cambio de inciso' => true
@@ -386,7 +407,14 @@ UserProfile.create! [
         'Cancelar pedido' => false,
         'Rechazar pedido' => true
       },
-      'Administrar Resoluciones' => { 'Agregar resolución de fondos' => false },
+      'Administrar Resoluciones' => {
+          'Agregar resolución de fondos' => false,
+          'Editar resolución de fondos' => false,
+          'Eliminar resolución de fondos' => false,
+          'Agregar destino de fondos' => false,
+          'Editar destino de fondos' => false,
+          'Eliminar destino de fondos' => false
+      },
       'Administrar Pedidos de cambio de Inciso' => {
         'Aprobar cambio de inciso' => false,
         'Rechazar cambio de inciso' => false
@@ -473,7 +501,14 @@ UserProfile.create! [
         'Cancelar pedido' => false,
         'Rechazar pedido' => true
       },
-      'Administrar Resoluciones' => { 'Agregar resolución de fondos' => true },
+      'Administrar Resoluciones' => {
+          'Agregar resolución de fondos' => true,
+          'Editar resolución de fondos' => true,
+          'Eliminar resolución de fondos' => true,
+          'Agregar destino de fondos' => true,
+          'Editar destino de fondos' => true,
+          'Eliminar destino de fondos' => true
+      },
       'Administrar Pedidos de cambio de Inciso' => {
         'Aprobar cambio de inciso' => false,
         'Rechazar cambio de inciso' => false
