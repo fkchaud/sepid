@@ -47,6 +47,9 @@ gem 'data-confirm-modal'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
+# for seeding
+gem 'faker'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

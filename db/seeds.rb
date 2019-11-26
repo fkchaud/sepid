@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'faker'
+
 puts '-- create resolution_types'
 ResolutionType.create! [
   {
@@ -823,7 +825,7 @@ rand(5..10).times do
   random_data = element_order_samples.sample
   random_date = rand(Date.new(2019, 4, 5)..[Date.today, Date.new(2019, 12, 31)].min)
 
-  order = Order.create(
+  order = Order.create!(
     order_date: random_date,
     reason_order: random_data[:reason],
     description_order: random_data[:description],
@@ -831,41 +833,169 @@ rand(5..10).times do
     project: projects.sample
   )
 
-  OrderStatusHistory.create(
+  OrderStatusHistory.create!(
     order: order,
     order_status: order_statuses[0],
     date_change_status_order: random_date
   )
 
-  OrderTypeAttributeValue.create(
+  OrderTypeAttributeValue.create!(
     value: random_data[:category],
     order: order,
     order_type_attribute: order_types[0].order_type_attributes[0]
   )
 
-  order_detail = OrderDetail.create(
+  order_detail = OrderDetail.create!(
     description_detail: random_data[:detail_description],
     order: order,
     subsection: random_data[:subsection]
   )
 
-  ValueHistory.create(
+  ValueHistory.create!(
     amount: rand(100..1000),
     date: random_date,
     order_detail: order_detail,
     value_status: value_statuses[0]
   )
 
-  OrderDetailAttributeValue.create(
+  OrderDetailAttributeValue.create!(
     value: random_data[:code],
     order_detail: order_detail,
     order_detail_attribute: order_types[0].order_detail_attributes[0]
   )
 
-  OrderDetailAttributeValue.create(
+  OrderDetailAttributeValue.create!(
     value: random_data[:quantity],
     order_detail: order_detail,
     order_detail_attribute: order_types[0].order_detail_attributes[1]
+  )
+end
+
+
+puts '-- create! refund_orders'
+refund_order_samples = [
+  {
+    reason: 'Urgencia en transportar datos',
+    description: 'Compra de pendrive',
+    # atributos del pedido
+    expense_type: 'Compra',
+    # atributos de detalle
+    detail_description: 'Compra de pendrive',
+    subsection: subsections[0]
+  },
+  {
+    reason: 'Equipo necesario para trabajar antes que se deteriorasen las muestras',
+    description: 'Reparación de equipos',
+    # atributos del pedido
+    expense_type: 'Servicios de terceros', # tipo texto
+    # atributos de detalle
+    detail_description: 'Pago al técnico',
+    subsection: subsections[1]
+  },
+  {
+    reason: 'Información relevante para la investigación',
+    description: 'Asistencia al Congreso en ' + Faker::University.name,
+    # atributos del pedido
+    expense_type: 'Asistencia', # tipo texto
+    # atributos de detalle
+    detail_description: 'Entrada al Congreso',
+    subsection: subsections[1]
+  }
+]
+
+rand(5..10).times do
+  random_data = refund_order_samples.sample
+  random_date = rand(Date.new(2019, 4, 5)..[Date.today, Date.new(2019, 12, 31)].min)
+  payment_date = rand(Date.new(2019, 4, 5)..random_date)
+
+  order = Order.create!(
+    order_date: random_date,
+    reason_order: random_data[:reason],
+    description_order: random_data[:description],
+    order_type: order_types[1],
+    project: projects.sample
+  )
+
+  OrderStatusHistory.create!(
+    order: order,
+    order_status: order_statuses[0],
+    date_change_status_order: random_date
+  )
+
+  # payment_date: 'Fecha de gasto efectuado', # tipo date, usar tambien para "Fecha del comprobante"
+  OrderTypeAttributeValue.create!(
+    value: payment_date,
+    order: order,
+    order_type_attribute: order_types[1].order_type_attributes[0]
+  )
+
+  # expense_type: 'Gasto (asistencia / viaje / compra)', # tipo texto
+  OrderTypeAttributeValue.create!(
+    value: random_data[:expense_type],
+    order: order,
+    order_type_attribute: order_types[1].order_type_attributes[1]
+  )
+
+  # beneficiary: 'Nombre completo del beneficiario', # tipo texto
+  OrderTypeAttributeValue.create!(
+    value: Faker::Name.name_with_middle,
+    order: order,
+    order_type_attribute: order_types[1].order_type_attributes[2]
+  )
+
+  # file_number: rand(10_000..99_999), # legajo
+  OrderTypeAttributeValue.create!(
+    value: rand(10_000..99_999),
+    order: order,
+    order_type_attribute: order_types[1].order_type_attributes[3]
+  )
+
+  # dni: rand(7_000_000..41_000_000), # dni beneficiario
+  OrderTypeAttributeValue.create!(
+    value: rand(7_000_000..41_000_000),
+    order: order,
+    order_type_attribute: order_types[1].order_type_attributes[4]
+  )
+
+  order_detail = OrderDetail.create!(
+    description_detail: random_data[:detail_description],
+    order: order,
+    subsection: random_data[:subsection]
+  )
+
+  ValueHistory.create!(
+    amount: rand(100..1000),
+    date: random_date,
+    order_detail: order_detail,
+    value_status: value_statuses[0]
+  )
+
+  # receipt_date: 'payment_date',
+  OrderDetailAttributeValue.create!(
+    value: payment_date,
+    order_detail: order_detail,
+    order_detail_attribute: order_types[1].order_detail_attributes[0]
+  )
+
+  # receipt_number: rand(1..999_999),
+  OrderDetailAttributeValue.create!(
+    value: rand(1..999_999),
+    order_detail: order_detail,
+    order_detail_attribute: order_types[1].order_detail_attributes[1]
+  )
+
+  # receipt_type: ['B', 'C'].sample,
+  OrderDetailAttributeValue.create!(
+    value: ['B', 'C'].sample,
+    order_detail: order_detail,
+    order_detail_attribute: order_types[1].order_detail_attributes[2]
+  )
+
+  # folio_number: rand(1..999_999)
+  OrderDetailAttributeValue.create!(
+    value: rand(1..999_999),
+    order_detail: order_detail,
+    order_detail_attribute: order_types[1].order_detail_attributes[3]
   )
 end
 
@@ -881,7 +1011,7 @@ orders.each do |order|
 
   if new_status_idx <= 2
     new_date = rand((order.order_status_histories.last.date_change_status_order)..[Date.today, Date.new(2019, 12, 31)].min)
-    OrderStatusHistory.create(
+    OrderStatusHistory.create!(
       date_change_status_order: new_date,
       order: order,
       order_status: order_statuses[new_status_idx],
@@ -890,7 +1020,7 @@ orders.each do |order|
   else
     (3..new_status_idx).each do |idx|
       new_date = rand((order.order_status_histories.last.date_change_status_order)..[Date.today, Date.new(2019, 12, 31)].min)
-      OrderStatusHistory.create(
+      OrderStatusHistory.create!(
         date_change_status_order: new_date,
         order: order,
         order_status: order_statuses[idx],
